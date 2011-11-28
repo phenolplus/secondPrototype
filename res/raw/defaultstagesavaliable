@@ -1,0 +1,91 @@
+{
+	"Default Files":[
+		{"File Name":"Tutorial Stage 100000000",
+		 "Content":
+			 {
+			"Name":"Tutorial Stage 1",
+			"Description":"learn to play - How to play? Meet the Map and the Camera",
+			"Center Changeable":"true",
+			"Center X":"0.0",
+			"Center Y":"0.0",
+			"Location List":[
+							{"Name":"point 1",
+							 "X":"100",
+							 "Y":"100"}
+							 ]
+							 }
+		},
+		 
+		{"File Name":"Tutorial Stage 200000000",
+		 "Content":
+			 {
+			"Name":"Tutorial Stage 2",
+			"Description":"learn to play - Can't you see? walk around !",
+			"Center Changeable":"true",
+			"Center X":"0.0",
+			"Center Y":"0.0",
+			"Location List":[
+							{"Name":"point 1",
+							 "X":"100",
+							 "Y":"100"}
+							 ]
+							 }
+		},
+		 
+		{"File Name":"Tutorial Stage 300000000",
+		 "Content":
+			 {
+			"Name":"Tutorial Stage 3",
+			"Description":"learn to play - Where to go? Some points are hidden !",
+			"Center Changeable":"true",
+			"Center X":"0.0",
+			"Center Y":"0.0",
+			"Location List":[
+							{"Name":"point 1",
+							 "X":"100",
+							 "Y":"100"}
+							 ]
+							 }
+		},
+		 
+		{"File Name":"Tutorial Stage 400000000",
+		 "Content":
+			 {
+			"Name":"Tutorial Stage 4",
+			"Description":"learn to play - Need something? Check out your items !",
+			"Center Changeable":"true",
+			"Center X":"0.0",
+			"Center Y":"0.0",
+			"Location List":[
+							{"Name":"point 1",
+							 "X":"100",
+							 "Y":"100"}
+							 ]
+							 }
+		}
+		],
+	
+	"Default List":[
+		{"Name":"Tutorial Stage 1",
+		 "ID":"00000000"},
+		{"Name":"Tutorial Stage 2",
+		 "ID":"00000000"},
+ 		{"Name":"Tutorial Stage 3",
+		 "ID":"00000000"},
+		{"Name":"Tutorial Stage 4",
+		 "ID":"00000000"}
+		],
+		
+	"Template":{
+		"Name":"name",
+		"Description":"description",
+		"Center Changeable":"true",
+		"Center X":"0.0",
+		"Center Y":"0.0",
+		"Location List":[
+						{"Name":"point 1",
+						 "X":"100",
+						 "Y":"100"}
+						 ]
+	}
+}
