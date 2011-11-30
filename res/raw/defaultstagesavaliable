@@ -4,14 +4,17 @@
 		 "Content":
 			 {
 			"Name":"Tutorial Stage 1",
+			"ID":"00000000",
 			"Description":"learn to play - How to play? Meet the Map and the Camera",
 			"Center Changeable":"true",
-			"Center X":"0.0",
-			"Center Y":"0.0",
+			"CenterPoint X":"0.0",
+			"CenterPoint Y":"0.0",
 			"Location List":[
 							{"Name":"point 1",
-							 "X":"100",
-							 "Y":"100"}
+							 "Order":"-1",
+							 "Position X":"10",
+							 "Position Y":"10",
+							 "Story":"This is the first point !!"}
 							 ]
 							 }
 		},
@@ -20,14 +23,17 @@
 		 "Content":
 			 {
 			"Name":"Tutorial Stage 2",
+			"ID":"00000000",
 			"Description":"learn to play - Can't you see? walk around !",
 			"Center Changeable":"true",
-			"Center X":"0.0",
-			"Center Y":"0.0",
+			"CenterPoint X":"0.0",
+			"CenterPoint Y":"0.0",
 			"Location List":[
 							{"Name":"point 1",
-							 "X":"100",
-							 "Y":"100"}
+							 "Order":"-1",
+							 "Position X":"100",
+							 "Position Y":"100",
+							 "Story":"story goes here"}
 							 ]
 							 }
 		},
@@ -36,14 +42,19 @@
 		 "Content":
 			 {
 			"Name":"Tutorial Stage 3",
+			"ID":"00000000",
 			"Description":"learn to play - Where to go? Some points are hidden !",
 			"Center Changeable":"true",
-			"Center X":"0.0",
-			"Center Y":"0.0",
+			"CenterPoint X":"0.0",
+			"CenterPoint Y":"0.0",
 			"Location List":[
 							{"Name":"point 1",
-							 "X":"100",
-							 "Y":"100"}
+							 "Order":"-1",
+							 "Position X":"100",
+							 "Position Y":"100",
+							 "Story":"story goes here",
+							 "Image":"",
+							 "Movie":""}
 							 ]
 							 }
 		},
@@ -52,14 +63,19 @@
 		 "Content":
 			 {
 			"Name":"Tutorial Stage 4",
+			"ID":"00000000",
 			"Description":"learn to play - Need something? Check out your items !",
 			"Center Changeable":"true",
-			"Center X":"0.0",
-			"Center Y":"0.0",
+			"CenterPoint X":"0.0",
+			"CenterPoint Y":"0.0",
 			"Location List":[
 							{"Name":"point 1",
-							 "X":"100",
-							 "Y":"100"}
+							 "Order":"-1",
+							 "Position X":"100",
+							 "Position Y":"100",
+							 "Story":"story goes here",
+						 	 "Image":"",
+						 	 "Movie":""}
 							 ]
 							 }
 		}
@@ -78,14 +94,22 @@
 		
 	"Template":{
 		"Name":"name",
+		"Package":"default",
+		"ID":"00000000",
 		"Description":"description",
 		"Center Changeable":"true",
-		"Center X":"0.0",
-		"Center Y":"0.0",
+		"CenterPoint X":"0.0",
+		"CenterPoint Y":"0.0",
+		"Visible Range":"30",
 		"Location List":[
 						{"Name":"point 1",
-						 "X":"100",
-						 "Y":"100"}
+						 "Position X":"100",
+						 "Position Y":"100",
+						 "Order":"-1",
+						 "Story":"story goes here",
+						 "Image":"path or name",
+						 "Movie":"path or name",
+						 "Events":[]}
 						 ]
 	}
 }

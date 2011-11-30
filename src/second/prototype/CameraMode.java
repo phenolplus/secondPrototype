@@ -26,9 +26,6 @@ public class CameraMode extends Activity {
 	private boolean called = false;
 	private boolean visited = false;
 	
-	// test
-	private String testDataSet;
-	
 	
 	/** Called when the activity is first created. */
     @Override
@@ -37,9 +34,6 @@ public class CameraMode extends Activity {
         acc = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSurface = new DrawingSurface(this);
         setContentView(mSurface);
-        testDataSet = ContainerBox.visablePoints;
-        if(mSurface.importTargetList(testDataSet))
-        	Log.e("Import","did import data");
     }
     
     @Override

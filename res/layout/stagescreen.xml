@@ -36,21 +36,12 @@
             android:layout_margin="2dp" 
             android:onClick="playClicked"
             android:layout_weight="1"/>
-        
-        <Button
-            android:id="@+id/modify"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="Modify Stage" 
-            android:layout_margin="2dp"
-            android:onClick="modifyClicked"
-            android:layout_weight="1"/>
                 
         <Button
             android:id="@+id/button3"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="Add Stage" 
+            android:text="More Stage" 
             android:onClick="addClicked"
             android:layout_margin="2dp" 
             android:layout_weight="1"/>

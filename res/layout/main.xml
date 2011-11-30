@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
 
-    <prototype.first.test.MapView
+    <second.prototype.MapView
         android:id="@+id/mapView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" 

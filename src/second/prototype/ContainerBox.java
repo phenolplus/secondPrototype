@@ -1,5 +1,8 @@
 package second.prototype;
 
+import control.stage.Stage;
+import control.stage.StageManager;
+
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
@@ -14,16 +17,12 @@ public final class ContainerBox {
 	public static boolean isTab = false;
 	public static boolean faceUp = true;
 	
-	public static String playingStageID;
-	public static boolean modifyable=false;
-	
-	public static String mapCenterCord;
-	public static String currentCord;
+	public static Stage currentStage;
+	public static StageManager stageManager;
 	
 	// constant
-	public static final float visableRange = 30;
+	public static final float visibleRange = 30;
 	public static float meterPerPixel = (float)0.5;
 	public static final float deg_index = 100000; // longitude/latitude degree to meter
 	
-	public static String default_stage_list;
 }
