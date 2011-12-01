@@ -147,8 +147,8 @@ public class MapView extends View {
 			float x = rotateX(stage.getPointOf(i).x/mag,-stage.getPointOf(i).y/mag) + viewCenterw;
 			float y = rotateY(stage.getPointOf(i).x/mag,-stage.getPointOf(i).y/mag) + viewCenterh;
 			
-			//canvas.drawCircle(x , y, 10, stage.getPointOf(i).isVisible?tar:empty);
-			canvas.drawBitmap(location, x-location.getWidth()/2, y-location.getHeight(), stage.getPointOf(i).isVisible?tar:empty);
+			canvas.drawCircle(x , y, 10, stage.getPointOf(i).isVisible?tar:empty);
+			//canvas.drawBitmap(location, x-location.getWidth()/2, y-location.getHeight(), stage.getPointOf(i).isVisible?tar:empty);
 			canvas.drawText(stage.getPointOf(i).getName(), x+15 , y-15, stage.getPointOf(i).isVisible?white:empty);
 		}
 		

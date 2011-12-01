@@ -107,13 +107,17 @@
 						 "Next Point":[],
 						 "Events":[
 						 		{"Require Item":"NULL",
+						 		 "Require No Item":"NULL"
 						 		 "Get Item":"NULL",
 						 		 "Message Positive":"Good",
-						 		 "Message Negative":"Not Good"},
+						 		 "Message Negative":"Not Good"
+						 		 "Next Point":"point 2"},
 						 		{"Require Item":"Box",
+						 		 "Require No Item":"Big box",
 						 		 "Get Item":"Big box",
 						 		 "Message Positive":"Good",
-						 		 "Message Negative":"Not Good"}
+						 		 "Message Negative":"Not Good"
+						 		 "Next Point":"point 2"}
 						 			],
 		"Item List":[
 					{"Name":"Box"
