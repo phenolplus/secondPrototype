@@ -4,7 +4,6 @@
 		 "Content":
 			 {
 			"Name":"Tutorial Stage 1",
-			"ID":"00000000",
 			"Description":"learn to play - How to play? Meet the Map and the Camera",
 			"Center Changeable":"true",
 			"CenterPoint X":"0.0",
@@ -23,7 +22,6 @@
 		 "Content":
 			 {
 			"Name":"Tutorial Stage 2",
-			"ID":"00000000",
 			"Description":"learn to play - Can't you see? walk around !",
 			"Center Changeable":"true",
 			"CenterPoint X":"0.0",
@@ -42,7 +40,6 @@
 		 "Content":
 			 {
 			"Name":"Tutorial Stage 3",
-			"ID":"00000000",
 			"Description":"learn to play - Where to go? Some points are hidden !",
 			"Center Changeable":"true",
 			"CenterPoint X":"0.0",
@@ -63,7 +60,6 @@
 		 "Content":
 			 {
 			"Name":"Tutorial Stage 4",
-			"ID":"00000000",
 			"Description":"learn to play - Need something? Check out your items !",
 			"Center Changeable":"true",
 			"CenterPoint X":"0.0",
@@ -95,7 +91,6 @@
 	"Template":{
 		"Name":"name",
 		"Package":"default",
-		"ID":"00000000",
 		"Description":"description",
 		"Center Changeable":"true",
 		"CenterPoint X":"0.0",
@@ -109,7 +104,22 @@
 						 "Story":"story goes here",
 						 "Image":"path or name",
 						 "Movie":"path or name",
-						 "Events":[]}
-						 ]
+						 "Next Point":[],
+						 "Events":[
+						 		{"Require Item":"NULL",
+						 		 "Get Item":"NULL",
+						 		 "Message Positive":"Good",
+						 		 "Message Negative":"Not Good"},
+						 		{"Require Item":"Box",
+						 		 "Get Item":"Big box",
+						 		 "Message Positive":"Good",
+						 		 "Message Negative":"Not Good"}
+						 			],
+		"Item List":[
+					{"Name":"Box"
+					 "Description":"a small box"},
+					{"Name":"Big box"
+					 "Description":"a big box"}
+					]
 	}
 }

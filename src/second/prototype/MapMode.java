@@ -99,7 +99,7 @@ public class MapMode extends Activity {
 				@Override
 				public void onSensorChanged(SensorEvent event) {
 					// TODO Auto-generated method stub
-
+					mapView.setOrientation(event.values[0]);
 					float para = ContainerBox.isTab?event.values[1]:event.values[2];
 					if (Math.abs(para) > 45 && !called ) {
 						// check for initial state

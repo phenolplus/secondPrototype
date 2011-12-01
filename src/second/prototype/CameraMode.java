@@ -34,6 +34,7 @@ public class CameraMode extends Activity {
         acc = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSurface = new DrawingSurface(this);
         setContentView(mSurface);
+        mSurface.setVisablePoints();
     }
     
     @Override
