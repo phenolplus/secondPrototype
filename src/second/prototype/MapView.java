@@ -3,6 +3,7 @@ package second.prototype;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import control.stage.DrawableIndex;
 import control.stage.Stage;
 
 import android.content.Context;
@@ -89,12 +90,13 @@ public class MapView extends View {
 	/** Utilities */
 	private void init() {
 		location = BitmapFactory.decodeResource(getResources(), R.drawable.location_icon);
+		this.setBackgroundResource(DrawableIndex.BACK_GROUND);
 	}
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
 
-		Paint self,tar,white,blue,green,empty;
+		Paint self,tar,text,white,blue,green,empty;
 		
 		self = new Paint();
 		self.setColor(Color.RED);
@@ -103,9 +105,14 @@ public class MapView extends View {
 		tar.setColor(Color.CYAN);
 		tar.setAlpha(255);
 		
+		text = new Paint();
+		text.setColor(Color.WHITE);
+		text.setStyle(Paint.Style.STROKE);
+		
 		white = new Paint();
 		white.setColor(Color.WHITE);
 		white.setStyle(Paint.Style.STROKE);
+		white.setStrokeWidth(3);
 		
 		blue = new Paint();
 		blue.setColor(Color.BLUE);
@@ -114,33 +121,40 @@ public class MapView extends View {
 		
 		empty = new Paint();
 		empty.setColor(Color.BLACK);
-		empty.setAlpha(0);
+		empty.setAlpha(255);
 		
 		green = new Paint();
 		green.setColor(Color.GREEN);
-		green.setAlpha(256);
+		green.setAlpha(128);
+		green.setStrokeWidth(4);
 		
-		
+		// scan bar
+		float scanX,scanY;
+		scanX = 1000*(float)Math.cos(0.02*scanTheta);
+		scanY = 1000*(float)Math.sin(0.02*scanTheta);
+		canvas.drawLine(viewCenterw,viewCenterh,viewCenterw+scanX,viewCenterh+scanY,green);
+		scanTheta++;
 		
 		// radar
-		canvas.drawText("Radar Mode ! White circle is visible range.", 30, 30, white);
-		canvas.drawText("Visable range = "+ContainerBox.visibleRange, 30, 45, white);
-		canvas.drawText("Scale = "+ContainerBox.meterPerPixel+" meters per pixel", 30, 60, white);
+		canvas.drawText("Radar Mode ! White circle is visible range.", 30, 30, text);
+		canvas.drawText("Visable range = "+ContainerBox.visibleRange, 30, 45, text);
+		canvas.drawText("Scale = "+ContainerBox.meterPerPixel+" meters per pixel", 30, 60, text);
 
-		canvas.drawText("Current Center = "+stage.getMapCenter("X")+":"+stage.getMapCenter("Y"),30, 110, white);
+		canvas.drawText("Current Center = "+stage.getMapCenter("X")+":"+stage.getMapCenter("Y"),30, 110, text);
 		
 		// visible range
 		canvas.drawCircle(myX, myY, ContainerBox.visibleRange/mag, white);
 		canvas.drawCircle(myX, myY, 10, self);
+		
 		// north arrow
 		canvas.drawLine(myX+rotateX(0,-ContainerBox.visibleRange/mag*2/3),myY+rotateY(0,-ContainerBox.visibleRange/mag*2/3),
 				myX+rotateX(0,-ContainerBox.visibleRange/mag*4/3),myY+rotateY(0,-ContainerBox.visibleRange/mag*4/3),white);
 		
 		
-		canvas.drawLine(viewCenterw-ruler/2, viewCenterh, viewCenterw+ruler/2, viewCenterh,white);
-		canvas.drawLine(viewCenterw-ruler/2, viewCenterh-10, viewCenterw-ruler/2, viewCenterh+10,white);
-		canvas.drawLine(viewCenterw+ruler/2, viewCenterh-10, viewCenterw+ruler/2, viewCenterh+10,white);
-		canvas.drawText(ruler*mag+" m", viewCenterw+ruler/2+10, viewCenterh+20, white);
+		canvas.drawLine(viewCenterw-ruler/2, viewCenterh, viewCenterw+ruler/2, viewCenterh,text);
+		canvas.drawLine(viewCenterw-ruler/2, viewCenterh-10, viewCenterw-ruler/2, viewCenterh+10,text);
+		canvas.drawLine(viewCenterw+ruler/2, viewCenterh-10, viewCenterw+ruler/2, viewCenterh+10,text);
+		canvas.drawText(ruler*mag+" m", viewCenterw+ruler/2+10, viewCenterh+20, text);
 		
 		
 		// links
@@ -163,11 +177,10 @@ public class MapView extends View {
 					
 					canvas.drawCircle(x , y, 10, stage.getPointOf(i).isVisible?tar:empty);
 					//canvas.drawBitmap(location, x-location.getWidth()/2, y-location.getHeight(), stage.getPointOf(i).isVisible?tar:empty);
-					canvas.drawText(stage.getPointOf(i).getName(), x+15 , y-15, stage.getPointOf(i).isVisible?white:empty);
+					canvas.drawText(stage.getPointOf(i).getName(), x+15 , y-15, stage.getPointOf(i).isVisible?text:empty);
 				}
 		
-		// scan bar
-		canvas.drawLine(viewCenterw,viewCenterh,viewCenterw,viewCenterh,green);
+		
 		
 		super.onDraw(canvas);
 	}

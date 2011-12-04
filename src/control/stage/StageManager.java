@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,7 +20,8 @@ import android.util.Log;
 
 public class StageManager {
 	
-	private JSONArray stageList;
+	private JSONArray coreData;
+	private ArrayList<HashMap<String,String>> stageList = new ArrayList<HashMap<String,String>>();
 	private Context owner;
 	
 	private SharedPreferences stageData;
@@ -30,38 +33,51 @@ public class StageManager {
 		editor = stageData.edit();
 		
 		try {
-			stageList = new JSONArray(stageData.getString("Stage List", ""));
-			
+			coreData = new JSONArray(stageData.getString("Stage List", ""));
+			Log.e("Manager",coreData.toString());
+			for(int i=0;i<coreData.length();i++){
+				HashMap<String,String> item = new HashMap<String,String>();
+				item.put("ID", coreData.getJSONObject(i).getString("ID"));
+				stageList.add(item);
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public Stage getStage(int index) {
-		try {
-			String fileName = stageList.getJSONObject(index).getString("ID");
-			return new Stage(fileName,owner);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+		String fileName = stageList.get(index).get("ID");
+		return new Stage(fileName,owner);
 	}
 	
 	public int numOfStages() {
-		return stageList.length();
+		return stageList.size();
 	}
 	
-	public boolean importStage() {
+	public boolean importStage(String fileName) {
+		HashMap<String,String> item = new HashMap<String,String>();
+		item.put("ID", fileName);
+		stageList.add(item);
 		return true;
 	}
 	
 	public boolean deleteStage(int number) {
+		String fileName = stageList.get(number).get("ID");
+		owner.deleteFile(fileName);
+		stageList.remove(number);
 		return true;
 	}
 	
 	public void commit() {
-		editor.putString("Stage List", stageList.toString());
+		coreData = new JSONArray();
+		for(int i=0;i<stageList.size();i++){
+			try {
+				coreData.put(new JSONObject().put("ID", stageList.get(i).get("ID")));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		editor.putString("Stage List", coreData.toString());
 		editor.commit();
 	}
 	
@@ -72,6 +88,7 @@ public class StageManager {
 		
 		stageData = owner.getSharedPreferences("Global Data",Context.MODE_PRIVATE);
 		editor = stageData.edit();
+		editor.clear();
 		
 		try {
 			InputStream inFile = owner.getResources().openRawResource(R.raw.defaultstagesavaliable);

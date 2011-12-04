@@ -1,17 +1,10 @@
 package second.prototype;
 
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
+import control.stage.DrawableIndex;
 import control.stage.Stage;
 import control.stage.StageManager;
 
@@ -39,10 +32,11 @@ public class StartPage extends Activity {
 	private ListView stagesView;
 	private ArrayList<HashMap<String, String>> stageList = new ArrayList<HashMap<String, String>>();
 	private SimpleAdapter adapter;
+	private View stageItem;
+	
 	private int cursor = -1;
 
 	private SharedPreferences savedStages;
-	private SharedPreferences.Editor editor;
 	
 	private StageManager manager;
 
@@ -55,6 +49,13 @@ public class StartPage extends Activity {
 		stagesView = (ListView) findViewById(R.id.stagelist);
 		savedStages = this.getSharedPreferences("Global Data",
 				Context.MODE_PRIVATE);
+		
+		if(savedStages.getBoolean("First Play", true)){
+			StageManager.initFileSettings(this);
+		}
+		
+		manager = new StageManager(this);
+		
 	}
 
 	public void onPause() {
@@ -64,17 +65,15 @@ public class StartPage extends Activity {
 	
 	public void onResume() {
 		super.onResume();
-		if(savedStages.getBoolean("First Play", true)){
-			StageManager.initFileSettings(this);
-		}
 		reBuildStageList();
 	}
 
 	/** Utilities */
 	private void reBuildStageList() {
 		
-		
-		manager = new StageManager(this);
+		stageList.clear();
+		LayoutInflater infla = LayoutInflater.from(this);
+		stageItem = infla.inflate(R.layout.stageitem, null);
 		
 		for(int i=0;i<manager.numOfStages();i++){
 			Stage stage = manager.getStage(i);
@@ -86,9 +85,9 @@ public class StartPage extends Activity {
 		}
 		
 		adapter = new SimpleAdapter(this, stageList,
-				android.R.layout.simple_list_item_2, new String[] { "Name",
-						"Description" }, new int[] { android.R.id.text1,
-						android.R.id.text2 });
+				R.layout.stageitem, new String[] { "Name",
+						"Description" }, new int[] { R.id.StageName,
+						R.id.StageDescription });
 
 		stagesView.setAdapter(adapter);
 
@@ -121,7 +120,7 @@ public class StartPage extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		menu.add(0, 0, 0, "Refreash initial Data").setIcon(android.R.drawable.ic_menu_upload);
+		menu.add(0, 0, 0, "Restore Deault Data").setIcon(android.R.drawable.ic_menu_upload);
 		return true;
 	}
 	
@@ -131,6 +130,8 @@ public class StartPage extends Activity {
 		switch(item.getItemId()){
 		case 0:
 			StageManager.initFileSettings(this);
+			manager = new StageManager(this);
+			reBuildStageList();
 			break;
 		default :		
 		}
@@ -146,6 +147,8 @@ public class StartPage extends Activity {
 			ContainerBox.currentStage = manager.getStage(cursor);
 			Intent playStage = new Intent();
 			playStage.setClass(this, MapMode.class);
+			int which = (int)(Math.random()*DrawableIndex.TOTAL);
+			DrawableIndex.setDrawables(which);
 			startActivity(playStage);
 		}
 		cursor = -1;
@@ -161,7 +164,8 @@ public class StartPage extends Activity {
 			Toast.makeText(this, "Select a stage first", Toast.LENGTH_SHORT)
 					.show();
 		} else {
-			
+			manager.deleteStage(cursor);
+			reBuildStageList();
 		}
 		cursor = -1;
 	}
