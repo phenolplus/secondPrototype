@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +30,7 @@ public class Stage {
 	private JSONObject coreData;
 	
 	private ArrayList<PointBox> pointList = new ArrayList<PointBox>();
+	private HashMap<String,PointBox> pointIndex = new HashMap<String,PointBox>();
 	private ArrayList<LinkElement> linkTree = new ArrayList<LinkElement>();
 	
 	private boolean centerChangeable;
@@ -45,6 +47,8 @@ public class Stage {
 		
 		progressData = owner.getSharedPreferences(fileName, Context.MODE_PRIVATE);
 		editor = progressData.edit();
+		
+		// load static data
 		
 		FileInputStream inFile;
 		try {
@@ -74,11 +78,19 @@ public class Stage {
 			onExceptionOccur(e);
 		}
 		
+		// setup user data
+		
 		currentProgress = progressData.getInt("Progress", 0);
+		
+		for(int i=0;i<pointList.size();i++) {
+			pointList.get(i).hasVisited = progressData.getBoolean(pointList.get(i).getName()+"Visit", false);
+		}
+		buildLinkTree();
 		checkVisibleList();
 	}
 	
 	/** Utilities & Management */
+	/** Overall Stage Information */
 	public String getName() {
 		try {
 			return coreData.getString("Name");
@@ -99,14 +111,29 @@ public class Stage {
 		}
 	}
 	
+	/** Point Operation */
 	public PointBox getPointOf(int index) {
 		return pointList.get(index);
+	}
+	
+	public PointBox getPointOf(String name) {
+		return pointIndex.get(name);
 	}
 	
 	public int length() {
 		return pointList.size();
 	}
 	
+	/** Link Operation */
+	public int links() {
+		return linkTree.size();
+	}
+	
+	public LinkElement getLink(int i) {
+		return linkTree.get(i);
+	}
+	
+	/** Map Operation */
 	public void setMapCenter(float newX, float newY) {
 		centerX = newX;
 		centerY = newY;
@@ -139,6 +166,10 @@ public class Stage {
 		
 		editor.putInt("Progress", currentProgress);
 		
+		for(int i=0;i<pointList.size();i++) {
+			editor.putBoolean(pointList.get(i).getName()+"Visit", pointList.get(i).hasVisited);
+		}
+		
 		editor.commit();
 	}
 	
@@ -152,6 +183,7 @@ public class Stage {
 		for(int i=0;i<array.length();i++){
 			PointBox point = new PointBox(array.getJSONObject(i));
 			pointList.add(point);
+			pointIndex.put(point.getName(), point);
 		}
 	}
 	
@@ -172,12 +204,19 @@ public class Stage {
 	}
 	
 	private void buildLinkTree() {
-		
-	}
-	
-	/** Inner classes */
-	class LinkElement {
-		
+		for(int i=0;i<pointList.size();i++){
+			String[] nextPoints = pointList.get(i).getNextPoints();
+			for(int j=0;j<nextPoints.length;j++){
+				if(!nextPoints[j].contentEquals("NULL")){
+					LinkElement link = new LinkElement();
+					link.setStart(pointList.get(i).x, pointList.get(i).y);
+					link.setEnd(pointIndex.get(nextPoints[j]).x, pointIndex.get(nextPoints[j]).y);
+					link.setName(nextPoints[j]);
+					linkTree.add(link);
+					Log.e("Link", "Added link "+pointList.get(i).getName()+" to "+nextPoints[j]);
+				}
+			}
+		}
 	}
 	
 }

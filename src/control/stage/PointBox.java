@@ -1,5 +1,6 @@
 package control.stage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONException;
@@ -19,10 +20,13 @@ public class PointBox {
 	public int order;
 	public boolean inRange = false;
 	public boolean isVisible = false;
+	public boolean hasVisited = false;
 	private String name;
 	private String story;
 	
 	public HashMap<String,String> media = new HashMap<String,String>();
+	
+	public ArrayList<GameEvent> eventList = new ArrayList<GameEvent>();
 	
 	public PointBox(JSONObject json) throws NumberFormatException, JSONException {
 		x = Float.parseFloat(json.getString("Position X"));
@@ -33,6 +37,11 @@ public class PointBox {
 		
 		media.put("Image",json.optString("Image"));
 		media.put("Movie",json.optString("Movie"));
+		
+		for(int i=0;i<json.getJSONArray("Events").length();i++){
+			GameEvent event = new GameEvent(json.getJSONArray("Events").getJSONObject(i));
+			eventList.add(event);
+		}
 	}
 	
 	public String getName() {
@@ -56,9 +65,22 @@ public class PointBox {
 		inRange = (distance<Math.pow(range, 2.0));
 	}
 	
+	public String[] getNextPoints() {
+		String[] names = new String[eventList.size()];
+		for(int i=0;i<names.length;i++){
+			names[i] = eventList.get(i).nextPoint;
+		}
+		return names;
+	}
+	
+	public int numOfEvents() {
+		return eventList.size();
+	}
+	
 	public void onClick() {
 		// TODO
 		Log.e("Point event",name+" Clicked");
+		hasVisited = true;
 		
 	}
 }

@@ -1,6 +1,6 @@
 {
 	"Default Files":[
-		{"File Name":"Tutorial Stage 100000000",
+		{"File Name":"00000000001",
 		 "Content":
 			 {
 			"Name":"Tutorial Stage 1",
@@ -13,12 +13,36 @@
 							 "Order":"-1",
 							 "Position X":"10",
 							 "Position Y":"10",
-							 "Story":"This is the first point !!"}
-							 ]
+							 "Story":"This is the first point !!",
+							 "Events":[
+							 	{"Require Item":"NULL",
+						 		 "Require No Item":"NULL",
+						 		 "Get Item":"NULL",
+						 		 "Message Positive":"Hello world!",
+						 		 "Message Negative":"",
+						 		 "Next Point":"point 2"}
+						 		 ]
+						 	 },
+						 	 {"Name":"point 2",
+							 "Order":"-1",
+							 "Position X":"5",
+							 "Position Y":"-5",
+							 "Story":"This is the next point !!",
+							 "Events":[
+							 	{"Require Item":"NULL",
+						 		 "Require No Item":"NULL",
+						 		 "Get Item":"NULL",
+						 		 "Message Positive":"Hello world!!",
+						 		 "Message Negative":"",
+						 		 "Next Point":"NULL"}
+							 	]
 							 }
+							 ]
+							 
+			}
 		},
 		 
-		{"File Name":"Tutorial Stage 200000000",
+		{"File Name":"00000000002",
 		 "Content":
 			 {
 			"Name":"Tutorial Stage 2",
@@ -29,14 +53,51 @@
 			"Location List":[
 							{"Name":"point 1",
 							 "Order":"-1",
-							 "Position X":"100",
-							 "Position Y":"100",
-							 "Story":"story goes here"}
+							 "Position X":"10",
+							 "Position Y":"10",
+							 "Story":"This is the first point !!",
+							 "Events":[
+							 	{"Require Item":"NULL",
+						 		 "Require No Item":"NULL",
+						 		 "Get Item":"NULL",
+						 		 "Message Positive":"Hello world!",
+						 		 "Message Negative":"",
+						 		 "Next Point":"point 2"}
+						 		 ]
+						 	 },
+						 	 {"Name":"point 2",
+							 "Order":"-1",
+							 "Position X":"50",
+							 "Position Y":"-50",
+							 "Story":"This is the first point !!",
+							 "Events":[
+							 	{"Require Item":"NULL",
+						 		 "Require No Item":"NULL",
+						 		 "Get Item":"NULL",
+						 		 "Message Positive":"Hello world!",
+						 		 "Message Negative":"",
+						 		 "Next Point":"point 3"}
+						 		 ]
+						 	 },
+						 	 {"Name":"point 3",
+							 "Order":"-1",
+							 "Position X":"-35",
+							 "Position Y":"3",
+							 "Story":"This is the next point !!",
+							 "Events":[
+							 	{"Require Item":"NULL",
+						 		 "Require No Item":"NULL",
+						 		 "Get Item":"NULL",
+						 		 "Message Positive":"Hello world!!",
+						 		 "Message Negative":"",
+						 		 "Next Point":"NULL"}
+							 	]
+							 }
 							 ]
 							 }
 		},
 		 
-		{"File Name":"Tutorial Stage 300000000",
+		{"File Name":"00000000003",
 		 "Content":
 			 {
 			"Name":"Tutorial Stage 3",
@@ -47,16 +108,37 @@
 			"Location List":[
 							{"Name":"point 1",
 							 "Order":"-1",
-							 "Position X":"100",
-							 "Position Y":"100",
-							 "Story":"story goes here",
-							 "Image":"",
-							 "Movie":""}
+							 "Position X":"10",
+							 "Position Y":"10",
+							 "Story":"This is the first point !!",
+							 "Events":[
+							 	{"Require Item":"NULL",
+						 		 "Require No Item":"NULL",
+						 		 "Get Item":"NULL",
+						 		 "Message Positive":"Hello world!",
+						 		 "Message Negative":"",
+						 		 "Next Point":"point 2"}
+						 		 ]
+						 	 },
+						 	 {"Name":"point 2",
+							 "Order":"-1",
+							 "Position X":"5",
+							 "Position Y":"-5",
+							 "Story":"This is the next point !!",
+							 "Events":[
+							 	{"Require Item":"NULL",
+						 		 "Require No Item":"NULL",
+						 		 "Get Item":"NULL",
+						 		 "Message Positive":"Hello world!!",
+						 		 "Message Negative":"",
+						 		 "Next Point":"NULL"}
+							 	]
+							 }
 							 ]
 							 }
 		},
 		 
-		{"File Name":"Tutorial Stage 400000000",
+		{"File Name":"00000000004",
 		 "Content":
 			 {
 			"Name":"Tutorial Stage 4",
@@ -67,30 +149,50 @@
 			"Location List":[
 							{"Name":"point 1",
 							 "Order":"-1",
-							 "Position X":"100",
-							 "Position Y":"100",
-							 "Story":"story goes here",
-						 	 "Image":"",
-						 	 "Movie":""}
+							 "Position X":"10",
+							 "Position Y":"10",
+							 "Story":"This is the first point !!",
+							 "Events":[
+							 	{"Require Item":"NULL",
+						 		 "Require No Item":"NULL",
+						 		 "Get Item":"NULL",
+						 		 "Message Positive":"Hello world!",
+						 		 "Message Negative":"",
+						 		 "Next Point":"point 2"}
+						 		 ]
+						 	 },
+						 	 {"Name":"point 2",
+							 "Order":"-1",
+							 "Position X":"5",
+							 "Position Y":"-5",
+							 "Story":"This is the next point !!",
+							 "Events":[
+							 	{"Require Item":"NULL",
+						 		 "Require No Item":"NULL",
+						 		 "Get Item":"NULL",
+						 		 "Message Positive":"Hello world!!",
+						 		 "Message Negative":"",
+						 		 "Next Point":"NULL"}
+							 	]
+							 }
 							 ]
 							 }
 		}
 		],
 	
 	"Default List":[
-		{"Name":"Tutorial Stage 1",
-		 "ID":"00000000"},
-		{"Name":"Tutorial Stage 2",
-		 "ID":"00000000"},
- 		{"Name":"Tutorial Stage 3",
-		 "ID":"00000000"},
-		{"Name":"Tutorial Stage 4",
-		 "ID":"00000000"}
+		{
+		 "ID":"00000000001"},
+		{
+		 "ID":"00000000002"},
+ 		{
+		 "ID":"00000000003"},
+		{
+		 "ID":"00000000004"}
 		],
 		
 	"Template":{
 		"Name":"name",
-		"Package":"default",
 		"Description":"description",
 		"Center Changeable":"true",
 		"CenterPoint X":"0.0",
@@ -104,25 +206,25 @@
 						 "Story":"story goes here",
 						 "Image":"path or name",
 						 "Movie":"path or name",
-						 "Next Point":[],
 						 "Events":[
 						 		{"Require Item":"NULL",
-						 		 "Require No Item":"NULL"
+						 		 "Require No Item":"NULL",
 						 		 "Get Item":"NULL",
 						 		 "Message Positive":"Good",
-						 		 "Message Negative":"Not Good"
+						 		 "Message Negative":"Not Good",
 						 		 "Next Point":"point 2"},
 						 		{"Require Item":"Box",
 						 		 "Require No Item":"Big box",
 						 		 "Get Item":"Big box",
 						 		 "Message Positive":"Good",
-						 		 "Message Negative":"Not Good"
+						 		 "Message Negative":"Not Good",
 						 		 "Next Point":"point 2"}
-						 			],
+						 			]
+						 }],
 		"Item List":[
-					{"Name":"Box"
+					{"Name":"Box",
 					 "Description":"a small box"},
-					{"Name":"Big box"
+					{"Name":"Big box",
 					 "Description":"a big box"}
 					]
 	}

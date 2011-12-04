@@ -59,7 +59,7 @@ public class CameraMode extends Activity {
 					visited = true;
 				}
 				
-				if(Math.abs(para)<10&&!called&&visited){
+				if(Math.abs(para)<10&&!called&&visited&&!mSurface.inEvent()){
 					Log.e("Sensor","back : para = "+para);
 					CameraMode.this.finish();
 					called = true;

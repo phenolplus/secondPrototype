@@ -12,6 +12,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 public class MapView extends View {
@@ -141,19 +142,29 @@ public class MapView extends View {
 		canvas.drawLine(viewCenterw+ruler/2, viewCenterh-10, viewCenterw+ruler/2, viewCenterh+10,white);
 		canvas.drawText(ruler*mag+" m", viewCenterw+ruler/2+10, viewCenterh+20, white);
 		
-		// points
-		for(int i=0;i<stage.length();i++) {
-			
-			float x = rotateX(stage.getPointOf(i).x/mag,-stage.getPointOf(i).y/mag) + viewCenterw;
-			float y = rotateY(stage.getPointOf(i).x/mag,-stage.getPointOf(i).y/mag) + viewCenterh;
-			
-			canvas.drawCircle(x , y, 10, stage.getPointOf(i).isVisible?tar:empty);
-			//canvas.drawBitmap(location, x-location.getWidth()/2, y-location.getHeight(), stage.getPointOf(i).isVisible?tar:empty);
-			canvas.drawText(stage.getPointOf(i).getName(), x+15 , y-15, stage.getPointOf(i).isVisible?white:empty);
-		}
 		
 		// links
+		for(int i=0;i<stage.links();i++) {
+			String name = stage.getLink(i).nameOfEnd;
+			float sX,sY,eX,eY;
+			sX = rotateX(stage.getLink(i).startX,-stage.getLink(i).startY)/mag + viewCenterw;
+			sY = rotateY(stage.getLink(i).startX,-stage.getLink(i).startY)/mag + viewCenterh;
+			eX = rotateX(stage.getLink(i).endX,-stage.getLink(i).endY)/mag + viewCenterw;
+			eY = rotateY(stage.getLink(i).endX,-stage.getLink(i).endY)/mag + viewCenterh;
+			
+			canvas.drawLine(sX,sY,eX,eY, stage.getPointOf(name).isVisible?blue:empty);
+		}
 		
+		// points
+				for(int i=0;i<stage.length();i++) {
+					
+					float x = rotateX(stage.getPointOf(i).x/mag,-stage.getPointOf(i).y/mag) + viewCenterw;
+					float y = rotateY(stage.getPointOf(i).x/mag,-stage.getPointOf(i).y/mag) + viewCenterh;
+					
+					canvas.drawCircle(x , y, 10, stage.getPointOf(i).isVisible?tar:empty);
+					//canvas.drawBitmap(location, x-location.getWidth()/2, y-location.getHeight(), stage.getPointOf(i).isVisible?tar:empty);
+					canvas.drawText(stage.getPointOf(i).getName(), x+15 , y-15, stage.getPointOf(i).isVisible?white:empty);
+				}
 		
 		// scan bar
 		canvas.drawLine(viewCenterw,viewCenterh,viewCenterw,viewCenterh,green);

@@ -2,11 +2,15 @@ package second.prototype;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import control.stage.Stage;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,13 +19,21 @@ import android.graphics.Paint;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 public class DrawingSurface extends android.view.SurfaceView implements
 		SurfaceHolder.Callback {
 
 	/** Members */
 	private Stage stage = ContainerBox.currentStage;
+	private Context owner;
 
 	private Camera camera;
 	private SurfaceHolder holder;
@@ -29,16 +41,22 @@ public class DrawingSurface extends android.view.SurfaceView implements
 	private final float[] north = { 0, -90, 90 };
 	private ArrayList<ViewPoint> targetList = new ArrayList<ViewPoint>();
 	private float[] current = new float[3];
-	private final float distance = ContainerBox.isTab ? 35 : 10; // depends on
-																	// device
-																	// and hand
+	private final float distance = ContainerBox.isTab ? 35 : 10;
+	
+	private boolean touched=false;
+	private String which;
+	private View eventView;
+	private ArrayList<HashMap<String,String>> messages = new ArrayList<HashMap<String,String>>();
+	private SimpleAdapter adapter;
+	private int num,end;
 
 	private Bitmap icon;
 
 	public DrawingSurface(Context context) {
 		super(context);
-
+		owner = context;
 		this.setWillNotDraw(false);
+		
 		holder = this.getHolder();
 		holder.addCallback(this);
 		holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
@@ -53,7 +71,8 @@ public class DrawingSurface extends android.view.SurfaceView implements
 		canvas = showTargets(canvas);
 		invalidate();
 	}
-
+	
+	/** SurfaceView.Callback interface */
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
@@ -149,6 +168,10 @@ public class DrawingSurface extends android.view.SurfaceView implements
 		}
 
 	}
+	
+	public boolean inEvent() {
+		return touched;
+	}
 
 	/** Utilities */
 	private Canvas aquireNorth(Canvas canvas) {
@@ -212,6 +235,112 @@ public class DrawingSurface extends android.view.SurfaceView implements
 			canvas.drawText(targetList.get(i).name, x, y, tPaint);
 		}
 		return canvas;
+	}
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		switch(event.getAction()){
+		case MotionEvent.ACTION_DOWN:
+			which = checkIfTouched(event.getX(),event.getY());
+			Log.e("Touch","at "+event.getX()+" : "+event.getY()+" = "+which);
+			break;
+		case MotionEvent.ACTION_UP:
+			if(touched){
+				showEvent();
+			}
+		default:
+				
+		}
+		return true; 
+	}
+	
+	private String checkIfTouched(float tX,float tY) {
+		float x, y;
+		float[] point = new float[2];
+		for (int i = 0; i < targetList.size(); i++) {
+			point[1] = targetList.get(i).theta - current[1];
+			point[0] = targetList.get(i).phi - current[0];
+			// ============
+			point[0] = (point[0] + 360) % 360;
+			if (point[0] > 270) {
+				point[0] = point[0] - 360;
+			}
+
+			point[0] = point[0] * distance;
+			point[1] = point[1] * distance;
+			x = this.getWidth() / 2 + point[0];
+			y = this.getHeight() / 2 + point[1];
+			
+			Log.e("Touch","point at "+x+" : "+y);
+			if((Math.pow((x-tX),2)+Math.pow((y-tY),2))<Math.pow((icon.getHeight()/2),2)) {
+				touched = true;
+				return targetList.get(i).name;
+			}
+		}
+		touched = false;
+		return null;
+	}
+	
+	private void showEvent() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(owner);
+		builder.setIcon(android.R.drawable.ic_dialog_info);
+		builder.setTitle(which);
+		
+		LayoutInflater infla = LayoutInflater.from(owner);
+		eventView = infla.inflate(R.layout.eventdialog, null);
+		builder.setView(eventView);
+		
+		ListView messageList = (ListView) eventView.findViewById(R.id.event);
+		num = 1;
+		putMessageTo(num,which);
+		adapter = new SimpleAdapter(owner,messages,android.R.layout.simple_list_item_1,new String[] {"Message"},new int[] {android.R.id.text1});
+		messageList.setAdapter(adapter);
+		messageList.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				if(arg2 == end){
+					num++;
+					putMessageTo(num,which);
+					adapter.notifyDataSetChanged();
+				}
+			}
+			
+		});
+		
+		builder.setNegativeButton("Finish", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				touched = false;
+			}
+		});
+		
+		builder.show();
+	}
+	
+	private void putMessageTo(int top,String name) {
+		messages.clear();
+		for(int i=0;i<top;i++){
+			HashMap<String,String> item = new HashMap<String,String>();
+			String message = stage.getPointOf(name).eventList.get(i).postMessage();
+			item.put("Message", message);
+			if(!message.contentEquals("")){
+				messages.add(item);
+			}
+		}
+		
+		if(top < stage.getPointOf(name).numOfEvents()){
+			HashMap<String,String> item = new HashMap<String,String>();
+			item.put("Message", "More");
+			messages.add(item);
+			end = messages.size()-1;
+		} else {
+			end = -1;
+		}
 	}
 
 	// point box

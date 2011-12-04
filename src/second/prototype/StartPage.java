@@ -24,6 +24,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -63,7 +65,7 @@ public class StartPage extends Activity {
 	public void onResume() {
 		super.onResume();
 		if(savedStages.getBoolean("First Play", true)){
-			copyInitialFiles();
+			StageManager.initFileSettings(this);
 		}
 		reBuildStageList();
 	}
@@ -114,52 +116,27 @@ public class StartPage extends Activity {
 		System.gc();
 	}
 	
-	/** File manipulation */
-	private void copyInitialFiles() {
-		Log.e("Files","Start copying");
-		editor = savedStages.edit();
-		
-		try {
-			InputStream inFile = getResources().openRawResource(R.raw.defaultstagesavaliable);
-			InputStreamReader reader = new InputStreamReader(inFile);
-			BufferedReader buffreader = new BufferedReader(reader);
-			String buffer,text;
-			text = "";
-			while((buffer = buffreader.readLine())!=null){
-				text = text + buffer;
-			}
-			inFile.close();
-			
-			JSONObject defaultSettings = new JSONObject(text);
-			
-			JSONArray defaultFiles = defaultSettings.getJSONArray("Default Files");
-			for(int i=0;i<defaultFiles.length();i++){
-				String fileName = defaultFiles.getJSONObject(i).getString("File Name");
-				String content = defaultFiles.getJSONObject(i).getString("Content");
-				
-				FileOutputStream outFile = openFileOutput( fileName, Context.MODE_PRIVATE ); 
-				outFile.write(content.getBytes()); 
-				outFile.close();
-			}
-			
-			editor.putString("Stage List", defaultSettings.getJSONArray("Default List").toString());
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-			Log.e("Files","IO error");
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Log.e("Files","JSON error");
-		}
-		Log.e("Files","Done copying");
-		
-		
-		editor.putBoolean("First Play", false);
-		editor.commit();
+	/** Menu Control 
+	 *  These are Programmer tasks ...*/
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		menu.add(0, 0, 0, "Refreash initial Data").setIcon(android.R.drawable.ic_menu_upload);
+		return true;
 	}
-	/** Menu Control */
-
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+		switch(item.getItemId()){
+		case 0:
+			StageManager.initFileSettings(this);
+			break;
+		default :		
+		}
+		return true;
+	}
+	
 	/** Button onClick listeners */
 	public void playClicked(View view) {
 		if (cursor < 0) {
