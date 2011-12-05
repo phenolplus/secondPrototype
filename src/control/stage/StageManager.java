@@ -50,6 +50,10 @@ public class StageManager {
 		return new Stage(fileName,owner);
 	}
 	
+	public String getFileName(int index){
+		return stageList.get(index).get("ID");
+	}
+	
 	public int numOfStages() {
 		return stageList.size();
 	}

@@ -1,5 +1,6 @@
 package second.prototype;
 
+import item.Backpack;
 import control.stage.Stage;
 import control.stage.StageManager;
 
@@ -19,6 +20,7 @@ public final class ContainerBox {
 	
 	public static Stage currentStage;
 	public static StageManager stageManager;
+	public static Backpack backback;
 	
 	// constant
 	public static final float visibleRange = 30;

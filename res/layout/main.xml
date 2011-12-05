@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal" >
-
-    <second.prototype.MapView
-        android:id="@+id/mapView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" 
-        android:layout_weight="1"/>
-
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" 
-        android:layout_weight="3">
-    </ListView>
-
+    android:background="@drawable/map"
+    >
+    <LinearLayout android:layout_marginTop="40dp" android:layout_height="match_parent" 
+    	android:layout_width="match_parent" android:orientation="vertical" 
+    	android:id="@+id/linearLayout2" android:layout_marginLeft="20dp"
+    	android:layout_weight="7">
+        <Button android:layout_height="wrap_content" android:layout_width="fill_parent" 
+        	android:text="Gemstones" android:id="@+id/button1"
+        	android:layout_weight="0.5" style="@style/boldText"></Button>
+        <Button android:layout_height="wrap_content" android:layout_width="fill_parent" 
+        	android:text="Items" android:id="@+id/button2"
+        	android:layout_marginTop="10dp"
+        	android:layout_weight="0.5"></Button>
+        <Button android:layout_height="wrap_content" android:layout_width="fill_parent" 
+			android:text="Events" android:id="@+id/button3"
+			android:layout_marginTop="10dp"
+			android:layout_weight="0.5"></Button>
+        <ImageView android:src="@drawable/treasure" android:id="@+id/imageView1" 
+        	android:layout_height="wrap_content" android:layout_width="match_parent"
+        	android:layout_marginTop="10dp"
+        	android:layout_weight="7"></ImageView>
+    </LinearLayout>
+    <GridView android:layout_marginTop="20dp" android:layout_height="fill_parent" 
+    	android:numColumns="3" android:layout_width="wrap_content" 
+    	android:id="@+id/gridView1" android:verticalSpacing="5dp"
+    	android:stretchMode="columnWidth" android:gravity="center" 
+    	android:horizontalSpacing="5dp"
+    	android:layout_weight="3"
+    	android:layout_marginLeft="20dp" android:layout_marginRight="20dp" ></GridView>
 </LinearLayout>

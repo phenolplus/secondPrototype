@@ -1,5 +1,7 @@
 package second.prototype;
 
+import item.Backpack;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -149,8 +151,12 @@ public class StartPage extends Activity {
 			Toast.makeText(this, "What Stage to play ?", Toast.LENGTH_SHORT)
 					.show();
 		} else {
-			ContainerBox.currentStage = manager.getStage(cursor);
-			// Backpack ContainerBox.backpack = new Backpack(,this,ContainerBox.currentStage.getItemList());
+			Stage stage = manager.getStage(cursor);
+			Backpack backpack = new Backpack(manager.getFileName(cursor),this,stage.getItemList());
+			
+			ContainerBox.currentStage = stage;
+			ContainerBox.backback = backpack;
+			
 			Intent playStage = new Intent();
 			playStage.setClass(this, MapMode.class);
 			int which = (int)(Math.random()*DrawableIndex.TOTAL);

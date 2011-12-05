@@ -5,6 +5,7 @@ import second.prototype.R;
 public class DrawableIndex {
 	
 	public static final int TOTAL = 8;
+	
 	public static int BACK_GROUND = R.drawable.bgd;
 	
 	public static void setDrawables(int set){

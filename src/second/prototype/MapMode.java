@@ -1,7 +1,11 @@
 package second.prototype;
 
+import item.Backpack;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import sys.item.ItemSystem;
 
 import control.stage.Stage;
 
@@ -34,6 +38,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class MapMode extends Activity {
 	/** Members */
 	private Stage stage = ContainerBox.currentStage;
+	private Backpack backpack = ContainerBox.backback;
 	
 	private SensorManager manager;
 	private Sensor sensor;
@@ -174,6 +179,7 @@ public class MapMode extends Activity {
 			
 		}
 		saveList();
+		backpack.savePref();
 	}
 
 	/** Menu Control */
@@ -216,7 +222,9 @@ public class MapMode extends Activity {
 	}
 	
 	private void openBackpack() {
-		// do something
+		Intent bag = new Intent();
+		bag.setClass(this, ItemSystem.class);
+		startActivity(bag);
 	}
 	
 	private void clearProgress() {

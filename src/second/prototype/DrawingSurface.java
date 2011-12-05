@@ -1,5 +1,7 @@
 package second.prototype;
 
+import item.Backpack;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +35,7 @@ public class DrawingSurface extends android.view.SurfaceView implements
 
 	/** Members */
 	private Stage stage = ContainerBox.currentStage;
+	private Backpack backpack = ContainerBox.backback;
 	private Context owner;
 
 	private Camera camera;

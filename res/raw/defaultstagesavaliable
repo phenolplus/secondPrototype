@@ -17,7 +17,7 @@
 							 "Events":[
 							 	{"Require Item":"NULL",
 						 		 "Require No Item":"NULL",
-						 		 "Get Item":"NULL",
+						 		 "Get Item":"My Compass",
 						 		 "Message Positive":"Hello world!",
 						 		 "Message Negative":"",
 						 		 "Next Point":"point 2"}
@@ -29,16 +29,20 @@
 							 "Position Y":"-5",
 							 "Story":"This is the next point !!",
 							 "Events":[
-							 	{"Require Item":"NULL",
+							 	{"Require Item":"My Compass",
 						 		 "Require No Item":"NULL",
 						 		 "Get Item":"NULL",
-						 		 "Message Positive":"Hello world!!",
-						 		 "Message Negative":"",
+						 		 "Message Positive":"You have Compass",
+						 		 "Message Negative":"Sorry No Compass",
 						 		 "Next Point":"NULL"}
 							 	]
 							 }
-							 ]
-							 
+							 ],
+			"Item List":[
+					{"Name":"My Compass",
+					 "Description":"a test compass",
+					 "Icon":"Compass"}
+					]						 
 			}
 		},
 		 
@@ -93,8 +97,9 @@
 						 		 "Next Point":"NULL"}
 							 	]
 							 }
-							 ]
-							 }
+							 ],
+				"Item List":[]		
+			}
 		},
 		 
 		{"File Name":"00000000003",
@@ -134,8 +139,9 @@
 						 		 "Next Point":"NULL"}
 							 	]
 							 }
-							 ]
-							 }
+							 ],
+			"Item List":[]	
+			}
 		},
 		 
 		{"File Name":"00000000004",
@@ -175,8 +181,9 @@
 						 		 "Next Point":"NULL"}
 							 	]
 							 }
-							 ]
-							 }
+							 ],
+			"Item List":[]	
+			}
 		}
 		],
 	
