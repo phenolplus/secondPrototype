@@ -19,17 +19,17 @@
         android:label="@string/app_name" >
         <activity
             android:label="@string/app_name"
-            android:name=".StartPage" >
+            android:name=".StartPage" android:screenOrientation="landscape">
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="CameraMode"></activity>
-        <activity android:name="MapMode"></activity>
-        <activity android:name="com.tang.DownLoadPage.DownLoadPageActivity"></activity>
-        <activity android:name="sys.item.ItemSystem"></activity>
+        <activity android:name="CameraMode" android:screenOrientation="landscape"></activity>
+        <activity android:name="MapMode" android:screenOrientation="landscape"></activity>
+        <activity android:name="com.tang.DownLoadPage.DownLoadPageActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="sys.item.ItemSystem" android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
