@@ -52,7 +52,8 @@ public final class R {
         public static final int storybox=0x7f030005;
     }
     public static final class raw {
-        public static final int defaultstagesavaliable=0x7f040000;
+        public static final int change=0x7f040000;
+        public static final int defaultstagesavaliable=0x7f040001;
     }
     public static final class string {
         public static final int app_name=0x7f050001;

@@ -223,9 +223,11 @@
 						 }],
 		"Item List":[
 					{"Name":"Box",
-					 "Description":"a small box"},
+					 "Description":"a small box",
+					 "Icon":"Default"},
 					{"Name":"Big box",
-					 "Description":"a big box"}
+					 "Description":"a big box",
+					 "Icon":"Default"}
 					]
 	}
 }

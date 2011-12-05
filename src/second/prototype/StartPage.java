@@ -145,6 +145,7 @@ public class StartPage extends Activity {
 					.show();
 		} else {
 			ContainerBox.currentStage = manager.getStage(cursor);
+			// Backpack
 			Intent playStage = new Intent();
 			playStage.setClass(this, MapMode.class);
 			int which = (int)(Math.random()*DrawableIndex.TOTAL);
