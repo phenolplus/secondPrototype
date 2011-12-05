@@ -29,7 +29,7 @@ public class MapView extends View {
 	private static final float mag = ContainerBox.meterPerPixel; // one pixel = 10 meters
 	private static final float ruler = 100/mag; //m
 	
-	private static final float northX = ContainerBox.isTab?0:(ContainerBox.visibleRange/mag*2/3);
+	private static final float northX = ContainerBox.isTab?0:(-ContainerBox.visibleRange/mag*2/3);
 	private static final float northY = ContainerBox.isTab?-ContainerBox.visibleRange/mag*2/3:0;
 	
 	Bitmap location;
