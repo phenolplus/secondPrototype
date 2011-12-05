@@ -3,6 +3,8 @@ package second.prototype;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.tang.DownLoadPage.DownLoadPageActivity;
+
 
 import control.stage.DrawableIndex;
 import control.stage.Stage;
@@ -57,7 +59,7 @@ public class StartPage extends Activity {
 		}
 		
 		manager = new StageManager(this);
-		
+		ContainerBox.stageManager = manager;
 	}
 
 	public void onPause() {
@@ -88,8 +90,8 @@ public class StartPage extends Activity {
 		
 		adapter = new SimpleAdapter(this, stageList,
 				R.layout.stageitem, new String[] { "Name",
-						"Description" }, new int[] { R.id.StageName,
-						R.id.StageDescription });
+						"Description" }, new int[] { R.id.Name,
+						R.id.Description });
 
 		stagesView.setAdapter(adapter);
 
@@ -133,6 +135,7 @@ public class StartPage extends Activity {
 		case 0:
 			StageManager.initFileSettings(this);
 			manager = new StageManager(this);
+			ContainerBox.stageManager = manager;
 			reBuildStageList();
 			break;
 		default :		
@@ -147,7 +150,7 @@ public class StartPage extends Activity {
 					.show();
 		} else {
 			ContainerBox.currentStage = manager.getStage(cursor);
-			// Backpack
+			// Backpack ContainerBox.backpack = new Backpack(,this,ContainerBox.currentStage.getItemList());
 			Intent playStage = new Intent();
 			playStage.setClass(this, MapMode.class);
 			int which = (int)(Math.random()*DrawableIndex.TOTAL);
@@ -158,7 +161,9 @@ public class StartPage extends Activity {
 	}
 
 	public void addClicked(View view) {
-		
+		Intent net = new Intent();
+		net.setClass(this, DownLoadPageActivity.class);
+		startActivity(net);
 		cursor = -1;
 	}
 

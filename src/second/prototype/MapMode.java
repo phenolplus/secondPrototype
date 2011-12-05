@@ -57,7 +57,7 @@ public class MapMode extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.mapmode);
 		
 		Log.e("Version","APL level = "+Build.VERSION.SDK_INT);
 		

@@ -111,6 +111,16 @@ public class Stage {
 		}
 	}
 	
+	public JSONArray getItemList() {
+		try {
+			return coreData.getJSONArray("Item List");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	/** Point Operation */
 	public PointBox getPointOf(int index) {
 		return pointList.get(index);

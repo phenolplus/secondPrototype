@@ -58,6 +58,7 @@ public class StageManager {
 		HashMap<String,String> item = new HashMap<String,String>();
 		item.put("ID", fileName);
 		stageList.add(item);
+		Log.e("Import", fileName);
 		return true;
 	}
 	
