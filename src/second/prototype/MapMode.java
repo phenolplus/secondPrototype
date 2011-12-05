@@ -59,7 +59,6 @@ public class MapMode extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		ContainerBox.isTab = (Build.VERSION.SDK_INT > 10);
 		Log.e("Version","APL level = "+Build.VERSION.SDK_INT);
 		
 		mapView = (MapView) findViewById(R.id.mapView);

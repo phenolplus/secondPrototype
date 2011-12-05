@@ -29,6 +29,9 @@ public class MapView extends View {
 	private static final float mag = ContainerBox.meterPerPixel; // one pixel = 10 meters
 	private static final float ruler = 100/mag; //m
 	
+	private static final float northX = ContainerBox.isTab?0:(ContainerBox.visibleRange/mag*2/3);
+	private static final float northY = ContainerBox.isTab?-ContainerBox.visibleRange/mag*2/3:0;
+	
 	Bitmap location;
 	private int scanTheta = 0;
 	
@@ -147,8 +150,8 @@ public class MapView extends View {
 		canvas.drawCircle(myX, myY, 10, self);
 		
 		// north arrow
-		canvas.drawLine(myX+rotateX(0,-ContainerBox.visibleRange/mag*2/3),myY+rotateY(0,-ContainerBox.visibleRange/mag*2/3),
-				myX+rotateX(0,-ContainerBox.visibleRange/mag*4/3),myY+rotateY(0,-ContainerBox.visibleRange/mag*4/3),white);
+		canvas.drawLine(myX+rotateX(northX,northY),myY+rotateY(northX,northY),
+				myX+rotateX(northX*2,northY*2),myY+rotateY(northX*2,northY*2),white);
 		
 		
 		canvas.drawLine(viewCenterw-ruler/2, viewCenterh, viewCenterw+ruler/2, viewCenterh,text);

@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,7 +46,8 @@ public class StartPage extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.stagescreen);
-
+		ContainerBox.isTab = (Build.VERSION.SDK_INT > 10);
+		
 		stagesView = (ListView) findViewById(R.id.stagelist);
 		savedStages = this.getSharedPreferences("Global Data",
 				Context.MODE_PRIVATE);
