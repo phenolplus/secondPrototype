@@ -9,10 +9,23 @@ public class BackgroundMusic {
 	
 	public static MediaPlayer player;
 	
-	public static final int BGM_CHANGE = R.raw.change;
+	public static final int CHANGE = R.raw.change;
+	public static final int CHANGER = R.raw.changer;
 	
-	public static void init(Context owner, int Res_id){
-		player = MediaPlayer.create(owner, Res_id);
+	public static int BGM = CHANGE;
+	
+	public static void setBGM(int set){
+		switch(set){
+		case 0:
+			BGM = CHANGER;
+			break;
+		default:
+			BGM = CHANGE;
+		}
+	}
+	
+	public static void init(Context owner){
+		player = MediaPlayer.create(owner,BGM);
 		player.setLooping(true);
 	}
 	

@@ -191,12 +191,15 @@ public class StartPage extends Activity {
 			ContainerBox.currentStage = stage;
 			ContainerBox.backback = backpack;
 			
-			BackgroundMusic.init(this,BackgroundMusic.BGM_CHANGE);
-			
 			Intent playStage = new Intent();
 			playStage.setClass(this, MapMode.class);
+			
 			int which = (int)(Math.random()*DrawableIndex.TOTAL);
+			
 			DrawableIndex.setDrawables(which);
+			BackgroundMusic.setBGM(which);
+			BackgroundMusic.init(this);
+			
 			startActivityForResult(playStage,0);
 		}
 		cursor = -1;
