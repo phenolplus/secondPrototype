@@ -3,7 +3,7 @@ package second.prototype;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import control.stage.DrawableIndex;
+import control.appearance.DrawableIndex;
 import control.stage.Stage;
 
 import android.content.Context;

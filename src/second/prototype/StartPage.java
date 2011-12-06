@@ -8,7 +8,8 @@ import java.util.HashMap;
 import com.tang.DownLoadPage.DownLoadPageActivity;
 
 
-import control.stage.DrawableIndex;
+import control.appearance.BackgroundMusic;
+import control.appearance.DrawableIndex;
 import control.stage.Stage;
 import control.stage.StageManager;
 
@@ -62,6 +63,7 @@ public class StartPage extends Activity {
 		
 		manager = new StageManager(this);
 		ContainerBox.stageManager = manager;
+		
 	}
 
 	public void onPause() {
@@ -73,7 +75,13 @@ public class StartPage extends Activity {
 		super.onResume();
 		reBuildStageList();
 	}
-
+	
+	@Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        BackgroundMusic.stop();
+	}
+	
 	/** Utilities */
 	private void reBuildStageList() {
 		
@@ -157,11 +165,13 @@ public class StartPage extends Activity {
 			ContainerBox.currentStage = stage;
 			ContainerBox.backback = backpack;
 			
+			BackgroundMusic.init(this,BackgroundMusic.BGM_CHANGE);
+			
 			Intent playStage = new Intent();
 			playStage.setClass(this, MapMode.class);
 			int which = (int)(Math.random()*DrawableIndex.TOTAL);
 			DrawableIndex.setDrawables(which);
-			startActivity(playStage);
+			startActivityForResult(playStage,0);
 		}
 		cursor = -1;
 	}

@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 import sys.item.ItemSystem;
 
+import control.appearance.BackgroundMusic;
+import control.appearance.DrawableIndex;
 import control.stage.Stage;
 
 import android.app.Activity;
@@ -68,6 +70,7 @@ public class MapMode extends Activity {
 		
 		mapView = (MapView) findViewById(R.id.mapView);
 		pointListView = (ListView) findViewById(R.id.listView);
+		pointListView.setBackgroundResource(DrawableIndex.LIST_BACK_GROUND);
 		
 		// set up sensors
 		manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -89,6 +92,8 @@ public class MapMode extends Activity {
 	public void onResume() {
 		super.onResume();
 		buildList();
+		
+		BackgroundMusic.play();
 		
 		// orientation sensor
 		if (sensor != null) {
@@ -173,11 +178,15 @@ public class MapMode extends Activity {
 	@Override
 	public void onPause() {
 		super.onPause();
+		
+		BackgroundMusic.pause();
+		
 		manager.unregisterListener(listener);
 		if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			locationManager.removeUpdates(locationListener);
 			
 		}
+		
 		saveList();
 		backpack.savePref();
 	}

@@ -1,5 +1,6 @@
 package second.prototype;
 
+import control.appearance.BackgroundMusic;
 import android.app.Activity;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -40,6 +41,8 @@ public class CameraMode extends Activity {
     @Override
     public void onResume(){
     	super.onResume();
+    	BackgroundMusic.play();
+    	
     	Log.e("CameraMode","onResume called");
     	listener = new SensorEventListener(){
 
@@ -97,6 +100,8 @@ public class CameraMode extends Activity {
     @Override
     public void onPause(){
     	super.onPause();
+    	BackgroundMusic.pause();
+    	
     	manager.unregisterListener(listener);
     	manager.unregisterListener(accListener);
     	Log.e("CameraMode"," done onPause");

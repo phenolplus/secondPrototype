@@ -3,4 +3,7 @@
     <color name="grass">#ADFF2F</color>
     <color name="orange">#FF7F00</color>
     <color name="yellow">#FCFF19</color>
+    
+    <color name="white">#FFFFFFFF</color>
+    <color name="pointbg">#00000000</color>
 </resources>
