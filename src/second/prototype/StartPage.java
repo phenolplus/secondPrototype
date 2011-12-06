@@ -49,8 +49,8 @@ public class StartPage extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.splash);
-		drawSplash();
+		
+		waitSplash();
 		
 		LayoutInflater infla = LayoutInflater.from(this);
 		startPage = infla.inflate(R.layout.stagescreen, null);
@@ -129,7 +129,8 @@ public class StartPage extends Activity {
 		System.gc();
 	}
 	
-	private void drawSplash(){
+	private void waitSplash(){
+		setContentView(R.layout.splash);
 		Thread thread = new Thread(){
     		@Override
     		public void run(){

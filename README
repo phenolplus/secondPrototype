@@ -2,14 +2,18 @@ Second Prototype ReadMe
 created at 11/28
 
 ******* JOBS TO DO *******
-1. write some stages
-2. setup Server
-3. better UI
+1. Backgrounds
+2. BGM
+3. Item icon list
+4. more stages
+
 
 ******* JOBS DONE ********
 1. JSON based stage list
+2. write some stages
+3. setup server
 
 
 ******* OTHER NOTES ******
-see file "defaultstagesavaliable" for tempaletes
+see file "defaultstagesavaliable" for templates
 
