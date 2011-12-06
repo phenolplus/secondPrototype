@@ -35,14 +35,13 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class StartPage extends Activity {
 	/** Members */
+	private View startPage;
+	
 	private ListView stagesView;
 	private ArrayList<HashMap<String, String>> stageList = new ArrayList<HashMap<String, String>>();
 	private SimpleAdapter adapter;
-	private View stageItem;
 	
 	private int cursor = -1;
-
-	private SharedPreferences savedStages;
 	
 	private StageManager manager;
 
@@ -50,18 +49,21 @@ public class StartPage extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.stagescreen);
+		setContentView(R.layout.splash);
+		drawSplash();
+		
+		LayoutInflater infla = LayoutInflater.from(this);
+		startPage = infla.inflate(R.layout.stagescreen, null);
+		
 		ContainerBox.isTab = (Build.VERSION.SDK_INT > 10);
 		
-		stagesView = (ListView) findViewById(R.id.stagelist);
-		savedStages = this.getSharedPreferences("Global Data",
-				Context.MODE_PRIVATE);
+		stagesView = (ListView) startPage.findViewById(R.id.stagelist);
 		
-		if(savedStages.getBoolean("First Play", true)){
+		manager = new StageManager(this);
+		if(manager.firstPlay()){
 			StageManager.initFileSettings(this);
 		}
 		
-		manager = new StageManager(this);
 		ContainerBox.stageManager = manager;
 		
 	}
@@ -86,8 +88,6 @@ public class StartPage extends Activity {
 	private void reBuildStageList() {
 		
 		stageList.clear();
-		LayoutInflater infla = LayoutInflater.from(this);
-		stageItem = infla.inflate(R.layout.stageitem, null);
 		
 		for(int i=0;i<manager.numOfStages();i++){
 			Stage stage = manager.getStage(i);
@@ -127,6 +127,31 @@ public class StartPage extends Activity {
 		stageList.clear();
 		
 		System.gc();
+	}
+	
+	private void drawSplash(){
+		Thread thread = new Thread(){
+    		@Override
+    		public void run(){
+    			try {
+					sleep(1000);
+					StartPage.this.runOnUiThread(new Runnable(){
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							setContentView(startPage);
+						}
+						
+					});
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		}
+    	};
+    	
+    	thread.start();
 	}
 	
 	/** Menu Control 

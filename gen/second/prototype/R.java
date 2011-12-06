@@ -88,15 +88,15 @@ public final class R {
         public static final int sapphire2=0x7f020043;
         public static final int sapphire_silhouette=0x7f020044;
         public static final int spir1=0x7f020045;
-        public static final int target=0x7f020046;
-        public static final int telescope=0x7f020047;
-        public static final int telescope_silhouette=0x7f020048;
-        public static final int topaz=0x7f020049;
-        public static final int topaz3=0x7f02004a;
-        public static final int topaz_=0x7f02004b;
-        public static final int topaz_silhouette=0x7f02004c;
-        public static final int treasure=0x7f02004d;
-        public static final int trwhite=0x7f02004e;
+        public static final int splash=0x7f020046;
+        public static final int target=0x7f020047;
+        public static final int telescope=0x7f020048;
+        public static final int telescope_silhouette=0x7f020049;
+        public static final int topaz=0x7f02004a;
+        public static final int topaz3=0x7f02004b;
+        public static final int topaz_=0x7f02004c;
+        public static final int topaz_silhouette=0x7f02004d;
+        public static final int treasure=0x7f02004e;
     }
     public static final class id {
         public static final int Description=0x7f080018;
@@ -138,9 +138,10 @@ public final class R {
         public static final int main=0x7f030005;
         public static final int mapmode=0x7f030006;
         public static final int pointitem=0x7f030007;
-        public static final int stageitem=0x7f030008;
-        public static final int stagescreen=0x7f030009;
-        public static final int storybox=0x7f03000a;
+        public static final int splash=0x7f030008;
+        public static final int stageitem=0x7f030009;
+        public static final int stagescreen=0x7f03000a;
+        public static final int storybox=0x7f03000b;
     }
     public static final class raw {
         public static final int change=0x7f040000;

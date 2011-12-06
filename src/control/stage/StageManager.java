@@ -45,6 +45,10 @@ public class StageManager {
 		}
 	}
 	
+	public boolean firstPlay(){
+		return stageData.getBoolean("First Play", true);
+	}
+	
 	public Stage getStage(int index) {
 		String fileName = stageList.get(index).get("ID");
 		return new Stage(fileName,owner);
