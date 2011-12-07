@@ -30,9 +30,9 @@ public class GameEvent {
 	}
 	
 	public String postMessage() {
-		 Log.e("Event","R = "+itemR+"  N = "+itemN);
-		 rSatisfied = Backpack.hasItem(itemR);
-		 rNSatisfied = !Backpack.hasItem(itemN);
+		 //Log.e("Event","R = "+itemR+"  N = "+itemN);
+		 //rSatisfied = Backpack.hasItem(itemR);
+		 //rNSatisfied = !Backpack.hasItem(itemN);
 		 
 		if(rSatisfied&&rNSatisfied){
 			Log.e("Event", "Postitive message!");

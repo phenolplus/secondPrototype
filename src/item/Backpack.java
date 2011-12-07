@@ -162,9 +162,10 @@ public class Backpack {
       "tools2", "tools3", "torch", "treasure", "video", 
       "witchhat", "ruby", "aapphire", "emerald", "topaz", 
       "amethyst", "diamond", "aquamarine", "citrine", "peridot"};
+    
      
      private static final int[] itemImageBlack = new int[]
-     { R.drawable.compass_silhouette, R.drawable.goggles_silhouette, 
+     { /*R.drawable.compass_silhouette, R.drawable.goggles_silhouette, 
     	 R.drawable.flashlight_silhouette, R.drawable.hammer_silhouette, 
     	 R.drawable.telescope_silhouette, R.drawable.antenna_silhouette,
 		 R.drawable.bag_silhouette, R.drawable.alarmclock_silhouette, 
@@ -193,11 +194,11 @@ public class Backpack {
 		 R.drawable.sapphire_silhouette, R.drawable.emerald_silhouette,
 		 R.drawable.topaz_silhouette, R.drawable.amethyst_silhouette, 
 		 R.drawable.diamond_silhouette, R.drawable.aquamarine_silhouette, 
-		 R.drawable.citrine_silhouette, R.drawable.peridot_silhouette
+		 R.drawable.citrine_silhouette, R.drawable.peridot_silhouette */
      };
      
      private static final int[] itemImage = new int[]
-     {R.drawable.compass, R.drawable.goggles, R.drawable.flashlight,
+     { /*R.drawable.compass, R.drawable.goggles, R.drawable.flashlight,
       R.drawable.hammer, R.drawable.telescope, R.drawable.antenna,
       R.drawable.bag, R.drawable.alarmclock, R.drawable.bat, R.drawable.battery,
       R.drawable.battery2, R.drawable.bolt, R.drawable.bomb, R.drawable.bomb2,
@@ -213,7 +214,7 @@ public class Backpack {
       R.drawable.treasure, R.drawable.video, R.drawable.witchhat,
       R.drawable.ruby, R.drawable.sapphire, R.drawable.emerald,
       R.drawable.topaz, R.drawable.amethyst, R.drawable.diamond, 
-      R.drawable.aquamarine, R.drawable.citrine, R.drawable.peridot};
+      R.drawable.aquamarine, R.drawable.citrine, R.drawable.peridot */};
 }
 
 

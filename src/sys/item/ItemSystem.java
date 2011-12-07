@@ -120,8 +120,8 @@ public class ItemSystem extends Activity {
         for(int i = 0; i < backpack.getItemLength(); i++) {
         	HashMap<String, Object> map = new HashMap<String, Object>();
         	String name = backpack.getItemList().get(i);
-        	map.put("ItemImage", Backpack.returnItem(name).hasSeenItem()?
-        			Backpack.returnItem(name).getImage():R.drawable.question);
+        	/* map.put("ItemImage", Backpack.returnItem(name).hasSeenItem()?
+        			Backpack.returnItem(name).getImage():R.drawable.question); */
     		listItem.add(map);
     		adapter.notifyDataSetChanged();
         }
