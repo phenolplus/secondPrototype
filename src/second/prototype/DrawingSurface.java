@@ -294,6 +294,8 @@ public class DrawingSurface extends android.view.SurfaceView implements
 		builder.setView(eventView);
 		
 		ListView messageList = (ListView) eventView.findViewById(R.id.event);
+		messageList.setBackgroundColor(Color.BLACK);
+		
 		num = 1;
 		putMessageTo(num,which);
 		adapter = new SimpleAdapter(owner,messages,android.R.layout.simple_list_item_1,new String[] {"Message"},new int[] {android.R.id.text1});

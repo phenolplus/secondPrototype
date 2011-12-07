@@ -20,7 +20,13 @@
 						 		 "Get Item":"My Compass",
 						 		 "Message Positive":"Hello world!",
 						 		 "Message Negative":"",
-						 		 "Next Point":"point 2"}
+						 		 "Next Point":"point 2"},
+						 		 {"Require Item":"NULL",
+						 		 "Require No Item":"NULL",
+						 		 "Get Item":"NULL",
+						 		 "Message Positive":"Hello world again !",
+						 		 "Message Negative":"",
+						 		 "Next Point":"NULL"}
 						 		 ]
 						 	 },
 						 	 {"Name":"point 2",

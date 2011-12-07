@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -36,6 +37,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class StartPage extends Activity {
 	/** Members */
 	private View startPage;
+	private View splash;
 	
 	private ListView stagesView;
 	private ArrayList<HashMap<String, String>> stageList = new ArrayList<HashMap<String, String>>();
@@ -50,10 +52,11 @@ public class StartPage extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		waitSplash();
-		
 		LayoutInflater infla = LayoutInflater.from(this);
 		startPage = infla.inflate(R.layout.stagescreen, null);
+		splash = infla.inflate(R.layout.splash, null);
+		
+		waitSplash();
 		
 		ContainerBox.isTab = (Build.VERSION.SDK_INT > 10);
 		
@@ -130,18 +133,21 @@ public class StartPage extends Activity {
 	}
 	
 	private void waitSplash(){
-		setContentView(R.layout.splash);
+		setContentView(splash);
 		Thread thread = new Thread(){
     		@Override
     		public void run(){
     			try {
-					sleep(1000);
+					sleep(2000);
 					StartPage.this.runOnUiThread(new Runnable(){
 
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
+							splash.startAnimation(AnimationUtils.loadAnimation(StartPage.this,android.R.anim.fade_out));
+							startPage.startAnimation(AnimationUtils.loadAnimation(StartPage.this,android.R.anim.fade_in));
 							setContentView(startPage);
+							
 						}
 						
 					});

@@ -6,6 +6,8 @@ import java.util.HashMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import second.prototype.ContainerBox;
+
 import android.util.Log;
 
 /**
@@ -23,6 +25,7 @@ public class PointBox {
 	public boolean hasVisited = false;
 	private String name;
 	private String story;
+	private final int bLeng = ContainerBox.isTab?18:10;
 	
 	public HashMap<String,String> media = new HashMap<String,String>();
 	
@@ -53,7 +56,7 @@ public class PointBox {
 	}
 	
 	public String getBrief() {
-		return story.substring(0, 10)+" ...";
+		return story.substring(0, bLeng)+" ...";
 	}
 	
 	public void checkVisable(int progress) {
@@ -61,7 +64,7 @@ public class PointBox {
 	}
 	
 	public void checkRange(float myX, float myY, float range) {
-		double distance = Math.pow(myX, 2.0) + Math.pow(myY, 2.0);
+		double distance = Math.pow((myX-x), 2.0) + Math.pow((myY-y), 2.0);
 		inRange = (distance<Math.pow(range, 2.0));
 	}
 	
