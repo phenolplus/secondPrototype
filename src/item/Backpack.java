@@ -69,7 +69,6 @@ public class Backpack {
 					e.printStackTrace();
 				}
     		}
-    		construct();
     		isFirstVisit = false;
     	}
     	else {
@@ -90,6 +89,7 @@ public class Backpack {
     			hasItemList.add(progressData.getBoolean("HAS_ITEM"+i, false));
     		}
     	}
+    	construct();
     }
     
     /*public Backpack(ArrayList<String> list, ArrayList<String> descript) {
