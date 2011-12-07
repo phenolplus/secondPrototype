@@ -6,14 +6,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
-
 import second.prototype.ContainerBox;
 
 public class GameEvent {
 	
 	boolean rSatisfied = true;
 	boolean rNSatisfied = true;
-	Backpack backpack = ContainerBox.backback;
+	//Backpack backpack = ContainerBox.backback;
 	
 	String itemToGet;
 	String messageP,messageN;
@@ -32,12 +31,14 @@ public class GameEvent {
 	
 	public String postMessage() {
 		 Log.e("Event","R = "+itemR+"  N = "+itemN);
-		 //rSatisfied = backpack.hasItem(itemR);
-		 //rNSatisfied = !backpack.hasItem(itemN);
+		 rSatisfied = Backpack.hasItem(itemR);
+		 rNSatisfied = !Backpack.hasItem(itemN);
 		 
 		if(rSatisfied&&rNSatisfied){
+			Log.e("Event", "Postitive message!");
 			return messageP;
 		} else {
+			Log.e("Event", "Negative message!");
 			return messageN;
 		}
 	}

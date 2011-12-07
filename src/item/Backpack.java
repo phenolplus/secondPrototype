@@ -14,7 +14,6 @@ import second.prototype.R;
 public class Backpack {
     
     // Library
-    private static ArrayList<String> stoneList = new ArrayList<String>();
     private static ArrayList<String> itemList = new ArrayList<String>();
     
     // Sharedpreferences
@@ -27,18 +26,14 @@ public class Backpack {
     private ArrayList<String> descriptionList = new ArrayList<String>();
     private ArrayList<String> iconnameList = new ArrayList<String>();
     private ArrayList<Boolean> hasItemList = new ArrayList<Boolean>();
+    private ArrayList<Boolean> hasSeenList = new ArrayList<Boolean>();
     
     private ArrayList<String> itemListInStage = new ArrayList<String>();
-    private ArrayList<String> stoneListInStage = new ArrayList<String>();
-    private HashMap<String, Item> itemInStage_Stone;
-    private HashMap<String, Item> itemInStage_Item;
+    private static HashMap<String, Item> itemInStage_Item;
     
     
     private static void buildLib() {
     	Log.d("DebugLog", "Building library...");
-    	for(int i = 0; i < stoneName.length; i++) {
-    		stoneList.add(stoneName[i]);
-    	}
     	for(int i = 0; i < itemName.length; i++) {
     		itemList.add(itemName[i]);
     	}
@@ -63,74 +58,41 @@ public class Backpack {
 					nameList.add(_json.getJSONObject(i).getString("Name"));
 					descriptionList.add(_json.getJSONObject(i).getString("Description"));
 					iconnameList.add(_json.getJSONObject(i).getString("Icon"));
+					hasSeenList.add(false);
 					hasItemList.add(false);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
     		}
-    		construct();
     		isFirstVisit = false;
     	}
     	else {
     		// Use preference to construct
     		Log.d("DebugLog", "Using preference to construct!");
-    		int stoneListSize = progressData.getInt("STONE_LIST_LENGTH", 0);
     		int itemListSize = progressData.getInt("ITEM_LIST_LENGTH", 0);
-    		for(int i = 0; i < stoneListSize; i++) {
-    			nameList.add(progressData.getString("STONE_NAME"+i, ""));
-    			descriptionList.add(progressData.getString("DESCRIPT_STONE"+i, ""));
-    			iconnameList.add(progressData.getString("STONE_ICON_NAME"+i, ""));
-    			hasItemList.add(progressData.getBoolean("HAS_STONE"+i, false));
-    		}
     		for(int i = 0; i < itemListSize; i++) {
     			nameList.add(progressData.getString("ITEM_NAME"+i, ""));
     			descriptionList.add(progressData.getString("DESCRIPT_ITEM"+i, ""));
     			iconnameList.add(progressData.getString("ITEM_ICON_NAME"+i, ""));
+    			hasSeenList.add(progressData.getBoolean("HAS_SEEN"+i, false));
     			hasItemList.add(progressData.getBoolean("HAS_ITEM"+i, false));
     		}
     	}
-    }
-    
-    /*public Backpack(ArrayList<String> list, ArrayList<String> descript) {
-    	buildLib();
-    	nameList = list;
-    	descriptionList = descript;
-    	for(int i = 0; i < list.size(); i++) {
-    		hasItemList.add(false);
-    	}
     	construct();
     }
-    
-    public Backpack(ArrayList<String> list, ArrayList<String> descript, 
-    		ArrayList<Boolean> haslist) {
-    	buildLib();
-    	nameList = list;
-    	descriptionList = descript;
-    	hasItemList = haslist;
-    	construct();
-    }*/
     
     private void construct() {
-    	itemInStage_Stone = new HashMap<String, Item>();
     	itemInStage_Item = new HashMap<String, Item>();
     	
     	for(int i = 0; i < nameList.size(); i++) {
     		String name = nameList.get(i);
     		String des = descriptionList.get(i);
     		String iconname = iconnameList.get(i);
-    		if(stoneList.contains(iconname)) {
-    			int index = stoneList.indexOf(iconname);
-    			Item item = new Item(des, name, iconname,stoneImage[index],
-    						stoneImageBlack[index], hasItemList.get(i));
-    			stoneListInStage.add(name);
-    			itemInStage_Stone.put(name, item);
-    		}
-    		
-    		else if(itemList.contains(iconname)) {
+    		if(itemList.contains(iconname)) {
     			int index = itemList.indexOf(iconname);
     			Item item = new Item(des, name, iconname, itemImage[index],
-    						itemImageBlack[index], hasItemList.get(i));
+    						itemImageBlack[index], hasSeenList.get(i), hasItemList.get(i));
     			itemListInStage.add(name);
     			itemInStage_Item.put(name, item);
     		}
@@ -142,22 +104,14 @@ public class Backpack {
     	
     	editor.putBoolean("FIRST_VISIT", isFirstVisit);
     	editor.putInt("ITEM_LIST_LENGTH", itemListInStage.size());
-    	editor.putInt("STONE_LIST_LENGTH", stoneListInStage.size());
     	for(int i = 0; i < itemListInStage.size(); i++) {
     		String name = itemListInStage.get(i);
     		Item item = returnItem(name);
     		editor.putString("ITEM_NAME"+i, item.getName());
     		editor.putString("DESCRIPT_ITEM"+i, item.getDescript());
     		editor.putString("ITEM_ICON_NAME"+i, item.getIconName());
+    		editor.putBoolean("HAS_SEEN"+i, item.hasSeenItem());
     		editor.putBoolean("HAS_ITEM"+i, item.hasItem());
-    	}
-    	for(int i = 0; i < stoneListInStage.size(); i++) {
-    		String name = stoneListInStage.get(i);
-    		Item item = returnItem(name);
-    		editor.putString("STONE_NAME"+i, item.getName());
-    		editor.putString("DESCRIPT_STONE"+i, item.getDescript());
-    		editor.putString("STONE_ICON_NAME"+i, item.getIconName());
-    		editor.putBoolean("HAS_STONE"+i, item.hasItem());
     	}
     	editor.commit();
     }
@@ -166,15 +120,8 @@ public class Backpack {
     	return itemListInStage.size();
     }
     
-    public int getStoneLength() {
-    	return stoneListInStage.size();
-    }
-    
-    public Item returnItem(String name) {
-    	if(itemInStage_Stone.containsKey(name)) {
-    		return itemInStage_Stone.get(name);
-    	}
-    	else if(itemInStage_Item.containsKey(name)) {
+    public static Item returnItem(String name) {
+    	if(itemInStage_Item.containsKey(name)) {
     		return itemInStage_Item.get(name);
     	}
     	else return null;
@@ -185,15 +132,15 @@ public class Backpack {
     }
     
     public void throwItem(String name) {
-    	returnItem(name).throwItem();
+    	if(returnItem(name).hasItem())
+    		returnItem(name).throwItem();
     }
     
-    public boolean hasItem(String name) {
-    	return returnItem(name).hasItem();
-    }
-    
-    public ArrayList<String> getStoneList() {
-    	return stoneListInStage;
+    public static boolean hasItem(String name) {
+    	if(name.equals("NULL"))
+    		return true;
+    	else
+    		return returnItem(name).hasItem();
     }
     
     public ArrayList<String> getItemList() {
@@ -201,35 +148,72 @@ public class Backpack {
     }
     
  // All available items
- 	private static final String[] stoneName = new String[]
-     {"Ruby", "Sapphire", "Emerald", "Topaz", "Amethyst", 
-      "Diamond", "Aquamarine", "Citrine", "Peridot"};
-     
-     private static final int[] stoneImageBlack = new int[]
-     { R.drawable.ruby_silhouette, second.prototype.R.drawable.sapphire_silhouette, 
-       R.drawable.emerald_silhouette, second.prototype.R.drawable.topaz_silhouette, 
-       R.drawable.amethyst_silhouette, R.drawable.diamond_silhouette, 
-       R.drawable.aquamarine_silhouette, R.drawable.citrine_silhouette, 
-       R.drawable.peridot_silhouette
-     };
-     
-     private static final int[] stoneImage = new int[]
-     { R.drawable.ruby, R.drawable.sapphire, second.prototype.R.drawable.emerald,
-       R.drawable.topaz, R.drawable.amethyst, R.drawable.diamond, 
-       R.drawable.aquamarine, R.drawable.citrine, R.drawable.peridot};
      
      private static final String[] itemName = new String[]
-     {"Compass", "Goggles", "Flashlight", "Hammer", "Telescope"};
+     {"compass", "goggles", "flashlight", "hammer", "telescope",
+      "antenna", "bag", "alarmclock", "bat", "battery", 
+      "battery2","bolt", "bomb", "bomb2", "bow", 
+      "camera", "clock1", "clock2", "flask", "gear",
+      "gear2", "gear3", "guitar", "gun", "handbell", 
+      "handbell2", "helmet", "helmet2", "helmet3", "key", 
+      "key2", "key3", "kunai", "lock", "magichat", 
+      "magnifier", "paper", "pearl", "pickaxe", "pocketwatch", 
+      "potion", "screwdriver", "shovel", "sword", "tools1", 
+      "tools2", "tools3", "torch", "treasure", "video", 
+      "witchhat", "ruby", "aapphire", "emerald", "topaz", 
+      "amethyst", "diamond", "aquamarine", "citrine", "peridot"};
      
      private static final int[] itemImageBlack = new int[]
      { R.drawable.compass_silhouette, R.drawable.goggles_silhouette, 
-       R.drawable.flashlight_silhouette, R.drawable.hammer_silhouette, 
-       R.drawable.telescope_silhouette
+    	 R.drawable.flashlight_silhouette, R.drawable.hammer_silhouette, 
+    	 R.drawable.telescope_silhouette, R.drawable.antenna_silhouette,
+		 R.drawable.bag_silhouette, R.drawable.alarmclock_silhouette, 
+		 R.drawable.bat_silhouette, R.drawable.battery_silhouette,
+		 R.drawable.battery2_silhouette, R.drawable.bolt_silhouette, 
+		 R.drawable.bomb_silhouette, R.drawable.bomb2_silhouette,
+		 R.drawable.bow_silhouette, R.drawable.camera_silhouette, 
+		 R.drawable.clock1_silhouette, R.drawable.clock2_silhouette,
+		 R.drawable.flask_silhouette, R.drawable.gear_silhouette, 
+		 R.drawable.gear2_silhouette, R.drawable.gear3_silhouette,
+		 R.drawable.guitar_silhouette, R.drawable.gun_silhouette, 
+		 R.drawable.handbell_silhouette, R.drawable.handbell2_silhouette,
+		 R.drawable.helmet_silhouette, R.drawable.helmet2_silhouette, 
+		 R.drawable.helmet3_silhouette, R.drawable.key_silhouette, 
+		 R.drawable.key2_silhouette, R.drawable.key3_silhouette, 
+		 R.drawable.kunai_silhouette, R.drawable.lock_silhouette, 
+		 R.drawable.magichat_silhouette, R.drawable.magnifier_silhouette,
+		 R.drawable.paper_silhouette, R.drawable.pearl_silhouette, 
+		 R.drawable.pickaxe_silhouette, R.drawable.pocketwatch_silhouette,
+		 R.drawable.potion_silhouette, R.drawable.screwdriver_silhouette, 
+		 R.drawable.shovel_silhouette, R.drawable.sword_silhouette,
+		 R.drawable.tools1_silhouette, R.drawable.tools2_silhouette, 
+		 R.drawable.tools3_silhouette, R.drawable.torch_silhouette,
+		 R.drawable.treasure_silhouette, R.drawable.video_silhouette, 
+		 R.drawable.witchhat_silhouette, R.drawable.ruby_silhouette, 
+		 R.drawable.sapphire_silhouette, R.drawable.emerald_silhouette,
+		 R.drawable.topaz_silhouette, R.drawable.amethyst_silhouette, 
+		 R.drawable.diamond_silhouette, R.drawable.aquamarine_silhouette, 
+		 R.drawable.citrine_silhouette, R.drawable.peridot_silhouette
      };
      
      private static final int[] itemImage = new int[]
      {R.drawable.compass, R.drawable.goggles, R.drawable.flashlight,
-      R.drawable.hammer, R.drawable.telescope};
+      R.drawable.hammer, R.drawable.telescope, R.drawable.antenna,
+      R.drawable.bag, R.drawable.alarmclock, R.drawable.bat, R.drawable.battery,
+      R.drawable.battery2, R.drawable.bolt, R.drawable.bomb, R.drawable.bomb2,
+      R.drawable.bow, R.drawable.camera, R.drawable.clock1, R.drawable.clock2,
+      R.drawable.flask, R.drawable.gear, R.drawable.gear2, R.drawable.gear3,
+      R.drawable.guitar, R.drawable.gun, R.drawable.handbell, R.drawable.handbell2,
+      R.drawable.helmet, R.drawable.helmet2, R.drawable.helmet3,
+      R.drawable.key, R.drawable.key2, R.drawable.key3, R.drawable.kunai,
+      R.drawable.lock, R.drawable.magichat, R.drawable.magnifier,
+      R.drawable.paper, R.drawable.pearl, R.drawable.pickaxe, R.drawable.pocketwatch,
+      R.drawable.potion, R.drawable.screwdriver, R.drawable.shovel, R.drawable.sword,
+      R.drawable.tools1, R.drawable.tools2, R.drawable.tools3, R.drawable.torch,
+      R.drawable.treasure, R.drawable.video, R.drawable.witchhat,
+      R.drawable.ruby, R.drawable.sapphire, R.drawable.emerald,
+      R.drawable.topaz, R.drawable.amethyst, R.drawable.diamond, 
+      R.drawable.aquamarine, R.drawable.citrine, R.drawable.peridot};
 }
 
 
