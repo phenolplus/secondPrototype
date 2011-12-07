@@ -3,23 +3,12 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/map"
+    android:background="@drawable/clock_back"
     >
     <LinearLayout android:layout_marginTop="40dp" android:layout_height="match_parent" 
     	android:layout_width="match_parent" android:orientation="vertical" 
     	android:id="@+id/linearLayout2" android:layout_marginLeft="20dp"
     	android:layout_weight="7">
-        <Button android:layout_height="wrap_content" android:layout_width="fill_parent" 
-        	android:text="Gemstones" android:id="@+id/button1"
-        	android:layout_weight="0.5" style="@style/boldText"></Button>
-        <Button android:layout_height="wrap_content" android:layout_width="fill_parent" 
-        	android:text="Items" android:id="@+id/button2"
-        	android:layout_marginTop="10dp"
-        	android:layout_weight="0.5"></Button>
-        <Button android:layout_height="wrap_content" android:layout_width="fill_parent" 
-			android:text="Events" android:id="@+id/button3"
-			android:layout_marginTop="10dp"
-			android:layout_weight="0.5"></Button>
         <ImageView android:src="@drawable/treasure" android:id="@+id/imageView1" 
         	android:layout_height="wrap_content" android:layout_width="match_parent"
         	android:layout_marginTop="10dp"
