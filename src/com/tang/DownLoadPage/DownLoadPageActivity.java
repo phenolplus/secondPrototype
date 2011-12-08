@@ -19,6 +19,7 @@ import second.prototype.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -38,10 +40,12 @@ public class DownLoadPageActivity extends Activity {
 	private StageManager manager = ContainerBox.stageManager;
 	
 	private ListView list;
-	private Button downLoad;
-	private Button up;
-	private Button down;
+	private Button refresh;
+	private Button back;
 	
+	
+	private ProgressDialog progressDialog;
+
 	private JSONArray scriptList;
 	
 	private int selected;
@@ -53,10 +57,9 @@ public class DownLoadPageActivity extends Activity {
 	public void findView()
 	{
 		list = (ListView)findViewById(R.id.onLinelist);
-		downLoad = (Button)findViewById(R.id.download);
-		up = (Button)findViewById(R.id.upPage);
-		down = (Button)findViewById(R.id.downPage);
-	
+		refresh = (Button)findViewById(R.id.refresh);
+		back = (Button)findViewById(R.id.back);
+		
 	}
 
 	
@@ -76,9 +79,26 @@ public class DownLoadPageActivity extends Activity {
 	        		);
 	 	 list.setAdapter(MyAdapter);
 	 	 list.setOnItemClickListener(onClickListItem); 
-		         
-        
-        Thread thread = new Thread()
+	 	 refresh();
+	 	 
+	 	 
+	 	 
+		 back.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				DownLoadPageActivity.this.finish();				
+			}});
+     
+		
+	
+	
+	}
+
+	public void refresh()
+	{
+		 Thread thread = new Thread()
 		 {
 		     @Override
 		     public void run() {
@@ -105,20 +125,7 @@ public class DownLoadPageActivity extends Activity {
 		     }
 		 };
 		 thread.start();
-    
-		 downLoad.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String read = MyServer.readFromFile(DownLoadPageActivity.this, "6");
-				Log.e("read",read);
-				
-			}});
-     
-    }
-
-	
+	}
 	
 	public void updateList()
 	{
@@ -129,11 +136,11 @@ public class DownLoadPageActivity extends Activity {
 	 	  for(int i = 0; i < scriptList.length(); i++)
           {
 	 		 String name = scriptList.getJSONObject(i).getString("Name");
-			 String id = scriptList.getJSONObject(i).getString("ID");
+			 String description = scriptList.getJSONObject(i).getString("Description");
 			   
 	 		HashMap<String,Object> map = new HashMap<String,Object>();
-        	map.put("item Title", id);
-        	map.put("item Text", name);
+        	map.put("item Title", name);
+        	map.put("item Text", description);
         	listItem.add(map);
         	MyAdapter.notifyDataSetChanged();
 
@@ -186,13 +193,15 @@ public class DownLoadPageActivity extends Activity {
 	               
 	        builder.show();
 	        
+	        
 		}
 	};
 	
 	
 	private DialogInterface.OnClickListener downLoadListener = new DialogInterface.OnClickListener()
 	{
-
+		private int progress = 0;
+		
 		@Override
 		public void onClick(DialogInterface arg0, int arg1) {
 			// TODO Auto-generated method stub
@@ -202,13 +211,36 @@ public class DownLoadPageActivity extends Activity {
 			     public void run() {
 			    	 
 			    	 try {
+			    		     DownLoadPageActivity.this.runOnUiThread(new Runnable(){
+					            @Override
+								public void run() {
+									// TODO Auto-generated method stub
+					            	progressDialog = ProgressDialog.show(DownLoadPageActivity.this, "DownLoad....", "Please Wait", true, false);
+									}
+			                    });
+			    		 
+			    		    
+
 			    		    String requireID = scriptList.getJSONObject(selected).getString("ID");
 			    		    String postMsg = "scripts/"+requireID;		   	 
 			    		    String receivedMsg = MyServer.sendPostData(postMsg);
 			    		    MyServer.writeInFile(DownLoadPageActivity.this, "100"+requireID, receivedMsg);
 			    		    manager.importStage("100"+requireID);
 			    		    manager.commit();
-			    	     } catch (JSONException e) {
+			    		    
+			    		    
+			    		    
+			    		    DownLoadPageActivity.this.runOnUiThread(new Runnable(){
+					            @Override
+								public void run() {
+									// TODO Auto-generated method stub
+					            	progressDialog.dismiss();
+									}
+			                    });
+			    		    
+			    		        		    
+			    		    
+			    	    } catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					    }
