@@ -42,6 +42,7 @@ public class Item {
     }
     public boolean hasSeenItem() { return hasSeen; }
     public boolean hasItem() { return has; }
-    public void getItem() { this.has = true; }
+    public void getItem() { this.hasSeen = true; this.has = true; }
     public void throwItem() { this.has = false; }
+    public void reset() { this.has = false; this.hasSeen = false; }
 }

@@ -65,6 +65,7 @@ public class StartPage extends Activity {
 		manager = new StageManager(this);
 		if(manager.firstPlay()){
 			StageManager.initFileSettings(this);
+			manager = new StageManager(this);
 		}
 		
 		ContainerBox.stageManager = manager;

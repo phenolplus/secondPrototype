@@ -31,11 +31,12 @@ public class GameEvent {
 	
 	public String postMessage() {
 		 //Log.e("Event","R = "+itemR+"  N = "+itemN);
-		 //rSatisfied = Backpack.hasItem(itemR);
-		 //rNSatisfied = !Backpack.hasItem(itemN);
+		 rSatisfied = Backpack.hasItem(itemR);
+		 rNSatisfied = Backpack.hasNoItem(itemN);
 		 
 		if(rSatisfied&&rNSatisfied){
 			Log.e("Event", "Postitive message!");
+			Backpack.getItem(itemToGet);
 			return messageP;
 		} else {
 			Log.e("Event", "Negative message!");

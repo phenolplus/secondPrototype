@@ -238,6 +238,7 @@ public class MapMode extends Activity {
 	
 	private void clearProgress() {
 		stage.updateProgress(0);
+		backpack.clearBackpack();
 	}
 	
 	private void setCurrentPointCenter() {

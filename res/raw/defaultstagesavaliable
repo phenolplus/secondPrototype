@@ -47,7 +47,7 @@
 			"Item List":[
 					{"Name":"My Compass",
 					 "Description":"a test compass",
-					 "Icon":"Compass"}
+					 "Icon":"compass"}
 					]						 
 			}
 		},
@@ -194,10 +194,10 @@
 							 "Story":"This is the first point !!",
 							 "Events":[
 							 	{"Require Item":"NULL",
-						 		 "Require No Item":"NULL",
-						 		 "Get Item":"NULL",
-						 		 "Message Positive":"Hello world!",
-						 		 "Message Negative":"",
+						 		 "Require No Item":"My Bomb",
+						 		 "Get Item":"My Bomb",
+						 		 "Message Positive":"You've got BOMB!!",
+						 		 "Message Negative":"You already have My Bomb",
 						 		 "Next Point":"point 2"}
 						 		 ]
 						 	 },
@@ -207,16 +207,26 @@
 							 "Position Y":"-5",
 							 "Story":"This is the next point !!",
 							 "Events":[
-							 	{"Require Item":"NULL",
-						 		 "Require No Item":"NULL",
-						 		 "Get Item":"NULL",
-						 		 "Message Positive":"Hello world!!",
-						 		 "Message Negative":"",
+							 	{"Require Item":"My Bomb",
+						 		 "Require No Item":"My Bat",
+						 		 "Get Item":"My Bat",
+						 		 "Message Positive":"You've got BAT!!",
+						 		 "Message Negative":"Sorry, you don't have My Bomb\nOr you already have My Bat",
 						 		 "Next Point":"NULL"}
 							 	]
 							 }
 							 ],
-			"Item List":[]	
+			"Item List":[{"Name":"My Compass",
+					 "Description":"Very accurate compass",
+					 "Icon":"compass"}, {"Name":"My Torch",
+					 "Description":"Very bright torch",
+					 "Icon":"torch"}, {"Name":"My Bomb",
+					 "Description":"Very dangerous bomb",
+					 "Icon":"bomb"}, {"Name":"My Gun",
+					 "Description":"Very destructive gun",
+					 "Icon":"gun"}, {"Name":"My Bat",
+					 "Description":"Very hard bat",
+					 "Icon":"bat"}]	
 			}
 		}
 		],

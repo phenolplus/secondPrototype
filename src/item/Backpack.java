@@ -56,6 +56,7 @@ public class Backpack {
     		for(int i = 0; i < _json.length(); i++) {
     			try {
 					nameList.add(_json.getJSONObject(i).getString("Name"));
+					Log.e("Item", "Item "+_json.getJSONObject(i).getString("Name")+" added!");
 					descriptionList.add(_json.getJSONObject(i).getString("Description"));
 					iconnameList.add(_json.getJSONObject(i).getString("Icon"));
 					hasSeenList.add(false);
@@ -127,8 +128,10 @@ public class Backpack {
     	else return null;
     }
     
-    public void getItem(String name) {
-    	returnItem(name).getItem();
+    public static void getItem(String name) {
+    	if(name.equals("NULL"))
+    		return;
+    	else returnItem(name).getItem();
     }
     
     public void throwItem(String name) {
@@ -143,8 +146,20 @@ public class Backpack {
     		return returnItem(name).hasItem();
     }
     
+    public static boolean hasNoItem(String name) {
+    	if(name.equals("NULL"))
+    		return true;
+    	else return !returnItem(name).hasItem();
+    }
+    
     public ArrayList<String> getItemList() {
     	return itemListInStage;
+    }
+    
+    public void clearBackpack() {
+    	for(int i = 0; i < nameList.size(); i++) {
+    		returnItem(nameList.get(i)).reset();
+    	}
     }
     
  // All available items
@@ -165,7 +180,7 @@ public class Backpack {
     
      
      private static final int[] itemImageBlack = new int[]
-     { /*R.drawable.compass_silhouette, R.drawable.goggles_silhouette, 
+     { R.drawable.compass_silhouette, R.drawable.goggles_silhouette, 
     	 R.drawable.flashlight_silhouette, R.drawable.hammer_silhouette, 
     	 R.drawable.telescope_silhouette, R.drawable.antenna_silhouette,
 		 R.drawable.bag_silhouette, R.drawable.alarmclock_silhouette, 
@@ -194,11 +209,11 @@ public class Backpack {
 		 R.drawable.sapphire_silhouette, R.drawable.emerald_silhouette,
 		 R.drawable.topaz_silhouette, R.drawable.amethyst_silhouette, 
 		 R.drawable.diamond_silhouette, R.drawable.aquamarine_silhouette, 
-		 R.drawable.citrine_silhouette, R.drawable.peridot_silhouette */
+		 R.drawable.citrine_silhouette, R.drawable.peridot_silhouette 
      };
      
      private static final int[] itemImage = new int[]
-     { /*R.drawable.compass, R.drawable.goggles, R.drawable.flashlight,
+     { R.drawable.compass, R.drawable.goggles, R.drawable.flashlight,
       R.drawable.hammer, R.drawable.telescope, R.drawable.antenna,
       R.drawable.bag, R.drawable.alarmclock, R.drawable.bat, R.drawable.battery,
       R.drawable.battery2, R.drawable.bolt, R.drawable.bomb, R.drawable.bomb2,
@@ -214,7 +229,7 @@ public class Backpack {
       R.drawable.treasure, R.drawable.video, R.drawable.witchhat,
       R.drawable.ruby, R.drawable.sapphire, R.drawable.emerald,
       R.drawable.topaz, R.drawable.amethyst, R.drawable.diamond, 
-      R.drawable.aquamarine, R.drawable.citrine, R.drawable.peridot */};
+      R.drawable.aquamarine, R.drawable.citrine, R.drawable.peridot };
 }
 
 
