@@ -243,8 +243,15 @@ public class MapMode extends Activity {
 	
 	private void setCurrentPointCenter() {
 		float nowX,nowY;
-		nowX = (float) locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
-		nowY = (float) locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
+		Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		if(loc!=null){
+			nowX = (float) loc.getLongitude();
+			nowY = (float) loc.getLatitude();
+		} else {
+			Log.e("GPS something","last known location not found");
+			nowX = (float) 0.0;
+			nowY = (float) 0.0;
+		}
 		
 		stage.setMapCenter(nowX, nowY);
 		mapView.setCurrentLocation(0, 0);

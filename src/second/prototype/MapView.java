@@ -33,7 +33,6 @@ public class MapView extends View {
 	private static final float northY = ContainerBox.isTab?-ContainerBox.visibleRange/mag*2/3:0;
 	
 	Bitmap location;
-	private int scanTheta = 0;
 	
 	public MapView(Context context) {
 		super(context);
@@ -99,7 +98,7 @@ public class MapView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 
-		Paint self,tar,text,white,blue,green,empty;
+		Paint self,tar,text,white,blue,empty;
 		
 		self = new Paint();
 		self.setColor(Color.RED);
@@ -126,17 +125,7 @@ public class MapView extends View {
 		empty.setColor(Color.BLACK);
 		empty.setAlpha(255);
 		
-		green = new Paint();
-		green.setColor(Color.GREEN);
-		green.setAlpha(128);
-		green.setStrokeWidth(4);
 		
-		// scan bar
-		float scanX,scanY;
-		scanX = 1000*(float)Math.cos(0.02*scanTheta);
-		scanY = 1000*(float)Math.sin(0.02*scanTheta);
-		canvas.drawLine(viewCenterw,viewCenterh,viewCenterw+scanX,viewCenterh+scanY,green);
-		scanTheta++;
 		
 		// radar
 		canvas.drawText("Radar Mode ! White circle is visible range.", 30, 30, text);
