@@ -11,8 +11,8 @@
 			"Location List":[
 							{"Name":"point 1",
 							 "Order":"-1",
-							 "Position X":"10",
-							 "Position Y":"10",
+							 "Position X":"18",
+							 "Position Y":"0",
 							 "Story":"This is the first point !!",
 							 "Events":[
 							 	{"Require Item":"NULL",
@@ -31,8 +31,8 @@
 						 	 },
 						 	 {"Name":"point 2",
 							 "Order":"-1",
-							 "Position X":"5",
-							 "Position Y":"-5",
+							 "Position X":"0",
+							 "Position Y":"-17",
 							 "Story":"This is the next point !!",
 							 "Events":[
 							 	{"Require Item":"My Compass",

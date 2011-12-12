@@ -29,8 +29,8 @@ public class MapView extends View {
 	private static final float mag = ContainerBox.meterPerPixel; // one pixel = 10 meters
 	private static final float ruler = 100/mag; //m
 	
-	private static final float northX = ContainerBox.isTab?0:(-ContainerBox.visibleRange/mag*2/3);
-	private static final float northY = ContainerBox.isTab?-ContainerBox.visibleRange/mag*2/3:0;
+	private static final float northX = 0;
+	private static final float northY = -ContainerBox.visibleRange/mag*2/3;
 	
 	Bitmap location;
 	
@@ -56,13 +56,13 @@ public class MapView extends View {
 		viewCenterh = h/2;
 		viewCenterw = w/2;
 		
-		myX = viewCenterw;
-		myY = viewCenterh;
+		myX = 0;
+		myY = 0;
 	}
 	
 	public void setCurrentLocation(float currentX, float currentY) {
-		myX = rotateX(currentX/mag,-currentY/mag) + viewCenterw;
-		myY = rotateY(currentX/mag,-currentY/mag) + viewCenterh;
+		myX =  currentX/mag;
+		myY = -currentY/mag;
 
 		invalidate();
 	}
@@ -80,11 +80,19 @@ public class MapView extends View {
 	}
 	
 	private float rotateX(float _x,float _y) {
-		return rotateMatrix[0]*_x+rotateMatrix[1]*_y;
+		if(ContainerBox.isTab){
+			return rotateMatrix[0]*_x+rotateMatrix[1]*_y;
+		} else {
+			return rotateMatrix[0]*_y+rotateMatrix[1]*(-_x);
+		}
 	}
 	
 	private float rotateY(float _x,float _y) {
-		return rotateMatrix[2]*_x+rotateMatrix[3]*_y;
+		if(ContainerBox.isTab){
+			return rotateMatrix[2]*_x+rotateMatrix[3]*_y;
+		} else {
+			return rotateMatrix[2]*_y+rotateMatrix[3]*(-_x);
+		}
 	}
 	
 	
@@ -135,12 +143,12 @@ public class MapView extends View {
 		canvas.drawText("Current Center = "+stage.getMapCenter("X")+":"+stage.getMapCenter("Y"),30, 110, text);
 		
 		// visible range
-		canvas.drawCircle(myX, myY, ContainerBox.visibleRange/mag, white);
-		canvas.drawCircle(myX, myY, 10, self);
+		canvas.drawCircle(viewCenterw, viewCenterh, ContainerBox.visibleRange/mag, white);
+		canvas.drawCircle(viewCenterw, viewCenterh, 10, self);
 		
 		// north arrow
-		canvas.drawLine(myX+rotateX(northX,northY),myY+rotateY(northX,northY),
-				myX+rotateX(northX*2,northY*2),myY+rotateY(northX*2,northY*2),white);
+		canvas.drawLine(viewCenterw+rotateX(northX,northY),viewCenterh+rotateY(northX,northY),
+				viewCenterw+rotateX(northX*2,northY*2),viewCenterh+rotateY(northX*2,northY*2),white);
 		
 		
 		canvas.drawLine(viewCenterw-ruler/2, viewCenterh, viewCenterw+ruler/2, viewCenterh,text);
@@ -153,10 +161,11 @@ public class MapView extends View {
 		for(int i=0;i<stage.links();i++) {
 			String name = stage.getLink(i).nameOfEnd;
 			float sX,sY,eX,eY;
-			sX = rotateX(stage.getLink(i).startX,-stage.getLink(i).startY)/mag + viewCenterw;
-			sY = rotateY(stage.getLink(i).startX,-stage.getLink(i).startY)/mag + viewCenterh;
-			eX = rotateX(stage.getLink(i).endX,-stage.getLink(i).endY)/mag + viewCenterw;
-			eY = rotateY(stage.getLink(i).endX,-stage.getLink(i).endY)/mag + viewCenterh;
+			
+			sX = rotateX(stage.getLink(i).startX-myX,-stage.getLink(i).startY-myY)/mag + viewCenterw;
+			sY = rotateY(stage.getLink(i).startX-myX,-stage.getLink(i).startY-myY)/mag + viewCenterh;
+			eX = rotateX(stage.getLink(i).endX-myX,-stage.getLink(i).endY-myY)/mag + viewCenterw;
+			eY = rotateY(stage.getLink(i).endX-myX,-stage.getLink(i).endY-myY)/mag + viewCenterh;
 			
 			canvas.drawLine(sX,sY,eX,eY, stage.getPointOf(name).isVisible?blue:empty);
 		}
@@ -164,8 +173,8 @@ public class MapView extends View {
 		// points
 				for(int i=0;i<stage.length();i++) {
 					
-					float x = rotateX(stage.getPointOf(i).x/mag,-stage.getPointOf(i).y/mag) + viewCenterw;
-					float y = rotateY(stage.getPointOf(i).x/mag,-stage.getPointOf(i).y/mag) + viewCenterh;
+					float x = rotateX(stage.getPointOf(i).x/mag-myX,-stage.getPointOf(i).y/mag-myY) + viewCenterw;
+					float y = rotateY(stage.getPointOf(i).x/mag-myX,-stage.getPointOf(i).y/mag-myY) + viewCenterh;
 					
 					canvas.drawCircle(x , y, 10, stage.getPointOf(i).isVisible?tar:empty);
 					//canvas.drawBitmap(location, x-location.getWidth()/2, y-location.getHeight(), stage.getPointOf(i).isVisible?tar:empty);
