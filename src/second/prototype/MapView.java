@@ -171,16 +171,24 @@ public class MapView extends View {
 		}
 		
 		// points
-				for(int i=0;i<stage.length();i++) {
-					
-					float x = rotateX(stage.getPointOf(i).x/mag-myX,-stage.getPointOf(i).y/mag-myY) + viewCenterw;
-					float y = rotateY(stage.getPointOf(i).x/mag-myX,-stage.getPointOf(i).y/mag-myY) + viewCenterh;
-					
-					canvas.drawCircle(x , y, 10, stage.getPointOf(i).isVisible?tar:empty);
-					//canvas.drawBitmap(location, x-location.getWidth()/2, y-location.getHeight(), stage.getPointOf(i).isVisible?tar:empty);
-					canvas.drawText(stage.getPointOf(i).getName(), x+15 , y-15, stage.getPointOf(i).isVisible?text:empty);
+		for(int i=0;i<stage.length();i++) {
+			
+			float x = rotateX(stage.getPointOf(i).x/mag-myX,-stage.getPointOf(i).y/mag-myY) + viewCenterw;
+			float y = rotateY(stage.getPointOf(i).x/mag-myX,-stage.getPointOf(i).y/mag-myY) + viewCenterh;
+			
+			canvas.drawCircle(x , y, 10, stage.getPointOf(i).isVisible?tar:empty);
+			//canvas.drawBitmap(location, x-location.getWidth()/2, y-location.getHeight(), stage.getPointOf(i).isVisible?tar:empty);
+			canvas.drawText(stage.getPointOf(i).getName(), x+15 , y-15, stage.getPointOf(i).isVisible?text:empty);
 				}
 		
+		float shift = (float) Math.pow(Math.pow(myX,2.0)+Math.pow(myY,2.0),0.5);
+		if(shift > ruler*mag*1.5){
+			float shX = -myX/shift*ruler*mag/2+viewCenterw;
+			float shY = -myY/shift*ruler*mag/2+viewCenterh;
+			
+			canvas.drawLine(shX, shY, shX*11/10, shY*11/10, text);
+			
+		}
 		
 		
 		super.onDraw(canvas);
