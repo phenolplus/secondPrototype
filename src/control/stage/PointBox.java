@@ -56,7 +56,11 @@ public class PointBox {
 	}
 	
 	public String getBrief() {
-		return story.substring(0, bLeng)+" ...";
+		if(story.length()<bLeng){
+			return story;
+		} else {
+			return story.substring(0,bLeng)+" ...";
+		}
 	}
 	
 	public void checkVisable(int progress) {

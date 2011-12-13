@@ -104,7 +104,7 @@ public static void writeInFile(Context context,String fileName, String input)
 	try {
 		  FileOutputStream outFile = context.openFileOutput(fileName,Context.MODE_PRIVATE);
 		  outFile.write(input.getBytes());
-		  Log.e("Server","JSON = "+input);
+		  Log.e("Server","name :"+fileName);
 		  outFile.close();
 		  
 	} catch (FileNotFoundException e) {

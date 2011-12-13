@@ -187,7 +187,7 @@
 			"CenterPoint X":"0.0",
 			"CenterPoint Y":"0.0",
 			"Location List":[
-							{"Name":"point 1",
+							{"Name":"第一點",
 							 "Order":"-1",
 							 "Position X":"10",
 							 "Position Y":"10",
@@ -198,10 +198,10 @@
 						 		 "Get Item":"My Bomb",
 						 		 "Message Positive":"You've got BOMB!!",
 						 		 "Message Negative":"You already have My Bomb",
-						 		 "Next Point":"point 2"}
+						 		 "Next Point":"第二點"}
 						 		 ]
 						 	 },
-						 	 {"Name":"point 2",
+						 	 {"Name":"第二點",
 							 "Order":"-1",
 							 "Position X":"5",
 							 "Position Y":"-5",

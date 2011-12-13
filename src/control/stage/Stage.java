@@ -220,6 +220,7 @@ public class Stage {
 				if(!nextPoints[j].contentEquals("NULL")){
 					LinkElement link = new LinkElement();
 					link.setStart(pointList.get(i).x, pointList.get(i).y);
+					Log.e("Link","end :"+nextPoints[j]);
 					link.setEnd(pointIndex.get(nextPoints[j]).x, pointIndex.get(nextPoints[j]).y);
 					link.setName(nextPoints[j]);
 					linkTree.add(link);
