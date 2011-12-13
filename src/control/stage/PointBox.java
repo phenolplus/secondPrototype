@@ -64,7 +64,7 @@ public class PointBox {
 	}
 	
 	public void checkVisable(int progress) {
-		isVisible =  (progress>order);
+		isVisible =  (progress>=order);
 	}
 	
 	public void checkRange(float myX, float myY, float range) {
