@@ -131,7 +131,7 @@ public class MapView extends View {
 		
 		empty = new Paint();
 		empty.setColor(Color.BLACK);
-		empty.setAlpha(255);
+		empty.setAlpha(0);
 		
 		
 		
