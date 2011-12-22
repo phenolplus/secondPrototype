@@ -83,11 +83,4 @@ public class PointBox {
 	public int numOfEvents() {
 		return eventList.size();
 	}
-	
-	public void onClick() {
-		// TODO
-		Log.e("Point event",name+" Clicked");
-		hasVisited = true;
-		
-	}
 }

@@ -22,8 +22,9 @@ public final class ContainerBox {
 	public static StageManager stageManager;
 	public static Backpack backback;
 	
+	public static int visibleRange;
+	
 	// constant
-	public static final float visibleRange = 30;
 	public static float meterPerPixel = (float)0.5;
 	public static final float deg_index = 100000; // longitude/latitude degree to meter
 	

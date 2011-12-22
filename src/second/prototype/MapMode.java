@@ -23,6 +23,7 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -196,10 +197,14 @@ public class MapMode extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		menu.add(1, 0, 0, "Check Up").setIcon(android.R.drawable.ic_menu_info_details);
-		menu.add(1, 1, 0, "Set Center Point").setIcon(android.R.drawable.ic_menu_myplaces);
 		menu.add(1, 2, 0, "Backpack").setIcon(android.R.drawable.ic_menu_manage);
 		menu.add(1, 3, 0, "Clear").setIcon(android.R.drawable.ic_menu_delete);
-		
+		menu.add(1, 4, 0,"Master").setIcon(android.R.drawable.ic_menu_view);
+		if(stage.isCenterChangable()){
+			menu.add(1, 1, 0, "Set Center Point").setIcon(android.R.drawable.ic_menu_myplaces);
+		} else {
+			menu.add(1, 1, 0, "Show Center Point").setIcon(android.R.drawable.ic_menu_myplaces);
+		}
 		return true;
 	}
 
@@ -210,13 +215,20 @@ public class MapMode extends Activity {
 			checkStatus();
 			break;
 		case 1:
-			setCurrentPointCenter();
+			if(stage.isCenterChangable()){
+				setCurrentPointCenter();
+			} else {
+				showCenter();
+			}
 			break;
 		case 2:
 			openBackpack();
 			break;
 		case 3:
 			clearProgress();
+			break;
+		case 4:
+			masterMode();
 			break;
 		default :
 		}
@@ -227,7 +239,7 @@ public class MapMode extends Activity {
 	
 	/** Menu operations */	
 	private void checkStatus() {
-		
+		Toast.makeText(this, "Current Progress = "+stage.getProgress(), Toast.LENGTH_SHORT).show();
 	}
 	
 	private void openBackpack() {
@@ -237,7 +249,7 @@ public class MapMode extends Activity {
 	}
 	
 	private void clearProgress() {
-		stage.updateProgress(0);
+		stage.clear();
 		backpack.clearBackpack();
 	}
 	
@@ -255,6 +267,12 @@ public class MapMode extends Activity {
 		
 		stage.setMapCenter(nowX, nowY);
 		mapView.setCurrentLocation(0, 0);
+	}
+	
+	private void showCenter() {
+		Uri dest = Uri.parse("geo:0,0?q="+stage.getMapCenter("Y")+","+stage.getMapCenter("X")+" (" + stage.getName() + ")");
+		Intent netMap = new Intent(Intent.ACTION_WEB_SEARCH,dest);
+		startActivity(netMap);
 	}
 	
 	private void readStory(int number) {
@@ -279,6 +297,10 @@ public class MapMode extends Activity {
 		});
 		
 		builder.show();
+	}
+	
+	private void masterMode() {
+		stage.updateProgress();
 	}
 	
 	

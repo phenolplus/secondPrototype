@@ -318,9 +318,13 @@ public class DrawingSurface extends android.view.SurfaceView implements
 		builder.setNegativeButton("Finish", new DialogInterface.OnClickListener() {
 			
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
+			public void onClick(DialogInterface dialog, int typeWhich) {
 				// TODO Auto-generated method stub
 				touched = false;
+				if(!stage.getPointOf(which).hasVisited){
+					stage.getPointOf(which).hasVisited = true;
+					stage.updateProgress();
+				}
 			}
 		});
 		

@@ -35,6 +35,7 @@ public class Stage {
 	
 	private boolean centerChangeable;
 	private float centerX,centerY;
+	private int visibleRange;
 	
 	private SharedPreferences progressData;
 	private SharedPreferences.Editor editor;
@@ -63,6 +64,8 @@ public class Stage {
 			inFile.close();
 			
 			coreData =  new JSONObject(text);
+			visibleRange = coreData.getInt("Visible Range");
+			ContainerBox.visibleRange = visibleRange;
 			setupPoints();
 			setupCenter();
 			
@@ -121,6 +124,10 @@ public class Stage {
 		}
 	}
 	
+	public int getProgress() {
+		return currentProgress;
+	}
+	
 	/** Point Operation */
 	public PointBox getPointOf(int index) {
 		return pointList.get(index);
@@ -153,10 +160,14 @@ public class Stage {
 		return which.contentEquals("X")?centerX:centerY;
 	}
 	
+	public boolean isCenterChangable() {
+		return centerChangeable;
+	}
+	
 	public void setInRangeList(float myX, float myY) {
 		for(int i=0;i<pointList.size();i++){
 			if(pointList.get(i).isVisible){
-				pointList.get(i).checkRange(myX, myY, ContainerBox.visibleRange);
+				pointList.get(i).checkRange(myX, myY, visibleRange);
 			}
 		}
 	}
@@ -181,6 +192,14 @@ public class Stage {
 		}
 		
 		editor.commit();
+	}
+	
+	public void clear() {
+		updateProgress(0);
+		for(int i=0;i<pointList.size();i++) {
+			pointList.get(i).hasVisited = false;
+		}
+		checkVisibleList();
 	}
 	
 	/** internal utilities */
