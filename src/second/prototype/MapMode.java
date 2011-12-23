@@ -271,7 +271,7 @@ public class MapMode extends Activity {
 	
 	private void showCenter() {
 		Uri dest = Uri.parse("geo:0,0?q="+stage.getMapCenter("Y")+","+stage.getMapCenter("X")+" (" + stage.getName() + ")");
-		Intent netMap = new Intent(Intent.ACTION_WEB_SEARCH,dest);
+		Intent netMap = new Intent(Intent.ACTION_VIEW,dest);
 		startActivity(netMap);
 	}
 	

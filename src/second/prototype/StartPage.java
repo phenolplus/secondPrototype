@@ -122,7 +122,6 @@ public class StartPage extends Activity {
 
 		});
 		
-		System.gc();
 	}
 
 	private void saveStageList() {
@@ -130,7 +129,6 @@ public class StartPage extends Activity {
 		manager.commit();
 		stageList.clear();
 		
-		System.gc();
 	}
 	
 	private void waitSplash(){
