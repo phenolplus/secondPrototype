@@ -26,6 +26,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -51,6 +53,10 @@ public class StartPage extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		LayoutInflater infla = LayoutInflater.from(this);
 		startPage = infla.inflate(R.layout.stagescreen, null);
@@ -94,11 +100,9 @@ public class StartPage extends Activity {
 		stageList.clear();
 		
 		for(int i=0;i<manager.numOfStages();i++){
-			Stage stage = manager.getStage(i);
-			
 			HashMap<String,String> item = new HashMap<String,String>();
-			item.put("Name", stage.getName());
-			item.put("Description", stage.getDescription());
+			item.put("Name", manager.getName(i));
+			item.put("Description", manager.getDescription(i));
 			stageList.add(item);
 		}
 		
@@ -116,8 +120,6 @@ public class StartPage extends Activity {
 					long arg3) {
 				// TODO Auto-generated method stub
 				cursor = arg2;
-				StartPage.this.setTitle("Selected Stage "
-						+ stageList.get(cursor).get("Name"));
 			}
 
 		});
@@ -133,6 +135,7 @@ public class StartPage extends Activity {
 	
 	private void waitSplash(){
 		setContentView(splash);
+		Log.e("splash","splash put to screen");
 		Thread thread = new Thread(){
     		@Override
     		public void run(){
@@ -146,6 +149,7 @@ public class StartPage extends Activity {
 							splash.startAnimation(AnimationUtils.loadAnimation(StartPage.this,android.R.anim.fade_out));
 							startPage.startAnimation(AnimationUtils.loadAnimation(StartPage.this,android.R.anim.fade_in));
 							setContentView(startPage);
+							Log.e("splash","stage list loaded");
 							
 						}
 						

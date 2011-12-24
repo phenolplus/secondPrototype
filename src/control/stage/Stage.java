@@ -41,6 +41,7 @@ public class Stage {
 	private SharedPreferences.Editor editor;
 	
 	private int currentProgress;
+	private boolean hasFinished;
 	
 	/** Constructor */
 	public Stage(String fileName,Context owner) {
@@ -84,6 +85,7 @@ public class Stage {
 		// setup user data
 		
 		currentProgress = progressData.getInt("Progress", 0);
+		hasFinished = progressData.getBoolean("Stage Clear", false);
 		
 		for(int i=0;i<pointList.size();i++) {
 			pointList.get(i).hasVisited = progressData.getBoolean(pointList.get(i).getName()+"Visit", false);
@@ -172,7 +174,11 @@ public class Stage {
 		}
 	}
 	
-	public void updateProgress(){
+	public void finish() {
+		hasFinished = true;
+	}
+	
+	public void updateProgress() {
 		currentProgress++;
 		checkVisibleList();
 	}
@@ -191,6 +197,8 @@ public class Stage {
 			editor.putBoolean(pointList.get(i).getName()+"Visit", pointList.get(i).hasVisited);
 		}
 		
+		editor.putBoolean("Stage Clear", hasFinished);
+		
 		editor.commit();
 	}
 	
@@ -200,6 +208,7 @@ public class Stage {
 			pointList.get(i).hasVisited = false;
 		}
 		checkVisibleList();
+		hasFinished = false;
 	}
 	
 	/** internal utilities */

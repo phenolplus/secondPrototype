@@ -100,10 +100,9 @@ public class DrawingSurface extends android.view.SurfaceView implements
 		Log.e("Camera",
 				"screen size = " + this.getWidth() / 2 + ":" + this.getHeight()
 						/ 2);
-		Log.e("Camera", "view angel = " + para.getHorizontalViewAngle() + ":"
-				+ para.getVerticalViewAngle());
-
+		
 		List<Size> sizeList = para.getSupportedPreviewSizes();
+		
 		for (int i = 0; i < sizeList.size(); i++) {
 			int avaliableX, avaliableY;
 			avaliableX = sizeList.get(i).width;
@@ -297,7 +296,7 @@ public class DrawingSurface extends android.view.SurfaceView implements
 		messageList.setBackgroundColor(Color.BLACK);
 		
 		num = 1;
-		putMessageTo(num,which);
+		putMessageTo(which);
 		adapter = new SimpleAdapter(owner,messages,android.R.layout.simple_list_item_1,new String[] {"Message"},new int[] {android.R.id.text1});
 		messageList.setAdapter(adapter);
 		messageList.setOnItemClickListener(new OnItemClickListener(){
@@ -308,7 +307,7 @@ public class DrawingSurface extends android.view.SurfaceView implements
 				// TODO Auto-generated method stub
 				if(arg2 == end){
 					num++;
-					putMessageTo(num,which);
+					putMessageTo(which);
 					adapter.notifyDataSetChanged();
 				}
 			}
@@ -331,18 +330,24 @@ public class DrawingSurface extends android.view.SurfaceView implements
 		builder.show();
 	}
 	
-	private void putMessageTo(int top,String name) {
+	private void putMessageTo(String name) {
 		messages.clear();
-		for(int i=0;i<top;i++){
+		for(int i=0;i<Math.min(num,stage.getPointOf(name).numOfEvents());i++){
 			HashMap<String,String> item = new HashMap<String,String>();
 			String message = stage.getPointOf(name).eventList.get(i).postMessage();
 			item.put("Message", message);
+			
+			if(message.contentEquals("[END]")){
+				stage.finish();
+			}
 			if(!message.contentEquals("")){
 				messages.add(item);
+			} else {
+				num++;
 			}
 		}
 		
-		if(top < stage.getPointOf(name).numOfEvents()){
+		if(num < stage.getPointOf(name).numOfEvents()){
 			HashMap<String,String> item = new HashMap<String,String>();
 			item.put("Message", "More");
 			messages.add(item);

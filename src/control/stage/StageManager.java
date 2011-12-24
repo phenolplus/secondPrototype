@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import second.prototype.ContainerBox;
 import second.prototype.R;
 
 import android.content.Context;
@@ -26,6 +27,7 @@ public class StageManager {
 	
 	private SharedPreferences stageData;
 	private SharedPreferences.Editor editor;
+	private int dLeng = ContainerBox.isTab?60:40;
 	
 	public StageManager(Context _owner) {
 		owner = _owner;
@@ -52,6 +54,41 @@ public class StageManager {
 	public Stage getStage(int index) {
 		String fileName = stageList.get(index).get("ID");
 		return new Stage(fileName,owner);
+	}
+	
+	public String getName(int index) {
+		String fileName = stageList.get(index).get("ID");
+		SharedPreferences stageData = owner.getSharedPreferences(fileName, Context.MODE_PRIVATE);
+		String name = stageData.getString("Name", "");
+		if(name.length() == 0){
+			Stage _stage = new Stage(fileName,owner);
+			name = _stage.getName();
+			SharedPreferences.Editor writer = stageData.edit();
+			writer.putString("Name", name);
+			writer.putString("Description", _stage.getDescription());
+			writer.commit();
+		}
+		return name;
+	}
+	
+	public String getDescription(int index) {
+		String fileName = stageList.get(index).get("ID");
+		SharedPreferences stageData = owner.getSharedPreferences(fileName, Context.MODE_PRIVATE);
+		String _description = stageData.getString("Description", "");
+		if(_description.length() == 0){
+			Stage _stage = new Stage(fileName,owner);
+			_description = _stage.getDescription();
+			SharedPreferences.Editor writer = stageData.edit();
+			writer.putString("Name", _stage.getName());
+			writer.putString("Description", _description);
+			writer.commit();
+		}
+		String description = _description.split("\n")[0];
+		if(description.length() < dLeng){
+			return description;
+		} else {
+			return description.substring(0, dLeng)+"...";
+		}
 	}
 	
 	public String getFileName(int index){

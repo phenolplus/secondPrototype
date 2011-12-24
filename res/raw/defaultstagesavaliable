@@ -5,7 +5,7 @@
 			 {
 			"Name":"Tutorial Stage 1",
 			"Description":"learn to play - How to play? Meet the Map and the Camera",
-			"Center Changeable":"false",
+			"Center Changeable":"true",
 			"CenterPoint X":"121.535397",
 			"CenterPoint Y":"25.018807",
 			"Visible Range":"30",
