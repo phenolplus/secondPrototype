@@ -11,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+
 import control.stage.StageManager;
 
 import second.prototype.ContainerBox;
@@ -20,7 +22,10 @@ import second.prototype.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +39,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DownLoadPageActivity extends Activity {
     /** Called when the activity is first created. */
@@ -42,7 +48,7 @@ public class DownLoadPageActivity extends Activity {
 	private ListView list;
 	private Button refresh;
 	private Button back;
-	
+	  
 	
 	private ProgressDialog progressDialog;
 
@@ -79,7 +85,12 @@ public class DownLoadPageActivity extends Activity {
 	        		);
 	 	 list.setAdapter(MyAdapter);
 	 	 list.setOnItemClickListener(onClickListItem); 
+	 	
+	 	
+		 	
+	 	 
 	 	 refresh();
+	 	
 	 	 
 	 	 
 	 	 
@@ -91,6 +102,13 @@ public class DownLoadPageActivity extends Activity {
 				DownLoadPageActivity.this.finish();				
 			}});
      
+		 refresh.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					refresh();
+				}});
 		
 	
 	
@@ -98,6 +116,11 @@ public class DownLoadPageActivity extends Activity {
 
 	public void refresh()
 	{
+		 
+	 if(haveInternet())
+	 {	 
+		 listItem.clear();
+		 
 		 Thread thread = new Thread()
 		 {
 		     @Override
@@ -125,6 +148,12 @@ public class DownLoadPageActivity extends Activity {
 		     }
 		 };
 		 thread.start();
+	  	}
+	 	else
+	 	{
+	 		Toast.makeText(DownLoadPageActivity.this,"No Internet Detected!! Please turn the wifi on",Toast.LENGTH_SHORT)
+	        .show();
+	 	}
 	}
 	
 	public void updateList()
@@ -253,12 +282,29 @@ public class DownLoadPageActivity extends Activity {
 
 
 
-
-
-
-
-
-
+	private boolean haveInternet()
+    {
+    	boolean result = false;
+    	ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE); 
+    	NetworkInfo info=connManager.getActiveNetworkInfo();
+    	if (info == null || !info.isConnected())
+    	{
+    		result = false;
+    	}
+    	else 
+    	{
+    		if (!info.isAvailable())
+    		{
+    			result =false;
+    		}
+    		else
+    		{
+    			result = true;
+    		}
+    	}
+    	
+    	return result;
+    }
 
 
 

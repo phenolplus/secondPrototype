@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="second.prototype"
-    android:versionCode="4"
+    android:versionCode="6"
     android:versionName="2.7" >
 
     <uses-sdk android:minSdkVersion="8" />
@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
  	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
  	<uses-permission android:name="android.permission.INTERNET" />
+ 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
  	
  	<uses-feature android:required="true" android:name="android.hardware.location.gps" />
     <uses-feature android:required="true" android:name="android.hardware.camera"/>

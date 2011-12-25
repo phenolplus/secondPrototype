@@ -15,6 +15,7 @@ import control.stage.StageManager;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -46,6 +47,7 @@ public class StartPage extends Activity {
 	private SimpleAdapter adapter;
 	
 	private int cursor = -1;
+	private ProgressDialog progressDialog;
 	
 	private StageManager manager;
 
@@ -96,33 +98,51 @@ public class StartPage extends Activity {
 	
 	/** Utilities */
 	private void reBuildStageList() {
+		progressDialog = ProgressDialog.show(StartPage.this, "Loading....", "Please Wait", true, false);
 		
-		stageList.clear();
-		
-		for(int i=0;i<manager.numOfStages();i++){
-			HashMap<String,String> item = new HashMap<String,String>();
-			item.put("Name", manager.getName(i));
-			item.put("Description", manager.getDescription(i));
-			stageList.add(item);
-		}
-		
-		adapter = new SimpleAdapter(this, stageList,
-				R.layout.stageitem, new String[] { "Name",
-						"Description" }, new int[] { R.id.Name,
-						R.id.Description });
-
-		stagesView.setAdapter(adapter);
-
-		stagesView.setOnItemClickListener(new OnItemClickListener() {
-
+		Thread build = new Thread(){
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				// TODO Auto-generated method stub
-				cursor = arg2;
-			}
+			public void run(){
+				stageList.clear();
+				
+				for(int i=0;i<manager.numOfStages();i++){
+					HashMap<String,String> item = new HashMap<String,String>();
+					item.put("Name", manager.getName(i));
+					item.put("Description", manager.getDescription(i));
+					stageList.add(item);
+				}
+				
+				adapter = new SimpleAdapter(StartPage.this, stageList,
+						R.layout.stageitem, new String[] { "Name",
+								"Description" }, new int[] { R.id.Name,
+								R.id.Description });
 
-		});
+				
+				
+				StartPage.this.runOnUiThread(new Runnable(){
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						stagesView.setAdapter(adapter);
+
+						stagesView.setOnItemClickListener(new OnItemClickListener() {
+
+							@Override
+							public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+									long arg3) {
+								// TODO Auto-generated method stub
+								cursor = arg2;
+							}
+
+						});
+						progressDialog.dismiss();
+					}
+					
+				});
+			}
+		};
+		build.start();
 		
 	}
 
@@ -194,24 +214,53 @@ public class StartPage extends Activity {
 			Toast.makeText(this, "What Stage to play ?", Toast.LENGTH_SHORT)
 					.show();
 		} else {
-			Stage stage = manager.getStage(cursor);
-			Backpack backpack = new Backpack(manager.getFileName(cursor),this,stage.getItemList());
 			
-			ContainerBox.currentStage = stage;
-			ContainerBox.backback = backpack;
+			Thread load = new Thread(){
+				 @Override
+			     public void run(){
+					 StartPage.this.runOnUiThread(new Runnable(){
+
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								progressDialog = ProgressDialog.show(StartPage.this, "Loading....", "Please Wait", true, false);
+							}
+							
+						});
+					 Stage stage = manager.getStage(cursor);
+					 Backpack backpack = new Backpack(manager.getFileName(cursor),StartPage.this,stage.getItemList());
+
+					 ContainerBox.currentStage = stage;
+					 ContainerBox.backback = backpack;
+					 
+					 StartPage.this.runOnUiThread(new Runnable(){
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							Intent playStage = new Intent();
+							playStage.setClass(StartPage.this, MapMode.class);
+							
+							int which = (int)(Math.random()*DrawableIndex.TOTAL);
+							
+							DrawableIndex.setDrawables(which);
+							BackgroundMusic.setBGM(which);
+							BackgroundMusic.init(StartPage.this);
+							
+							cursor = -1;
+							startActivityForResult(playStage,0);
+							progressDialog.dismiss();
+						}
+						
+					});
+					
+					
+				 }
+			};
+			load.start();
 			
-			Intent playStage = new Intent();
-			playStage.setClass(this, MapMode.class);
-			
-			int which = (int)(Math.random()*DrawableIndex.TOTAL);
-			
-			DrawableIndex.setDrawables(which);
-			BackgroundMusic.setBGM(which);
-			BackgroundMusic.init(this);
-			
-			startActivityForResult(playStage,0);
 		}
-		cursor = -1;
+		
 	}
 
 	public void addClicked(View view) {
