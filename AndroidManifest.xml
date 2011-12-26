@@ -30,6 +30,7 @@
         </activity>
         <activity android:name="CameraMode" android:screenOrientation="landscape"></activity>
         <activity android:name="MapMode" android:screenOrientation="landscape"></activity>
+        <activity android:name="AboutPage" android:screenOrientation="landscape"></activity>
         <activity android:name="com.tang.DownLoadPage.DownLoadPageActivity" android:screenOrientation="landscape"></activity>
         <activity android:name="sys.item.ItemSystem" android:screenOrientation="landscape"></activity>
     </application>

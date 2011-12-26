@@ -323,7 +323,9 @@ public class StartPage extends Activity {
 	}
 	
 	public void aboutClicked(View view) {
-		
+		Intent about = new Intent();
+		about.setClass(this, AboutPage.class);
+		startActivity(about);
 	}
 
 }
