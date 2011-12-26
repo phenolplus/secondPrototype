@@ -92,7 +92,10 @@ public class MapMode extends Activity {
 		mapView.setViewCenter(this.getWindowManager().getDefaultDisplay().getWidth()*3/4
 				,this.getWindowManager().getDefaultDisplay().getHeight()*3/4);
 		
-		setTitle("Now Playing : "+stage.getName());
+		if(stage.isFirstPlay()){
+			showIntro();
+			stage.played();
+		}
 	}
 	
 	/** System works */
@@ -127,7 +130,7 @@ public class MapMode extends Activity {
 						intent.setClass(MapMode.this,CameraMode.class);
 						ContainerBox.currentStage = stage;
 						stage.setInRangeList(myX, myY);
-						startActivity(intent);
+						startActivityForResult(intent,0);
 					}
 
 				}
@@ -181,6 +184,8 @@ public class MapMode extends Activity {
 				Toast.makeText(this, "This Game Requrires GPS to Play", Toast.LENGTH_LONG).show();
 			}
 		}
+		
+		showCleared();
 	}
 
 	@Override
@@ -203,10 +208,12 @@ public class MapMode extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		menu.add(1, 0, 0, "Check Up").setIcon(android.R.drawable.ic_menu_info_details);
+		menu.add(1, 0, 0, "About").setIcon(android.R.drawable.ic_menu_info_details);
 		menu.add(1, 2, 0, "Backpack").setIcon(android.R.drawable.ic_menu_manage);
 		menu.add(1, 3, 0, "Clear").setIcon(android.R.drawable.ic_menu_delete);
-		menu.add(1, 4, 0,"Master").setIcon(android.R.drawable.ic_menu_view);
+		if(ContainerBox.master){
+			menu.add(1, 4, 0,"Master").setIcon(android.R.drawable.ic_menu_view);
+		}
 		if(stage.isCenterChangable()){
 			menu.add(1, 1, 0, "Set Center Point").setIcon(android.R.drawable.ic_menu_myplaces);
 		} else {
@@ -219,7 +226,7 @@ public class MapMode extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case 0:
-			checkStatus();
+			showIntro();
 			break;
 		case 1:
 			if(stage.isCenterChangable()){
@@ -244,11 +251,7 @@ public class MapMode extends Activity {
 	}
 
 	
-	/** Menu operations */	
-	private void checkStatus() {
-		Toast.makeText(this, "Current Progress = "+stage.getProgress(), Toast.LENGTH_SHORT).show();
-	}
-	
+	/** Menu operations */
 	private void openBackpack() {
 		Intent bag = new Intent();
 		bag.setClass(this, ItemSystem.class);
@@ -298,7 +301,7 @@ public class MapMode extends Activity {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				System.gc();
+				
 			}
 			
 		});
@@ -308,8 +311,43 @@ public class MapMode extends Activity {
 	
 	private void masterMode() {
 		stage.updateProgress();
+		if(stage.getProgress()>5){
+			stage.finish();
+		}
 	}
 	
+	/** Dialogs */
+	private void showIntro() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(stage.getName());
+		builder.setMessage(stage.getDescription());
+		builder.setNeutralButton("OK", new DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+			
+		});
+		builder.show();
+	}
+	
+	private void showCleared() {
+		if(stage.isCleared()){
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("Congratulations");
+			builder.setMessage("You have finished this stage !!");
+			builder.setNeutralButton("OK", new DialogInterface.OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					
+				}
+				
+			});
+			builder.show();
+		}
+	}
 	
 
 	/** Build up list */

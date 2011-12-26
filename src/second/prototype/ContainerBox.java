@@ -18,6 +18,8 @@ public final class ContainerBox {
 	public static boolean isTab = false;
 	public static boolean faceUp = true;
 	
+	public static boolean master = false;
+	
 	public static Stage currentStage;
 	public static StageManager stageManager;
 	public static Backpack backback;

@@ -42,6 +42,7 @@ public class Stage {
 	
 	private int currentProgress;
 	private boolean hasFinished;
+	private boolean firstPlay;
 	
 	/** Constructor */
 	public Stage(String fileName,Context owner) {
@@ -86,6 +87,7 @@ public class Stage {
 		
 		currentProgress = progressData.getInt("Progress", 0);
 		hasFinished = progressData.getBoolean("Stage Clear", false);
+		firstPlay = progressData.getBoolean("First Play", true);
 		
 		for(int i=0;i<pointList.size();i++) {
 			pointList.get(i).hasVisited = progressData.getBoolean(pointList.get(i).getName()+"Visit", false);
@@ -128,6 +130,14 @@ public class Stage {
 	
 	public int getProgress() {
 		return currentProgress;
+	}
+	
+	public boolean isCleared() {
+		return hasFinished;
+	}
+	
+	public boolean isFirstPlay() {
+		return firstPlay;
 	}
 	
 	/** Point Operation */
@@ -178,6 +188,10 @@ public class Stage {
 		hasFinished = true;
 	}
 	
+	public void played() {
+		firstPlay = false;
+	}
+	
 	public void updateProgress() {
 		currentProgress++;
 		checkVisibleList();
@@ -198,6 +212,7 @@ public class Stage {
 		}
 		
 		editor.putBoolean("Stage Clear", hasFinished);
+		editor.putBoolean("First Play", firstPlay);
 		
 		editor.commit();
 	}
@@ -209,6 +224,7 @@ public class Stage {
 		}
 		checkVisibleList();
 		hasFinished = false;
+		firstPlay = true;
 	}
 	
 	/** internal utilities */

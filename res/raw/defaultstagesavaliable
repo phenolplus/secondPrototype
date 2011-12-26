@@ -37,8 +37,14 @@
 						 		{"Require Item":"NULL",
 						 		 "Require No Item":"NULL",
 						 		 "Get Item":"NULL",
-						 		 "Message Positive":"Now head on to the next tutorial ! \n[END]",
+						 		 "Message Positive":"Now head on to the next tutorial !",
 						 		 "Message Negative":"",
+						 		 "Next Point":"NULL"},
+						 		{"Require Item":"NULL",
+						 		 "Require No Item":"NULL",
+						 		 "Get Item":"NULL",
+						 		 "Message Positive":"[END]",
+						 		 "Message Negative":"[END]",
 						 		 "Next Point":"NULL"}
 						 		 ]
 						 	 }
@@ -122,8 +128,14 @@
 						 		{"Require Item":"NULL",
 						 		 "Require No Item":"NULL",
 						 		 "Get Item":"NULL",
-						 		 "Message Positive":"Now walk and play !!\n[END]",
+						 		 "Message Positive":"Now walk and play !!",
 						 		 "Message Negative":"",
+						 		 "Next Point":"NULL"},
+						 		{"Require Item":"NULL",
+						 		 "Require No Item":"NULL",
+						 		 "Get Item":"NULL",
+						 		 "Message Positive":"[END]",
+						 		 "Message Negative":"[END]",
 						 		 "Next Point":"NULL"}
 						 		 ]
 						 	 }
@@ -191,8 +203,14 @@
 							 	{"Require Item":"NULL",
 						 		 "Require No Item":"NULL",
 						 		 "Get Item":"NULL",
-						 		 "Message Positive":"Time for the last tutorial !\n[END]",
+						 		 "Message Positive":"Time for the last tutorial !",
 						 		 "Message Negative":"",
+						 		 "Next Point":"NULL"},
+						 		{"Require Item":"NULL",
+						 		 "Require No Item":"NULL",
+						 		 "Get Item":"NULL",
+						 		 "Message Positive":"[END]",
+						 		 "Message Negative":"[END]",
 						 		 "Next Point":"NULL"}
 							 	]
 							 }
@@ -226,9 +244,15 @@
 						 		{"Require Item":"tHE AntennA",
 						 		 "Require No Item":"NULL",
 						 		 "Get Item":"NULL",
-						 		 "Message Positive":"Now the tutorial is finish.\n Hope you have fun !\n[END]",
+						 		 "Message Positive":"Now the tutorial is finish.\n Hope you have fun !",
 						 		 "Message Negative":"Check out point 2",
-						 		 "Next Point":"point 2"}
+						 		 "Next Point":"point 2"},
+						 		{"Require Item":"tHE AntennA",
+						 		 "Require No Item":"NULL",
+						 		 "Get Item":"NULL",
+						 		 "Message Positive":"[END]",
+						 		 "Message Negative":"",
+						 		 "Next Point":"NULL"}
 						 		 ]
 						 	 },
 						 	 {"Name":"point 2",
@@ -255,7 +279,7 @@
 							 "Order":"2",
 							 "Position X":"30",
 							 "Position Y":"-40",
-							 "Story":"I want an AntennA !!",
+							 "Story":"I have an AntennA !!",
 							 "Events":[
 							 	{"Require Item":"NULL",
 						 		 "Require No Item":"NULL",

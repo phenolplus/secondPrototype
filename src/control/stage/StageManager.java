@@ -91,6 +91,13 @@ public class StageManager {
 		}
 	}
 	
+	public boolean getIfClear(int index) {
+		String fileName = stageList.get(index).get("ID");
+		SharedPreferences stageData = owner.getSharedPreferences(fileName, Context.MODE_PRIVATE);
+		boolean cleared = stageData.getBoolean("Stage Clear", false);
+		return cleared;
+	}
+	
 	public String getFileName(int index){
 		return stageList.get(index).get("ID");
 	}
@@ -100,6 +107,12 @@ public class StageManager {
 	}
 	
 	public boolean importStage(String fileName) {
+		for(int i=0;i<stageList.size();i++){
+			if(stageList.get(i).get("ID").contentEquals(fileName)){
+				return false;
+			}
+		}
+		
 		HashMap<String,String> item = new HashMap<String,String>();
 		item.put("ID", fileName);
 		stageList.add(item);
@@ -109,6 +122,9 @@ public class StageManager {
 	
 	public boolean deleteStage(int number) {
 		String fileName = stageList.get(number).get("ID");
+		if(fileName.startsWith("000")){
+			return false;
+		}
 		owner.deleteFile(fileName);
 		stageList.remove(number);
 		return true;

@@ -32,6 +32,7 @@ import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -43,13 +44,16 @@ public class StartPage extends Activity {
 	private View splash;
 	
 	private ListView stagesView;
-	private ArrayList<HashMap<String, String>> stageList = new ArrayList<HashMap<String, String>>();
+	private ArrayList<HashMap<String, Object>> stageList = new ArrayList<HashMap<String, Object>>();
 	private SimpleAdapter adapter;
 	
 	private int cursor = -1;
 	private ProgressDialog progressDialog;
 	
 	private StageManager manager;
+	
+	// easter eggs
+	private String code;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -88,6 +92,8 @@ public class StartPage extends Activity {
 	public void onResume() {
 		super.onResume();
 		reBuildStageList();
+		
+		code = "";
 	}
 	
 	@Override
@@ -106,16 +112,17 @@ public class StartPage extends Activity {
 				stageList.clear();
 				
 				for(int i=0;i<manager.numOfStages();i++){
-					HashMap<String,String> item = new HashMap<String,String>();
+					HashMap<String,Object> item = new HashMap<String,Object>();
 					item.put("Name", manager.getName(i));
 					item.put("Description", manager.getDescription(i));
+					item.put("Icon", (manager.getIfClear(i)?R.drawable.spir2:R.drawable.spir1));
 					stageList.add(item);
 				}
 				
 				adapter = new SimpleAdapter(StartPage.this, stageList,
 						R.layout.stageitem, new String[] { "Name",
-								"Description" }, new int[] { R.id.Name,
-								R.id.Description });
+								"Description", "Icon" }, new int[] { R.id.Name,
+								R.id.Description, R.id.claerIcon });
 
 				
 				
@@ -133,6 +140,7 @@ public class StartPage extends Activity {
 									long arg3) {
 								// TODO Auto-generated method stub
 								cursor = arg2;
+								code = code + arg2;
 							}
 
 						});
@@ -190,6 +198,13 @@ public class StartPage extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		menu.add(0, 0, 0, "Restore Deault Data").setIcon(android.R.drawable.ic_menu_upload);
+		
+		if(code.contentEquals("01230123")){
+			ContainerBox.master = true;
+		} else {
+			ContainerBox.master = false;
+		}
+		
 		return true;
 	}
 	

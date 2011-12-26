@@ -136,11 +136,15 @@ public class MapView extends View {
 		
 		
 		// radar
-		canvas.drawText("Radar Mode ! White circle is visible range.", 30, 30, text);
-		canvas.drawText("Visable range = "+ContainerBox.visibleRange, 30, 45, text);
-		canvas.drawText("Scale = "+ContainerBox.meterPerPixel+" meters per pixel", 30, 60, text);
+		//canvas.drawText("Radar Mode ! White circle is visible range.", 30, 30, text);
+		//canvas.drawText("Visable range = "+ContainerBox.visibleRange, 30, 45, text);
+		//canvas.drawText("Scale = "+ContainerBox.meterPerPixel+" meters per pixel", 30, 60, text);
 
-		canvas.drawText("Current Center = "+stage.getMapCenter("X")+":"+stage.getMapCenter("Y"),30, 110, text);
+		//canvas.drawText("Current Center = "+stage.getMapCenter("X")+":"+stage.getMapCenter("Y"),30, 110, text);
+		if(stage.isCleared()){
+			canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.spir2), 5, 5, self);
+		}
+		
 		
 		// visible range
 		canvas.drawCircle(viewCenterw, viewCenterh, ContainerBox.visibleRange/mag, white);

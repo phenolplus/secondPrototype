@@ -21,7 +21,7 @@
         android:layout_weight="3">
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/GrandIcon"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
