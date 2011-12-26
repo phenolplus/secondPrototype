@@ -321,6 +321,7 @@ public class MapMode extends Activity {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(stage.getName());
 		builder.setMessage(stage.getDescription());
+		builder.setIcon(android.R.drawable.ic_dialog_info);
 		builder.setNeutralButton("OK", new DialogInterface.OnClickListener(){
 
 			@Override
@@ -336,6 +337,7 @@ public class MapMode extends Activity {
 		if(stage.isCleared()){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("Congratulations");
+			builder.setIcon(android.R.drawable.ic_dialog_info);
 			builder.setMessage("You have finished this stage !!");
 			builder.setNeutralButton("OK", new DialogInterface.OnClickListener(){
 

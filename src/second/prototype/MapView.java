@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class MapView extends View {
@@ -32,7 +33,6 @@ public class MapView extends View {
 	private static final float northX = 0;
 	private static final float northY = -ContainerBox.visibleRange/mag*2/3;
 	
-	Bitmap location;
 	
 	public MapView(Context context) {
 		super(context);
@@ -99,7 +99,7 @@ public class MapView extends View {
 	
 	/** Utilities */
 	private void init() {
-		location = BitmapFactory.decodeResource(getResources(), R.drawable.location_icon);
+		
 		this.setBackgroundResource(DrawableIndex.BACK_GROUND);
 	}
 	
@@ -137,12 +137,13 @@ public class MapView extends View {
 		
 		// radar
 		//canvas.drawText("Radar Mode ! White circle is visible range.", 30, 30, text);
-		//canvas.drawText("Visable range = "+ContainerBox.visibleRange, 30, 45, text);
+		//canvas.drawText("Visible range = "+ContainerBox.visibleRange, 30, 45, text);
 		//canvas.drawText("Scale = "+ContainerBox.meterPerPixel+" meters per pixel", 30, 60, text);
 
 		//canvas.drawText("Current Center = "+stage.getMapCenter("X")+":"+stage.getMapCenter("Y"),30, 110, text);
 		if(stage.isCleared()){
 			canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.spir2), 5, 5, self);
+			canvas.drawText("Stage cleared",30, 110, text);
 		}
 		
 		

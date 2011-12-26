@@ -140,10 +140,43 @@ public class StartPage extends Activity {
 									long arg3) {
 								// TODO Auto-generated method stub
 								cursor = arg2;
-								code = code + arg2;
+								AlertDialog.Builder builder = new AlertDialog.Builder(StartPage.this);
+								builder.setTitle(stageList.get(cursor).get("Name")+"");
+								builder.setIcon(android.R.drawable.ic_dialog_info);
+								builder.setMessage(stageList.get(cursor).get("Description")+"");
+								
+								builder.setPositiveButton("Play", new DialogInterface.OnClickListener(){
+
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										play();
+									}
+									
+								});
+								
+								builder.setNegativeButton("Delete", new DialogInterface.OnClickListener(){
+
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										delete();
+									}
+									
+								});
+								
+								builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener(){
+
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										
+									}
+									
+								});
+								
+								builder.show();
 							}
 
 						});
+						
 						progressDialog.dismiss();
 					}
 					
@@ -223,13 +256,8 @@ public class StartPage extends Activity {
 		return true;
 	}
 	
-	/** Button onClick listeners */
-	public void playClicked(View view) {
-		if (cursor < 0) {
-			Toast.makeText(this, "What Stage to play ?", Toast.LENGTH_SHORT)
-					.show();
-		} else {
-			
+	private void play() {
+		
 			Thread load = new Thread(){
 				 @Override
 			     public void run(){
@@ -273,26 +301,29 @@ public class StartPage extends Activity {
 			};
 			load.start();
 			
-		}
+		
 		
 	}
+	
 
+	private void delete() {
+		manager.deleteStage(cursor);
+		reBuildStageList();
+	}
+
+	/** Button onClick listeners */
 	public void addClicked(View view) {
 		Intent net = new Intent();
 		net.setClass(this, DownLoadPageActivity.class);
 		startActivity(net);
-		cursor = -1;
 	}
-
-	public void deleteClicked(View view) {
-		if (cursor < 0) {
-			Toast.makeText(this, "Select a stage first", Toast.LENGTH_SHORT)
-					.show();
-		} else {
-			manager.deleteStage(cursor);
-			reBuildStageList();
-		}
-		cursor = -1;
+	
+	public void helpClicked(View view) {
+		
+	}
+	
+	public void aboutClicked(View view) {
+		
 	}
 
 }

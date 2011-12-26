@@ -31,14 +31,14 @@
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/play"
+            android:id="@+id/help"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="Play !!!"
+            android:text="Help"
             android:background="@drawable/button"
             android:textSize="40sp"
             android:layout_margin="2dp" 
-            android:onClick="playClicked"
+            android:onClick="helpClicked"
             android:layout_weight="1"/>
                 
         <Button
@@ -56,10 +56,10 @@
             android:id="@+id/button4"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="Delete Stage" 
+            android:text="About" 
             android:background="@drawable/button"
             android:textSize="40sp"
-            android:onClick="deleteClicked"
+            android:onClick="aboutClicked"
             android:layout_margin="2dp" 
             android:layout_weight="1"/>
 

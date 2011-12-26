@@ -326,6 +326,7 @@ public final class R {
         public static final int claerIcon=0x7f08001c;
         public static final int event=0x7f080005;
         public static final int gridView1=0x7f080017;
+        public static final int help=0x7f080021;
         public static final int imageView1=0x7f080002;
         public static final int itemDescript=0x7f080009;
         public static final int itemIcon=0x7f080008;
@@ -335,7 +336,6 @@ public final class R {
         public static final int listView=0x7f080019;
         public static final int mapView=0x7f080018;
         public static final int onLinelist=0x7f080000;
-        public static final int play=0x7f080021;
         public static final int pointLocation=0x7f08001b;
         public static final int pointName=0x7f08001a;
         public static final int refresh=0x7f080003;
