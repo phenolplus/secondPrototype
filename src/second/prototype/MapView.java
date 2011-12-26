@@ -26,7 +26,7 @@ public class MapView extends View {
 	
 	private float[] rotateMatrix = {1,0,1,0};
 	
-	private static final float mag = ContainerBox.meterPerPixel; // one pixel = 10 meters
+	private static final float mag = ContainerBox.meterPerPixel;
 	private static final float ruler = 100/mag; //m
 	
 	private static final float northX = 0;

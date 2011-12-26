@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <ListView
+        android:id="@+id/stagelist"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" 
+        android:layout_weight="1"
+        android:cacheColorHint="#00000000"
+               />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" 
+        android:layout_weight="3">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/spir1" 
+            android:layout_margin="2dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/play"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="Play !!!"
+            android:background="@drawable/button"
+            android:textSize="40sp"
+            android:layout_margin="2dp" 
+            android:onClick="playClicked"
+            android:layout_weight="1"/>
+                
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="More Stage"
+            android:background="@drawable/button" 
+            android:textSize="40sp"
+            android:onClick="addClicked"
+            android:layout_margin="2dp" 
+            android:layout_weight="1"/>
+        
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="Delete Stage" 
+            android:background="@drawable/button"
+            android:textSize="40sp"
+            android:onClick="deleteClicked"
+            android:layout_margin="2dp" 
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</LinearLayout>

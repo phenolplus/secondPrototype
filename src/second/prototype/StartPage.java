@@ -223,7 +223,7 @@ public class StartPage extends Activity {
 							@Override
 							public void run() {
 								// TODO Auto-generated method stub
-								progressDialog = ProgressDialog.show(StartPage.this, "Loading....", "Please Wait", true, false);
+								progressDialog = ProgressDialog.show(StartPage.this, "Loading....", "Remember to turn on GPS", true, false);
 							}
 							
 						});
@@ -243,7 +243,6 @@ public class StartPage extends Activity {
 							
 							int which = (int)(Math.random()*DrawableIndex.TOTAL);
 							
-							DrawableIndex.setDrawables(which);
 							BackgroundMusic.setBGM(which);
 							BackgroundMusic.init(StartPage.this);
 							

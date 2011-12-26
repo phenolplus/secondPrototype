@@ -178,7 +178,7 @@ public class MapMode extends Activity {
 			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0, locationListener);
 		} else {
 			if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-				Toast.makeText(this, "This Game Requrires GPS to Play", Toast.LENGTH_LONG);
+				Toast.makeText(this, "This Game Requrires GPS to Play", Toast.LENGTH_LONG).show();
 			}
 		}
 	}
