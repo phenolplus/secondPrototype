@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="second.prototype"
-    android:versionCode="7"
+    android:versionCode="8"
     android:versionName="hunter" >
 
     <uses-sdk android:minSdkVersion="8" />
@@ -17,7 +17,7 @@
     <uses-feature android:required="true" android:name="android.hardware.sensor.compass"/>
 
     <application
-        android:icon="@drawable/spir1"
+        android:icon="@drawable/somicon"
         android:label="@string/app_name" >
         <activity
             android:label="@string/app_name"
@@ -31,6 +31,7 @@
         <activity android:name="CameraMode" android:screenOrientation="landscape"></activity>
         <activity android:name="MapMode" android:screenOrientation="landscape"></activity>
         <activity android:name="AboutPage" android:screenOrientation="landscape"></activity>
+        <activity android:name="HelpPage" android:screenOrientation="landscape"></activity>
         <activity android:name="com.tang.DownLoadPage.DownLoadPageActivity" android:screenOrientation="landscape"></activity>
         <activity android:name="sys.item.ItemSystem" android:screenOrientation="landscape"></activity>
     </application>

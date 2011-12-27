@@ -61,8 +61,8 @@ public class MapView extends View {
 	}
 	
 	public void setCurrentLocation(float currentX, float currentY) {
-		myX =  currentX/mag;
-		myY = -currentY/mag;
+		myX = currentX/mag;
+		myY = currentY/mag;
 
 		invalidate();
 	}
@@ -167,10 +167,10 @@ public class MapView extends View {
 			String name = stage.getLink(i).nameOfEnd;
 			float sX,sY,eX,eY;
 			
-			sX = rotateX(stage.getLink(i).startX-myX,-stage.getLink(i).startY-myY)/mag + viewCenterw;
-			sY = rotateY(stage.getLink(i).startX-myX,-stage.getLink(i).startY-myY)/mag + viewCenterh;
-			eX = rotateX(stage.getLink(i).endX-myX,-stage.getLink(i).endY-myY)/mag + viewCenterw;
-			eY = rotateY(stage.getLink(i).endX-myX,-stage.getLink(i).endY-myY)/mag + viewCenterh;
+			sX = rotateX(stage.getLink(i).startX-myX,stage.getLink(i).startY-myY)/mag + viewCenterw;
+			sY = -rotateY(stage.getLink(i).startX-myX,stage.getLink(i).startY-myY)/mag + viewCenterh;
+			eX = rotateX(stage.getLink(i).endX-myX,stage.getLink(i).endY-myY)/mag + viewCenterw;
+			eY = -rotateY(stage.getLink(i).endX-myX,stage.getLink(i).endY-myY)/mag + viewCenterh;
 			
 			canvas.drawLine(sX,sY,eX,eY, stage.getPointOf(name).isVisible?blue:empty);
 		}
@@ -178,8 +178,8 @@ public class MapView extends View {
 		// points
 		for(int i=0;i<stage.length();i++) {
 			
-			float x = rotateX(stage.getPointOf(i).x-myX,-stage.getPointOf(i).y-myY)/mag + viewCenterw;
-			float y = rotateY(stage.getPointOf(i).x-myX,-stage.getPointOf(i).y-myY)/mag + viewCenterh;
+			float x = rotateX(stage.getPointOf(i).x-myX,stage.getPointOf(i).y-myY)/mag + viewCenterw;
+			float y = -rotateY(stage.getPointOf(i).x-myX,stage.getPointOf(i).y-myY)/mag + viewCenterh;
 			
 			canvas.drawCircle(x , y, 10, stage.getPointOf(i).isVisible?tar:empty);
 			//canvas.drawBitmap(location, x-location.getWidth()/2, y-location.getHeight(), stage.getPointOf(i).isVisible?tar:empty);

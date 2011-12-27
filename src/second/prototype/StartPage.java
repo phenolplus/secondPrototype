@@ -153,16 +153,16 @@ public class StartPage extends Activity {
 									}
 									
 								});
-								
-								builder.setNegativeButton("Delete", new DialogInterface.OnClickListener(){
-
-									@Override
-									public void onClick(DialogInterface dialog, int which) {
-										delete();
-									}
+								if(!manager.getFileName(cursor).startsWith("000")){
+									builder.setNegativeButton("Delete", new DialogInterface.OnClickListener(){
 									
-								});
-								
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											delete();
+										}
+										
+									});
+								}
 								builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener(){
 
 									@Override
@@ -225,36 +225,6 @@ public class StartPage extends Activity {
     	thread.start();
 	}
 	
-	/** Menu Control 
-	 *  These are Programmer tasks ...*/
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		menu.add(0, 0, 0, "Restore Deault Data").setIcon(android.R.drawable.ic_menu_upload);
-		
-		if(code.contentEquals("01230123")){
-			ContainerBox.master = true;
-		} else {
-			ContainerBox.master = false;
-		}
-		
-		return true;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		super.onOptionsItemSelected(item);
-		switch(item.getItemId()){
-		case 0:
-			StageManager.initFileSettings(this);
-			manager = new StageManager(this);
-			ContainerBox.stageManager = manager;
-			reBuildStageList();
-			break;
-		default :		
-		}
-		return true;
-	}
 	
 	private void play() {
 		
@@ -319,7 +289,9 @@ public class StartPage extends Activity {
 	}
 	
 	public void helpClicked(View view) {
-		
+		Intent help = new Intent();
+		help.setClass(this, HelpPage.class);
+		startActivity(help);
 	}
 	
 	public void aboutClicked(View view) {
