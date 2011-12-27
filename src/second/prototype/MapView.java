@@ -31,7 +31,7 @@ public class MapView extends View {
 	private static final float ruler = 100/mag; //m
 	
 	private static final float northX = 0;
-	private static final float northY = -ContainerBox.visibleRange/mag*2/3;
+	private static final float northY = ContainerBox.visibleRange/mag*2/3;
 	
 	
 	public MapView(Context context) {
@@ -72,8 +72,8 @@ public class MapView extends View {
 		// r[0] r[1]
 		// r[2] r[3]
 		rotateMatrix[0] = (float) Math.cos(theta/180*Math.PI);
-		rotateMatrix[1] = (float) Math.sin(theta/180*Math.PI);
-		rotateMatrix[2] = (float)-Math.sin(theta/180*Math.PI);
+		rotateMatrix[1] = (float)-Math.sin(theta/180*Math.PI);
+		rotateMatrix[2] = (float) Math.sin(theta/180*Math.PI);
 		rotateMatrix[3] = (float) Math.cos(theta/180*Math.PI);
 		
 		invalidate();
@@ -152,8 +152,8 @@ public class MapView extends View {
 		canvas.drawCircle(viewCenterw, viewCenterh, 10, self);
 		
 		// north arrow
-		canvas.drawLine(viewCenterw+rotateX(northX,northY),viewCenterh+rotateY(northX,northY),
-				viewCenterw+rotateX(northX*2,northY*2),viewCenterh+rotateY(northX*2,northY*2),white);
+		canvas.drawLine(viewCenterw+rotateX(northX,northY),viewCenterh-rotateY(northX,northY),
+				viewCenterw+rotateX(northX*2,northY*2),viewCenterh-rotateY(northX*2,northY*2),white);
 		
 		
 		canvas.drawLine(viewCenterw-ruler/2, viewCenterh, viewCenterw+ruler/2, viewCenterh,text);
