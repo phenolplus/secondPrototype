@@ -52,8 +52,6 @@ public class StartPage extends Activity {
 	
 	private StageManager manager;
 	
-	// easter eggs
-	private String code;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -92,8 +90,6 @@ public class StartPage extends Activity {
 	public void onResume() {
 		super.onResume();
 		reBuildStageList();
-		
-		code = "";
 	}
 	
 	@Override
@@ -239,6 +235,7 @@ public class StartPage extends Activity {
 							
 						});
 					 Stage stage = manager.getStage(cursor);
+					 Stage.buildBitmap(StartPage.this);
 					 Backpack backpack = new Backpack(manager.getFileName(cursor),StartPage.this,stage.getItemList());
 
 					 ContainerBox.currentStage = stage;

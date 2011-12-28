@@ -13,9 +13,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import second.prototype.ContainerBox;
+import second.prototype.R;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 /**
@@ -43,6 +46,8 @@ public class Stage {
 	private int currentProgress;
 	private boolean hasFinished;
 	private boolean firstPlay;
+	
+	public static Bitmap[] icons;
 	
 	/** Constructor */
 	public Stage(String fileName,Context owner) {
@@ -274,4 +279,14 @@ public class Stage {
 		}
 	}
 	
+	/** static methods*/
+	public static void buildBitmap(Context owner){
+		icons = new Bitmap[6];
+		icons[0] = BitmapFactory.decodeResource(owner.getResources(), ContainerBox.isTab?R.drawable.targets_large01:R.drawable.targets01);
+		icons[1] = BitmapFactory.decodeResource(owner.getResources(), ContainerBox.isTab?R.drawable.targets_large02:R.drawable.targets02);
+		icons[2] = BitmapFactory.decodeResource(owner.getResources(), ContainerBox.isTab?R.drawable.targets_large03:R.drawable.targets03);
+		icons[3] = BitmapFactory.decodeResource(owner.getResources(), ContainerBox.isTab?R.drawable.targets_large04:R.drawable.targets04);
+		icons[4] = BitmapFactory.decodeResource(owner.getResources(), ContainerBox.isTab?R.drawable.targets_large05:R.drawable.targets05);
+		icons[5] = BitmapFactory.decodeResource(owner.getResources(), ContainerBox.isTab?R.drawable.targets_large06:R.drawable.targets06);
+	}
 }

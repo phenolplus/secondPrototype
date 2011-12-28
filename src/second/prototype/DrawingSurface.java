@@ -53,8 +53,6 @@ public class DrawingSurface extends android.view.SurfaceView implements
 	private SimpleAdapter adapter;
 	private int num,end;
 
-	private Bitmap icon;
-
 	public DrawingSurface(Context context) {
 		super(context);
 		owner = context;
@@ -65,7 +63,6 @@ public class DrawingSurface extends android.view.SurfaceView implements
 		holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 		// TODO Auto-generated constructor stub
 
-		icon = BitmapFactory.decodeResource(getResources(), R.drawable.targets01);
 	}
 
 	@Override
@@ -232,6 +229,7 @@ public class DrawingSurface extends android.view.SurfaceView implements
 			x = this.getWidth() / 2 + point[0];
 			y = this.getHeight() / 2 + point[1];
 			// canvas.drawCircle(x, y, 50, cPaint);
+			Bitmap icon = Stage.icons[0];
 			canvas.drawBitmap(icon, x - icon.getWidth() / 2,
 					y - icon.getHeight() / 2, null);
 			canvas.drawText(targetList.get(i).name, x, y, tPaint);
@@ -274,6 +272,7 @@ public class DrawingSurface extends android.view.SurfaceView implements
 			y = this.getHeight() / 2 + point[1];
 			
 			Log.e("Touch","point at "+x+" : "+y);
+			Bitmap icon = Stage.icons[0];
 			if((Math.pow((x-tX),2)+Math.pow((y-tY),2))<Math.pow((icon.getHeight()/2),2)) {
 				touched = true;
 				return targetList.get(i).name;
