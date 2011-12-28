@@ -119,18 +119,16 @@ public class StartPage extends Activity {
 					stageList.add(item);
 				}
 				
-				adapter = new SimpleAdapter(StartPage.this, stageList,
-						R.layout.stageitem, new String[] { "Name",
-								"Description", "Icon" }, new int[] { R.id.Name,
-								R.id.Description, R.id.claerIcon });
-
-				
-				
 				StartPage.this.runOnUiThread(new Runnable(){
 
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
+						adapter = new SimpleAdapter(StartPage.this, stageList,
+								R.layout.stageitem, new String[] { "Name",
+										"Description", "Icon" }, new int[] { R.id.Name,
+										R.id.Description, R.id.claerIcon });
+
 						stagesView.setAdapter(adapter);
 
 						stagesView.setOnItemClickListener(new OnItemClickListener() {

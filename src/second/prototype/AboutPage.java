@@ -15,8 +15,9 @@ import android.widget.ImageView;
 
 public class AboutPage extends Activity {
 	/** Members */
-	private int code = 0;
 	private ImageView plot;
+	
+	private long start;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -36,46 +37,24 @@ public class AboutPage extends Activity {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
-				if(event.getAction()==MotionEvent.ACTION_DOWN){
-					code++;
-					Log.e("Code",""+code%5);
+				switch(event.getAction()){
+				case MotionEvent.ACTION_DOWN:
+					start = event.getDownTime();
+					return true;
+				case MotionEvent.ACTION_UP:
+					if((event.getEventTime()-start)>5000){
+						if(!ContainerBox.master){
+							plot.setImageResource(R.drawable.posterwwwp);
+							ContainerBox.master = true;
+						} else {
+							plot.setImageResource(R.drawable.intro);
+							ContainerBox.master = false;
+						}
+					}
 				}
 				return false;
 			}
         	
         });
-	}
-	
-	/** Menu Control 
-	 *  These are Programmer tasks ...*/
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		if((code%5) == 0){
-			menu.add(0, 0, 0, "Restore Deault Data").setIcon(android.R.drawable.ic_menu_upload);
-			menu.add(0, 1, 0, "Master").setIcon(android.R.drawable.ic_menu_edit);
-			Log.e("Code","Foo");
-			return true;
-		} else {
-			return false;
-		}
-		
-	}
-	
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		super.onOptionsItemSelected(item);
-		switch(item.getItemId()){
-		case 0:
-			StageManager.initFileSettings(this);
-			break;
-		case 1:
-			ContainerBox.master = true;
-			plot.setImageResource(R.drawable.posterwwwp);
-			break;
-		default :		
-		}
-		return true;
 	}
 }
