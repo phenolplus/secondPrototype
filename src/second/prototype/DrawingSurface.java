@@ -65,7 +65,7 @@ public class DrawingSurface extends android.view.SurfaceView implements
 		holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 		// TODO Auto-generated constructor stub
 
-		icon = BitmapFactory.decodeResource(getResources(), R.drawable.target);
+		icon = BitmapFactory.decodeResource(getResources(), R.drawable.targets01);
 	}
 
 	@Override
