@@ -160,6 +160,8 @@ public class DrawingSurface extends android.view.SurfaceView implements
 
 				target.phi = (float) Math.toDegrees(target.phi);
 				target.theta = -85; // horizontal (default)
+				
+				target.icon = stage.getPointOf(i).getTarget();
 
 				Log.e("Points", target.name + " phi = " + target.phi);
 				targetList.add(target);
@@ -229,7 +231,7 @@ public class DrawingSurface extends android.view.SurfaceView implements
 			x = this.getWidth() / 2 + point[0];
 			y = this.getHeight() / 2 + point[1];
 			// canvas.drawCircle(x, y, 50, cPaint);
-			Bitmap icon = Stage.icons[0];
+			Bitmap icon = Stage.icons[targetList.get(i).icon];
 			canvas.drawBitmap(icon, x - icon.getWidth() / 2,
 					y - icon.getHeight() / 2, null);
 			canvas.drawText(targetList.get(i).name, x, y, tPaint);
@@ -361,6 +363,7 @@ public class DrawingSurface extends android.view.SurfaceView implements
 		public float phi;
 		public float theta;
 		public String name;
+		public int icon;
 
 	}
 

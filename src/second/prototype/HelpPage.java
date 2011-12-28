@@ -16,6 +16,6 @@ public class HelpPage extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
-        setContentView(R.layout.about);
+        setContentView(R.layout.help);
 	}
 }

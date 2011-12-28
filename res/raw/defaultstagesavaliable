@@ -68,6 +68,7 @@
 							 "Position X":"0",
 							 "Position Y":"15",
 							 "Story":"How many points are there in the screen? Count it your self.",
+							 "Image":"targets02",
 							 "Events":[
 							 	{"Require Item":"NULL",
 						 		 "Require No Item":"NULL",
@@ -94,6 +95,7 @@
 							 "Position X":"0",
 							 "Position Y":"-50",
 							 "Story":"I'm outside the circle and I am far from you !",
+							 "Image":"targets01",
 							 "Events":[
 							 	{"Require Item":"NULL",
 						 		 "Require No Item":"NULL",
@@ -260,6 +262,7 @@
 							 "Position X":"10",
 							 "Position Y":"0",
 							 "Story":"I want an AntennA !!",
+							 "Image":"targets06",
 							 "Events":[
 							 	{"Require Item":"tHE AntennA",
 						 		 "Require No Item":"NULL",
@@ -341,8 +344,7 @@
 						 "Position Y":"100",
 						 "Order":"-1",
 						 "Story":"story goes here",
-						 "Image":"path or name",
-						 "Movie":"path or name",
+						 "Image":"name",
 						 "Events":[
 						 		{"Require Item":"NULL",
 						 		 "Require No Item":"NULL",

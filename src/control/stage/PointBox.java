@@ -27,7 +27,11 @@ public class PointBox {
 	private String story;
 	private final int bLeng = ContainerBox.isTab?18:10;
 	
-	public HashMap<String,String> media = new HashMap<String,String>();
+	public String image;
+	public static final String[] targetList = {
+		"targets01","targets02","targets03",
+		"targets04","targets05","targets06"
+	};
 	
 	public ArrayList<GameEvent> eventList = new ArrayList<GameEvent>();
 	
@@ -38,8 +42,7 @@ public class PointBox {
 		story = json.getString("Story");
 		order = json.getInt("Order");
 		
-		media.put("Image",json.optString("Image"));
-		media.put("Movie",json.optString("Movie"));
+		image = json.optString("Image");
 		
 		for(int i=0;i<json.getJSONArray("Events").length();i++){
 			GameEvent event = new GameEvent(json.getJSONArray("Events").getJSONObject(i));
@@ -82,5 +85,14 @@ public class PointBox {
 	
 	public int numOfEvents() {
 		return eventList.size();
+	}
+	
+	public int getTarget() {
+		for(int i=0;i<targetList.length;i++){
+			if(image.contentEquals(targetList[i])){
+				return i;
+			}
+		}
+		return 0;
 	}
 }

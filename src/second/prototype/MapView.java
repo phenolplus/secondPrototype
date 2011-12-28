@@ -83,7 +83,7 @@ public class MapView extends View {
 		if(ContainerBox.isTab){
 			return rotateMatrix[0]*_x+rotateMatrix[1]*_y;
 		} else {
-			return rotateMatrix[0]*_y+rotateMatrix[1]*(-_x);
+			return rotateMatrix[0]*_y+rotateMatrix[1]*_x;
 		}
 	}
 	
@@ -91,7 +91,7 @@ public class MapView extends View {
 		if(ContainerBox.isTab){
 			return rotateMatrix[2]*_x+rotateMatrix[3]*_y;
 		} else {
-			return rotateMatrix[2]*_y+rotateMatrix[3]*(-_x);
+			return rotateMatrix[2]*_y+rotateMatrix[3]*_x;
 		}
 	}
 	

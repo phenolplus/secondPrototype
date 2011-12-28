@@ -314,6 +314,7 @@ public class MapMode extends Activity {
 		if(stage.getProgress()>5){
 			stage.finish();
 		}
+		buildList();
 	}
 	
 	/** Dialogs */
