@@ -76,6 +76,26 @@ public class StartPage extends Activity {
 		if(manager.firstPlay()){
 			StageManager.initFileSettings(this);
 			manager = new StageManager(this);
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("Hello");
+			builder.setIcon(android.R.drawable.ic_dialog_info);
+			builder.setMessage("This is your first play,\nCheck out the introduction !");
+			
+			builder.setPositiveButton("Help", new DialogInterface.OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent help = new Intent();
+					help.setClass(StartPage.this, HelpPage.class);
+					startActivity(help);
+				}
+				
+			});
+			
+			builder.setCancelable(false);
+			builder.show();
+			
 		}
 		
 		ContainerBox.stageManager = manager;
