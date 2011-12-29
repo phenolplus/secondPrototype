@@ -437,10 +437,12 @@ public class MapMode extends Activity {
 		
 		for(int i=0;i<stage.getPointOf(name).numOfEvents();i++){
 			HashMap<String,String> item = new HashMap<String,String>();
-			String mes = stage.getPointOf(name).eventList.get(i).postMessage();
-			if(mes.length()==0){
-				mes = "Empty Message";
-			}
+			String mes = "MP : "+stage.getPointOf(name).eventList.get(i).messageP+
+						 "\nMN : "+stage.getPointOf(name).eventList.get(i).messageN+
+						 "\nRI : "+stage.getPointOf(name).eventList.get(i).itemR+
+						 "\nRN : "+stage.getPointOf(name).eventList.get(i).itemN+
+						 "\nGET : "+stage.getPointOf(name).eventList.get(i).itemToGet;
+			
 			item.put("Message", mes);
 			messages.add(item);
 		}

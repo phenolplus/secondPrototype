@@ -14,10 +14,10 @@ public class GameEvent {
 	boolean rNSatisfied = true;
 	//Backpack backpack = ContainerBox.backback;
 	
-	String itemToGet;
-	String messageP,messageN;
-	String itemR,itemN;
-	String nextPoint;
+	public String itemToGet;
+	public String messageP,messageN;
+	public String itemR,itemN;
+	public String nextPoint;
 	
 	public GameEvent(JSONObject object) throws JSONException {
 		itemToGet = object.getString("Get Item");

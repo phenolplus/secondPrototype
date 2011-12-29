@@ -194,7 +194,5 @@ public class StageManager {
 		
 		editor.putBoolean("First Play", false);
 		editor.commit();
-		
-		System.gc();
 	}
 }

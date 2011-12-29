@@ -163,19 +163,21 @@ public class DownLoadPageActivity extends Activity {
 		{
 					
 	 	  for(int i = 0; i < scriptList.length(); i++)
-          {
+        {
 	 		 String name = scriptList.getJSONObject(i).getString("Name");
 			 String description = scriptList.getJSONObject(i).getString("Description");
-			   
-	 		HashMap<String,Object> map = new HashMap<String,Object>();
-        	map.put("item Title", name);
-        	map.put("item Text", description);
-        	listItem.add(map);
-        	MyAdapter.notifyDataSetChanged();
-
-          }
+			 String activate = scriptList.getJSONObject(i).getString("Activate");
+	 		if(activate.equals("YES"))
+	 		{
+	 			HashMap<String,Object> map = new HashMap<String,Object>();
+	 			map.put("item Title", name);
+	 			map.put("item Text", description);
+	 			listItem.add(map);
+	 			MyAdapter.notifyDataSetChanged();
+	 		}
+          
 	 	  
-		} catch (JSONException e)
+		}} catch (JSONException e)
 		{
 			e.fillInStackTrace();
 		}
