@@ -11,10 +11,10 @@
         	android:layout_weight="10" android:layout_height="match_parent" android:layout_marginTop="50dp" android:layout_marginBottom="50dp" android:layout_marginLeft="80dp"></ImageView>
         <TextView android:textColor="#ff0000" android:text="TextView" android:layout_width="match_parent" 
         	android:id="@+id/itemDescript" android:layout_marginLeft="20dp"
-        	android:layout_height="match_parent" android:layout_toRightOf="@id/itemIcon" android:layout_weight="5" android:layout_marginTop="50dp" android:layout_marginBottom="40dp" android:layout_marginRight="20dp" android:textSize="40sp"></TextView>
+        	android:layout_height="match_parent" android:layout_toRightOf="@id/itemIcon" android:layout_weight="5" android:layout_marginTop="150dp" android:layout_marginBottom="40dp" android:layout_marginRight="20dp" android:textSize="40sp"></TextView>
         <Button android:id="@+id/throw_btn" android:text="Throw" android:layout_alignParentRight="true" android:layout_alignParentBottom="true"
         	android:background="@drawable/delete" android:textStyle="bold"
-        	android:textColor="#ff0000" android:layout_width="match_parent" android:layout_weight="10" android:layout_height="match_parent" android:layout_marginTop="200dp" android:layout_marginRight="50dp" android:layout_marginBottom="30dp"></Button>
+        	android:textColor="#ff0000" android:layout_width="match_parent" android:layout_weight="10" android:layout_height="match_parent" android:layout_marginTop="400dp" android:layout_marginRight="60dp" android:layout_marginBottom="50dp" android:textSize="40sp"></Button>
     </LinearLayout>
     
 </LinearLayout>

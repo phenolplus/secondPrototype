@@ -125,16 +125,17 @@ public class StartPage extends Activity {
 		Thread build = new Thread(){
 			@Override
 			public void run(){
-				stageList.clear();
 				
+				Log.e("List","(b)stageList = "+stageList.size());
 				for(int i=0;i<manager.numOfStages();i++){
 					HashMap<String,Object> item = new HashMap<String,Object>();
 					item.put("Name", manager.getName(i));
 					item.put("Description", manager.getDescription(i));
 					item.put("Icon", (manager.getIfClear(i)?R.drawable.spir2:R.drawable.spir1));
 					stageList.add(item);
+					Log.e("List","added");
 				}
-				
+				Log.e("List","stageList = "+stageList.size());
 				StartPage.this.runOnUiThread(new Runnable(){
 
 					@Override
@@ -146,7 +147,7 @@ public class StartPage extends Activity {
 										R.id.Description, R.id.claerIcon });
 
 						stagesView.setAdapter(adapter);
-
+						
 						stagesView.setOnItemClickListener(new OnItemClickListener() {
 
 							@Override
@@ -168,7 +169,7 @@ public class StartPage extends Activity {
 									
 								});
 								if(!manager.getFileName(cursor).startsWith("000")){
-									builder.setNegativeButton("Delete", new DialogInterface.OnClickListener(){
+									builder.setNeutralButton("Delete", new DialogInterface.OnClickListener(){
 									
 										@Override
 										public void onClick(DialogInterface dialog, int which) {
@@ -177,7 +178,7 @@ public class StartPage extends Activity {
 										
 									});
 								}
-								builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener(){
+								builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
 
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
@@ -205,12 +206,14 @@ public class StartPage extends Activity {
 		// store list
 		manager.commit();
 		stageList.clear();
+		adapter.notifyDataSetChanged();
 		
 	}
 	
 	private void waitSplash(){
 		setContentView(splash);
 		Log.e("splash","splash put to screen");
+		ContainerBox.master = false;
 		Thread thread = new Thread(){
     		@Override
     		public void run(){
