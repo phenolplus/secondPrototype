@@ -125,6 +125,10 @@ public class StageManager {
 		if(fileName.startsWith("000")){
 			return false;
 		}
+		SharedPreferences _stageData = owner.getSharedPreferences(fileName, Context.MODE_PRIVATE);
+		SharedPreferences.Editor _editor = _stageData.edit();
+		_editor.clear();
+		_editor.commit();
 		owner.deleteFile(fileName);
 		stageList.remove(number);
 		return true;

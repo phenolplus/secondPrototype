@@ -162,6 +162,12 @@ public class Backpack {
     	}
     }
     
+    public void getAllItem() {
+    	for(int i = 0;  i < nameList.size(); i++) {
+    		returnItem(nameList.get(i)).getItem();
+    	}
+    }
+    
  // All available items
      
     private static final String[] itemName = new String[]

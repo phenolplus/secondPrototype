@@ -42,6 +42,7 @@ public class AboutPage extends Activity {
 					start = event.getDownTime();
 					return true;
 				case MotionEvent.ACTION_UP:
+					Log.e("Event",""+(event.getEventTime()-start));
 					if((event.getEventTime()-start)>5000){
 						if(!ContainerBox.master){
 							plot.setImageResource(R.drawable.posterwwwp);

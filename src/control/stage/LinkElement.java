@@ -4,6 +4,7 @@ public class LinkElement {
 	public float startX,startY;
 	public float endX,endY;
 	public String nameOfEnd;
+	public String nameOfStart;
 	
 	public void setStart(float x, float y){
 		startX = x;
@@ -15,7 +16,11 @@ public class LinkElement {
 		endY = y;
 	}
 	
-	public void setName(String name) {
+	public void setNameE(String name) {
 		nameOfEnd = name;
+	}
+	
+	public void setNameS(String name) {
+		nameOfStart = name;
 	}
 }

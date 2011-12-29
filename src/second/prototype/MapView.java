@@ -83,7 +83,7 @@ public class MapView extends View {
 		if(ContainerBox.isTab){
 			return rotateMatrix[0]*_x+rotateMatrix[1]*_y;
 		} else {
-			return rotateMatrix[0]*_y+rotateMatrix[1]*_x;
+			return -(rotateMatrix[0]*_y+rotateMatrix[1]*_x);
 		}
 	}
 	
@@ -91,7 +91,7 @@ public class MapView extends View {
 		if(ContainerBox.isTab){
 			return rotateMatrix[2]*_x+rotateMatrix[3]*_y;
 		} else {
-			return rotateMatrix[2]*_y+rotateMatrix[3]*_x;
+			return (rotateMatrix[2]*_y+rotateMatrix[3]*_x);
 		}
 	}
 	
@@ -164,7 +164,8 @@ public class MapView extends View {
 		
 		// links
 		for(int i=0;i<stage.links();i++) {
-			String name = stage.getLink(i).nameOfEnd;
+			String nameE = stage.getLink(i).nameOfEnd;
+			String nameS = stage.getLink(i).nameOfStart;
 			float sX,sY,eX,eY;
 			
 			sX = rotateX(stage.getLink(i).startX-myX,stage.getLink(i).startY-myY)/mag + viewCenterw;
@@ -172,7 +173,8 @@ public class MapView extends View {
 			eX = rotateX(stage.getLink(i).endX-myX,stage.getLink(i).endY-myY)/mag + viewCenterw;
 			eY = -rotateY(stage.getLink(i).endX-myX,stage.getLink(i).endY-myY)/mag + viewCenterh;
 			
-			canvas.drawLine(sX,sY,eX,eY, stage.getPointOf(name).isVisible?blue:empty);
+			boolean draw = stage.getPointOf(nameE).isVisible&&stage.getPointOf(nameS).isVisible;
+			canvas.drawLine(sX,sY,eX,eY, draw?blue:empty);
 		}
 		
 		// points

@@ -271,7 +271,8 @@ public class Stage {
 					link.setStart(pointList.get(i).x, pointList.get(i).y);
 					Log.e("Link","end :"+nextPoints[j]);
 					link.setEnd(pointIndex.get(nextPoints[j]).x, pointIndex.get(nextPoints[j]).y);
-					link.setName(nextPoints[j]);
+					link.setNameE(nextPoints[j]);
+					link.setNameS(pointList.get(i).getName());
 					linkTree.add(link);
 					Log.e("Link", "Added link "+pointList.get(i).getName()+" to "+nextPoints[j]);
 				}
@@ -279,7 +280,7 @@ public class Stage {
 		}
 	}
 	
-	/** static methods*/
+	/** static methods */
 	public static void buildBitmap(Context owner){
 		icons = new Bitmap[6];
 		icons[0] = BitmapFactory.decodeResource(owner.getResources(), ContainerBox.isTab?R.drawable.targets_large01:R.drawable.targets01);

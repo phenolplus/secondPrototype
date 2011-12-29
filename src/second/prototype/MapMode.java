@@ -63,6 +63,8 @@ public class MapMode extends Activity {
 	
 	private View storyBox;
 	
+	private boolean eventMode = false;
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -285,36 +287,45 @@ public class MapMode extends Activity {
 		startActivity(netMap);
 	}
 	
-	private void readStory(int number) {
-		LayoutInflater lf = LayoutInflater.from(this);
-		storyBox = lf.inflate(R.layout.storybox, null);
-		TextView story = (TextView) storyBox.findViewById(R.id.story);
-		story.setText(stage.getPointOf(number).getStory());
+	
+	
+	private void masterMode() {
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		
-		builder.setTitle(stage.getPointOf(number).getName());
+		builder.setTitle("Game Master Mode");
 		builder.setIcon(android.R.drawable.ic_dialog_info);
-		builder.setView(storyBox);
+		builder.setMessage("Perform your job");
 		
-		builder.setNeutralButton("OK", new DialogInterface.OnClickListener(){
+		builder.setPositiveButton("Increase progress", new DialogInterface.OnClickListener(){
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				
+				stage.updateProgress();
+				buildList();
+			}
+			
+		});
+		
+		builder.setNegativeButton("All Item", new DialogInterface.OnClickListener(){
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				backpack.getAllItem();
+			}
+			
+		});
+		
+		builder.setNeutralButton(eventMode?"View Story":"View Event", new DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				eventMode = !eventMode;
 			}
 			
 		});
 		
 		builder.show();
-	}
-	
-	private void masterMode() {
-		stage.updateProgress();
-		if(stage.getProgress()>5){
-			stage.finish();
-		}
-		buildList();
+		
 	}
 	
 	/** Dialogs */
@@ -376,7 +387,11 @@ public class MapMode extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				readStory(arg2);
+				if(eventMode){
+					 readEvent(arg2);
+				} else {
+					 readStory(arg2);
+				}
 			}
 			
 		});
@@ -386,5 +401,69 @@ public class MapMode extends Activity {
 	private void saveList() {
 		// store list
 		stage.commit();
+	}
+	
+	private void readStory(int number) {
+		LayoutInflater lf = LayoutInflater.from(this);
+		storyBox = lf.inflate(R.layout.storybox, null);
+		TextView story = (TextView) storyBox.findViewById(R.id.story);
+		story.setText(stage.getPointOf(number).getStory());
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		builder.setTitle(stage.getPointOf(number).getName());
+		builder.setIcon(android.R.drawable.ic_dialog_info);
+		builder.setView(storyBox);
+		
+		builder.setNeutralButton("OK", new DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+			
+		});
+		
+		builder.show();
+	}
+	
+	private void readEvent(int number) {
+		LayoutInflater lf = LayoutInflater.from(this);
+		storyBox = lf.inflate(R.layout.eventdialog, null);
+		ListView story = (ListView) storyBox.findViewById(R.id.event);
+		
+		String name = stage.getPointOf(number).getName();
+		ArrayList<HashMap<String,String>> messages = new ArrayList<HashMap<String,String>>();
+		
+		for(int i=0;i<stage.getPointOf(name).numOfEvents();i++){
+			HashMap<String,String> item = new HashMap<String,String>();
+			String mes = stage.getPointOf(name).eventList.get(i).postMessage();
+			if(mes.length()==0){
+				mes = "Empty Message";
+			}
+			item.put("Message", mes);
+			messages.add(item);
+		}
+		
+		SimpleAdapter EAdapter = new SimpleAdapter(this,messages,android.R.layout.simple_list_item_1,new String[] {"Message"},new int[] {android.R.id.text1});
+		story.setAdapter(EAdapter);
+		
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		builder.setTitle(stage.getPointOf(number).getName()+" Event Mode");
+		builder.setIcon(android.R.drawable.ic_dialog_info);
+		builder.setView(storyBox);
+		
+		builder.setNeutralButton("OK", new DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+			
+		});
+		
+		builder.show();
 	}
 }
