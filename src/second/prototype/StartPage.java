@@ -125,15 +125,14 @@ public class StartPage extends Activity {
 		Thread build = new Thread(){
 			@Override
 			public void run(){
-				
-				Log.e("List","(b)stageList = "+stageList.size());
+
 				for(int i=0;i<manager.numOfStages();i++){
 					HashMap<String,Object> item = new HashMap<String,Object>();
 					item.put("Name", manager.getName(i));
 					item.put("Description", manager.getDescription(i));
 					item.put("Icon", (manager.getIfClear(i)?R.drawable.spir2:R.drawable.spir1));
 					stageList.add(item);
-					Log.e("List","added");
+					
 				}
 				Log.e("List","stageList = "+stageList.size());
 				StartPage.this.runOnUiThread(new Runnable(){
@@ -296,6 +295,7 @@ public class StartPage extends Activity {
 
 	private void delete() {
 		manager.deleteStage(cursor);
+		stageList.clear();
 		reBuildStageList();
 	}
 

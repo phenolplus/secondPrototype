@@ -33,6 +33,7 @@ public class MapView extends View {
 	private static final float northX = 0;
 	private static final float northY = ContainerBox.visibleRange/mag*2/3;
 	
+	private Bitmap clear,considerSet,considerCheck;
 	
 	public MapView(Context context) {
 		super(context);
@@ -99,8 +100,10 @@ public class MapView extends View {
 	
 	/** Utilities */
 	private void init() {
-		
 		this.setBackgroundResource(DrawableIndex.BACK_GROUND);
+		clear = BitmapFactory.decodeResource(getResources(), ContainerBox.isTab?R.drawable.title_large13:R.drawable.title13);
+		considerSet = BitmapFactory.decodeResource(getResources(), ContainerBox.isTab?R.drawable.centers_large13:R.drawable.centers13);
+		considerCheck = BitmapFactory.decodeResource(getResources(), ContainerBox.isTab?R.drawable.centerc_large13:R.drawable.centerc13);
 	}
 	
 	@Override
@@ -142,8 +145,9 @@ public class MapView extends View {
 
 		//canvas.drawText("Current Center = "+stage.getMapCenter("X")+":"+stage.getMapCenter("Y"),30, 110, text);
 		if(stage.isCleared()){
-			canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.spir2), 5, 5, self);
-			canvas.drawText("Stage cleared",30, 110, text);
+			canvas.drawBitmap(clear, 5, 5, self);
+		} else if((Math.pow(myX,2)+Math.pow(myY,2))>Math.pow(3*ruler,2)){
+			canvas.drawBitmap(stage.isCenterChangable()?considerSet:considerCheck, 5, 5, self);
 		}
 		
 		
