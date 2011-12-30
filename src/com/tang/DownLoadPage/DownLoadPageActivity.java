@@ -28,6 +28,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -310,7 +311,15 @@ public class DownLoadPageActivity extends Activity {
     	
     	return result;
     }
-
+	
+	/** Key control */
+    @Override
+    public boolean onKeyDown(int keyCode,KeyEvent event){
+    	if(keyCode==KeyEvent.KEYCODE_BACK){
+    		return true;
+    	}
+    	return super.onKeyDown(keyCode, event);
+    }
 
 
 }

@@ -120,12 +120,15 @@ public class StartPage extends Activity {
 	
 	/** Utilities */
 	private void reBuildStageList() {
+		Log.e("List","Start building");
 		progressDialog = ProgressDialog.show(StartPage.this, "Loading....", "Please Wait", true, false);
+		stagesView.setAdapter(null);
+		stageList.clear();
 		
 		Thread build = new Thread(){
 			@Override
 			public void run(){
-
+				
 				for(int i=0;i<manager.numOfStages();i++){
 					HashMap<String,Object> item = new HashMap<String,Object>();
 					item.put("Name", manager.getName(i));
@@ -140,6 +143,7 @@ public class StartPage extends Activity {
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
+						Log.e("List", "about to set adapter");
 						adapter = new SimpleAdapter(StartPage.this, stageList,
 								R.layout.stageitem, new String[] { "Name",
 										"Description", "Icon" }, new int[] { R.id.Name,
@@ -204,9 +208,6 @@ public class StartPage extends Activity {
 	private void saveStageList() {
 		// store list
 		manager.commit();
-		stageList.clear();
-		adapter.notifyDataSetChanged();
-		
 	}
 	
 	private void waitSplash(){
@@ -295,7 +296,6 @@ public class StartPage extends Activity {
 
 	private void delete() {
 		manager.deleteStage(cursor);
-		stageList.clear();
 		reBuildStageList();
 	}
 

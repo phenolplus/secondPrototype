@@ -34,6 +34,9 @@ public class MapView extends View {
 	private static final float northY = ContainerBox.visibleRange/mag*2/3;
 	
 	private Bitmap clear,considerSet,considerCheck;
+	private Paint self,tar,text,white,blue,empty;
+	
+	private String rulerText = ruler*mag+" m";
 	
 	public MapView(Context context) {
 		super(context);
@@ -104,13 +107,8 @@ public class MapView extends View {
 		clear = BitmapFactory.decodeResource(getResources(), ContainerBox.isTab?R.drawable.title_large13:R.drawable.title13);
 		considerSet = BitmapFactory.decodeResource(getResources(), ContainerBox.isTab?R.drawable.centers_large13:R.drawable.centers13);
 		considerCheck = BitmapFactory.decodeResource(getResources(), ContainerBox.isTab?R.drawable.centerc_large13:R.drawable.centerc13);
-	}
-	
-	@Override
-	protected void onDraw(Canvas canvas) {
-
-		Paint self,tar,text,white,blue,empty;
 		
+
 		self = new Paint();
 		self.setColor(Color.RED);
 		
@@ -136,6 +134,10 @@ public class MapView extends View {
 		empty.setColor(Color.BLACK);
 		empty.setAlpha(0);
 		
+	}
+	
+	@Override
+	protected void onDraw(Canvas canvas) {
 		
 		
 		// radar
@@ -163,7 +165,7 @@ public class MapView extends View {
 		canvas.drawLine(viewCenterw-ruler/2, viewCenterh, viewCenterw+ruler/2, viewCenterh,text);
 		canvas.drawLine(viewCenterw-ruler/2, viewCenterh-10, viewCenterw-ruler/2, viewCenterh+10,text);
 		canvas.drawLine(viewCenterw+ruler/2, viewCenterh-10, viewCenterw+ruler/2, viewCenterh+10,text);
-		canvas.drawText(ruler*mag+" m", viewCenterw+ruler/2+10, viewCenterh+20, text);
+		canvas.drawText(rulerText, viewCenterw+ruler/2+10, viewCenterh+20, text);
 		
 		
 		// links

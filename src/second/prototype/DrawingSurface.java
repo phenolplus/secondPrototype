@@ -231,7 +231,12 @@ public class DrawingSurface extends android.view.SurfaceView implements
 			x = this.getWidth() / 2 + point[0];
 			y = this.getHeight() / 2 + point[1];
 			// canvas.drawCircle(x, y, 50, cPaint);
-			Bitmap icon = Stage.icons[targetList.get(i).icon];
+			Bitmap icon;
+			if(ContainerBox.master){
+				icon = Stage.smile;
+			} else {
+				icon = Stage.icons[targetList.get(i).icon];
+			}
 			canvas.drawBitmap(icon, x - icon.getWidth() / 2,
 					y - icon.getHeight() / 2, null);
 			canvas.drawText(targetList.get(i).name, x, y, tPaint);
