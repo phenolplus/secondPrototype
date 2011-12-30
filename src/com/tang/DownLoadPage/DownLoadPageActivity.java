@@ -58,7 +58,7 @@ public class DownLoadPageActivity extends Activity {
 	
 	private SimpleAdapter MyAdapter;
     private ArrayList<HashMap<String,Object>> listItem;
-
+    private ArrayList<Integer> activateScript; 
 	
 	public void findView()
 	{
@@ -75,7 +75,7 @@ public class DownLoadPageActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.downloadmode);
         findView();
-        
+         activateScript = new ArrayList();
          listItem = new  ArrayList<HashMap<String,Object>>();
 	     MyAdapter = new SimpleAdapter(this,
 	        		listItem,
@@ -159,6 +159,8 @@ public class DownLoadPageActivity extends Activity {
 	public void updateList()
 	{
 		list.setVisibility(View.VISIBLE);
+		
+		activateScript.clear();
 		try
 		{
 					
@@ -167,14 +169,15 @@ public class DownLoadPageActivity extends Activity {
 	 		 String name = scriptList.getJSONObject(i).getString("Name");
 			 String description = scriptList.getJSONObject(i).getString("Description");
 			 String activate = scriptList.getJSONObject(i).getString("Activate");
-	 		if(activate.equals("YES"))
-	 		{
+	 		 if(activate.equals("YES"))
+	 		 {
+	 			activateScript.add(i);
 	 			HashMap<String,Object> map = new HashMap<String,Object>();
 	 			map.put("item Title", name);
 	 			map.put("item Text", description);
 	 			listItem.add(map);
 	 			MyAdapter.notifyDataSetChanged();
-	 		}
+	 		 }
           
 	 	  
 		}} catch (JSONException e)
@@ -200,7 +203,7 @@ public class DownLoadPageActivity extends Activity {
 	        AlertDialog.Builder builder = new AlertDialog.Builder(DownLoadPageActivity.this);  
 	        builder.setCancelable(false);  
 	        builder.setView(textEntryView);  
-	        selected = arg2;      
+	        selected = activateScript.get(arg2);      
 	        
 	        try {
 	        	builder.setTitle(scriptList.getJSONObject(selected).getString("Name"));
